@@ -7,7 +7,7 @@
         <div class="linksContainer">
           <div class="footerBoxRow">
             <div class="linksCol">
-              <a
+              <!-- <a
                 v-for="link in datalinks"
                 :key="link.text"
                 class="link"
@@ -15,11 +15,11 @@
                 target="_blank"
               >
                 {{ $t(link.text) }}
-              </a>
+              </a> -->
             </div>
 
             <div class="linksCol">
-              <a
+              <!-- <a
                 v-for="link in splitedLinks[1]"
                 :key="link.text"
                 class="link"
@@ -28,12 +28,12 @@
                 target="_blank"
               >
                 {{ $t(link.text) }}
-              </a>
+              </a> -->
             </div>
           </div>
         </div>
 
-        <div class="copyrightBox"">
+        <div class="copyrightBox">
           <div class="copyrightTitle">© 2021 Plazma Premier ltd</div>
           <div class="copyrightText">
             103 Sham Peng Tong Plaza, Victoria, Mahe, Seychelles
@@ -47,28 +47,30 @@
 <script>
 export default {
   name: 'LayoutFooter',
-  data() {
+  data () {
     return {
       datalinks: [
         {
           text: 'Terms of use',
-          docName: 'terms-of-use',
+          docName: 'terms-of-use'
         },
         {
           text: 'Cookie policy',
-          docName: 'cookie-policy',
+          docName: 'cookie-policy'
         },
         {
           text: 'Privacy notice',
-          docName: 'privacy-notice',
-        },
-      ],
+          docName: 'privacy-notice'
+        }
+      ]
     }
-  },
+  }
 }
 </script>
 
 <style lang="stylus" scoped>
+@import '~/assets/styles/vars.styl';
+
 .footerContainer {
   width: 100%;
   margin-top: auto;

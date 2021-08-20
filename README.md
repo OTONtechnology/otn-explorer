@@ -1,4 +1,4 @@
-# blc-explorer
+# otn-exp2
 
 ## Build Setup
 

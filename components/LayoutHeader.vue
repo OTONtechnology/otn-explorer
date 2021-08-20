@@ -43,15 +43,17 @@
 <script>
 export default {
   name: 'LayoutHeader',
-  data() {
+  data () {
     return {
-      mobileMenu: false,
+      mobileMenu: false
     }
-  },
+  }
 }
 </script>
 
 <style lang="stylus" scoped>
+@import '~/assets/styles/vars.styl';
+
 .container {
   position: relative;
   display: flex;
@@ -285,7 +287,10 @@ export default {
   text-align: left;
   border: none;
   background: transparent;
-  getFontSubtitle();
+
+  +getFontSubtitle() {
+  }
+
   line-height: 14px;
 
   &:focus {
@@ -336,7 +341,10 @@ export default {
   &__list {
     padding: 0;
     width: 100%;
-    getFontText();
+
+    +getFontText() {
+    }
+
     line-height: 18px;
 
     +mediaTablet() {

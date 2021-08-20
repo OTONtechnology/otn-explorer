@@ -12,11 +12,13 @@
 
 <script>
 export default {
-  name: 'LayoutBase',
+  name: 'LayoutBase'
 }
 </script>
 
 <style lang="stylus" scoped>
+@import '~/assets/styles/vars.styl';
+
 .base-wrapper {
   width: 100%;
   min-height: 100vh;
@@ -30,7 +32,7 @@ export default {
   padding: 0 8px;
   margin: auto;
   width: 100%;
-  max-width: (1120 + 30)px;
+  max-width: 1120 + 30 px;
   min-height: 100vh;
 
   +mediaDesktop() {
