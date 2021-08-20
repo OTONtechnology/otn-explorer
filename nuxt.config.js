@@ -31,7 +31,12 @@ export default {
     // https://go.nuxtjs.dev/eslint
     '@nuxtjs/eslint-module',
     '@nuxtjs/style-resources',
+    '@nuxtjs/svg-sprite',
   ],
+
+  svgSprite: {
+    input: '~/assets/svg/',
+  },
 
   styleResources: {
     stylus: './assets/styles/vars.styl',
