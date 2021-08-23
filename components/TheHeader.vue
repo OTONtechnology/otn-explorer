@@ -1,48 +1,51 @@
 <template>
-  <div class="container">
-    <nuxt-link class="logoWrapper" to="/">
-      <Logo />
-    </nuxt-link>
-    <button
-      type="button"
-      class="menuButton"
-      :class="{ menuButton_active: mobileMenu }"
-      @click="mobileMenu = !mobileMenu"
-    >
-      <span class="menuButton__inner" />
-      <span class="menuButton__inner" />
-      <span class="menuButton__inner" />
-    </button>
-    <LayoutHeaderMenu />
-    <div
-      class="localePickerBox"
-      :class="{ localePickerBox_mobile: mobileMenu }"
-    >
-      <LayoutHeaderLocalePicker />
-    </div>
-
-    <!-- <div class="buttonsBox" :class="{ buttonsBox_mobile: mobileMenu }">
-      <button class="logoutButton">
-        {{ userEmail }}
+  <div class="headerContainer">
+    <header class="header">
+      <nuxt-link class="logoWrapper" :to="localePath('index')">
+        <Logo />
+      </nuxt-link>
+      <button
+        type="button"
+        class="menuButton"
+        :class="{ menuButton_active: mobileMenu }"
+        @click="mobileMenu = !mobileMenu"
+      >
+        <span class="menuButton__inner" />
+        <span class="menuButton__inner" />
+        <span class="menuButton__inner" />
       </button>
-      <div class="popup">
-        <div class="popup__list">
-          <button class="popup__item" @click="logout">
-            {{ $t('Log out') }}
-          </button>
-        </div>
+      <HeaderMenu />
+      <div
+        class="localePickerBox"
+        :class="{ localePickerBox_mobile: mobileMenu }"
+      >
+        <HeaderLocalePicker />
       </div>
-    </div> -->
-    <!-- <div class="mobileMenuBg" :class="{ mobileMenuBg_on: mobileMenu }">
-      <div class="mobileMenuBg__leftcol" @click="mobileMenu = false"></div>
-      <div class="mobileMenuBg__rightcol"></div>
-    </div> -->
+
+      <!-- <div class="buttonsBox" :class="{ buttonsBox_mobile: mobileMenu }">
+        <button class="logoutButton">
+          {{ userEmail }}
+        </button>
+        <div class="popup">
+          <div class="popup__list">
+            <button class="popup__item" @click="logout">
+              {{ $t('Log out') }}
+            </button>
+          </div>
+        </div>
+      </div> -->
+      <!-- <div class="mobileMenuBg" :class="{ mobileMenuBg_on: mobileMenu }">
+        <div class="mobileMenuBg__leftcol" @click="mobileMenu = false"></div>
+        <div class="mobileMenuBg__rightcol"></div>
+      </div> -->
+    </header>
+    <HeaderSearch />
   </div>
 </template>
 
 <script>
 export default {
-  name: 'LayoutHeader',
+  name: 'TheHeader',
   data () {
     return {
       mobileMenu: false
@@ -52,20 +55,17 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-@import '~/assets/styles/vars.styl';
-
-.container {
+.header {
   position: relative;
   display: flex;
   flex-direction: column;
-  padding: 8px 0 12px;
-  width: 100%;
+  padding-top: 8px;
 
   +mediaTablet() {
     flex-direction: row;
     flex-wrap: wrap;
     align-items: center;
-    padding: 15px 12px 0;
+    padding-top: 15px;
   }
 
   +mediaDesktop() {
@@ -74,25 +74,11 @@ export default {
 }
 
 .logoWrapper {
-  display: inline-block;
-  margin-bottom: 13px;
-  width: fit-content;
-  align-self: center;
+  display: block;
   transition: 0.3s;
 
-  +mediaTablet() {
-    display: inline;
-    margin-bottom: 0;
-    width: auto;
-    align-self: unset;
-
-    &_mobileMenu {
-      margin-left: 0;
-    }
-  }
-
   +mediaDesktop() {
-    margin-right: 25px;
+    margin-right: 40px;
   }
 }
 

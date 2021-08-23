@@ -1,24 +1,40 @@
 <template>
   <div class="base-wrapper">
     <div class="base-container">
-      <LayoutHeader />
+      <TheHeader />
       <div class="base-content">
+        <span class="base-title">
+          {{ pageTitle }}
+        </span>
         <slot />
       </div>
-      <LayoutFooter />
+      <TheFooter />
     </div>
   </div>
 </template>
 
 <script>
+import homePage from '@/utils/homePage.js'
+
 export default {
-  name: 'LayoutBase'
+  name: 'LayoutBase',
+  props: {},
+  data () {
+    return {}
+  },
+  computed: {
+    pageTitle () {
+      if (homePage.includes(this.$route.path)) {
+        return this.$t('Latest Transactions')
+      }
+      const pathArr = this.$route.path.split('/')
+      return pathArr[pathArr.length - 1]
+    }
+  }
 }
 </script>
 
 <style lang="stylus" scoped>
-@import '~/assets/styles/vars.styl';
-
 .base-wrapper {
   width: 100%;
   min-height: 100vh;
@@ -41,9 +57,22 @@ export default {
 }
 
 .base-content {
+  margin-bottom: 10px;
+  padding: 10px;
+  background-color: $colorFiller;
+  border-radius: 8px;
+
   +mediaDesktop() {
-    margin-left: -12px;
-    margin-right: -12px;
+    margin-bottom: 24px;
+    padding: 16px 24px 24px;
   }
+}
+
+.base-title {
+  display: block;
+  margin-bottom: 24px;
+  color: $colorFontBase;
+  getFontSubtitle();
+  opacity: 0.4;
 }
 </style>

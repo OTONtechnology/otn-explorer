@@ -1,31 +1,23 @@
 <template>
-  <div class="logoBox"><svg-icon name="common/logo" class="logo" />.</div>
+  <svg-icon name="common/logo" class="logo" />
 </template>
 
 <script>
 export default {
-  name: 'Logo',
+  name: 'Logo'
 }
 </script>
 
 <style lang="stylus" scoped>
-.logoBox {
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
-
-  mediaDesktop() {
-    justify-content: unset;
-  }
-}
-
 .logo {
+  display: block;
   width: 88px;
   height: 48px;
-  color: #182f37;
+  color: $colorFontBase;
+  transition: all 0.1s;
 
   &:hover {
-    color: #ef616a;
+    color: $colorDanger;
   }
 }
 </style>
