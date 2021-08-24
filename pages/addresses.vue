@@ -1,7 +1,5 @@
 <template>
-  <LayoutBase>
-    <TransactionsTable />
-  </LayoutBase>
+  <LayoutBase />
 </template>
 
 <script>
