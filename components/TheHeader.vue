@@ -46,12 +46,12 @@
 <script>
 export default {
   name: 'TheHeader',
-  data () {
+  data() {
     return {
-      mobileMenu: false
-    }
-  }
-}
+      mobileMenu: false,
+    };
+  },
+};
 </script>
 
 <style lang="stylus" scoped>

@@ -1,9 +1,14 @@
 <template>
   <div class="transactionsTableHead">
-    <span v-for="title in titles" :key="title.name" class="transactionsTableHead__cell">
+    <span
+      v-for="title in titles"
+      :key="title.name"
+      class="transactionsTableHead__cell"
+    >
       <span v-if="title.text">
         {{ $t(title.text) }}
-      </span></span>
+      </span></span
+    >
   </div>
 </template>
     </span>
@@ -15,7 +20,7 @@ export default {
   name: 'TransactionsTableHead',
   components: {},
   props: {},
-  data () {
+  data() {
     return {
       titles: [
         { name: 'date', text: 'Date' },
@@ -25,13 +30,13 @@ export default {
         { name: 'from', text: '' },
         { name: 'arrow', text: '' },
         { name: 'to', text: '' },
-        { name: 'sum', text: 'Sum' }
-      ]
-    }
+        { name: 'sum', text: 'Sum' },
+      ],
+    };
   },
   computed: {},
-  methods: {}
-}
+  methods: {},
+};
 </script>
 
 <style lang="stylus" scoped>

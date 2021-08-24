@@ -1,99 +1,102 @@
-const {
-  promises, existsSync,
-  mkdirSync
-} = require('fs')
-const path = require('path')
-const Papa = require('papaparse')
-const allowedLangs = require('./allowedLangs')
+const { promises, existsSync, mkdirSync } = require('fs');
+const Papa = require('papaparse');
+const path = require('path');
+const allowedLangs = require('./allowedLangs');
 
-const distDir = path.join(process.cwd(), 'langs', 'dist')
-const translationsFile = path.join(process.cwd(), 'langs', 'translationsBase.csv')
+const distDir = path.join(process.cwd(), 'langs', 'dist');
+const translationsFile = path.join(
+  process.cwd(),
+  'langs',
+  'translationsBase.csv',
+);
 
 const clearDist = async () => {
   try {
-    const files = await promises.readdir(distDir)
+    const files = await promises.readdir(distDir);
 
     files.forEach(async (file) => {
-      await promises.unlink(path.join(distDir, file))
-    })
+      await promises.unlink(path.join(distDir, file));
+    });
   } catch (err) {
-    console.error(err)
+    console.error(err);
   }
-}
+};
 
 const readCsv = async (file = translationsFile) => {
-  const csv = await promises.readFile(file, 'utf8')
-  const result = Papa.parse(csv, { delimiter: ',' }).data
+  const csv = await promises.readFile(file, 'utf8');
+  const result = Papa.parse(csv, { delimiter: ',' }).data;
 
-  return result
-}
+  return result;
+};
 
 const getMessages = async () => {
   // [key: string]: [key, context, ru, en, de, tr][]
-  const base = await readCsv()
+  const base = await readCsv();
 
-  base.splice(0, 1)
+  base.splice(0, 1);
 
   const normalizedBase = base.map((row) => {
-    const copyRow = [...row]
+    const copyRow = [...row];
 
     // remove context
-    // copyRow.splice(1, 1)
+    copyRow.splice(1, 1);
 
-    return copyRow.map(item => item
+    return copyRow.map((item) => item
       .trim()
       .replace(/\n/gi, ' ')
       .replace(/\s+/g, ' ')
-      .trim())
-  })
+      .trim());
+  });
 
-  const messages = {}
+  const messages = {};
 
   allowedLangs.forEach((l) => {
-    messages[l] = {}
-  })
+    messages[l] = {};
+  });
 
   normalizedBase.forEach((row) => {
     allowedLangs.forEach((l, index) => {
-      const value = row[index + 1]
+      const value = row[index + 1];
       if (value) {
-        messages[l][row[0]] = value
+        messages[l][row[0]] = value;
       }
-    })
-  })
+    });
+  });
 
-  return messages
-}
+  return messages;
+};
 
 const writeLangFile = async (key, value) => {
-  const fileContent = `/* eslint-disable */\nexport default ${value}`
+  const fileContent = `/* eslint-disable */\nexport default ${value}`;
 
   try {
-    await promises.writeFile(path.join(distDir, key), fileContent, 'utf8')
+    await promises.writeFile(path.join(distDir, key), fileContent, 'utf8');
   } catch (e) {
-    console.error('что то пошло не так с сохраненим файла переводов', key)
+    console.error('что то пошло не так с сохраненим файла переводов', key);
   }
-}
+};
 
 const generateFiles = async () => {
-  const messages = await getMessages()
+  const messages = await getMessages();
 
   // check if folder is exists
   if (!existsSync(distDir)) {
-    mkdirSync(distDir)
+    mkdirSync(distDir);
   }
 
-  await clearDist()
+  await clearDist();
 
-  const filesNames = allowedLangs.map(lang => `${lang}.js`)
+  const filesNames = allowedLangs.map((lang) => `${lang}.js`);
 
-  filesNames.forEach(async (key, i) => {
-    const lang = allowedLangs[i]
-    const currentMessages = messages[lang]
-    const stringifiedMessages = JSON.stringify(currentMessages)
+  await Promise.all(
+    filesNames.map((key, i) => {
+      const lang = allowedLangs[i];
+      const currentMessages = messages[lang];
+      const stringifiedMessages = JSON.stringify(currentMessages);
 
-    await writeLangFile(key, stringifiedMessages)
-  })
-}
+      return writeLangFile(key, stringifiedMessages);
+    }),
+  );
+};
 
-generateFiles()
+generateFiles();

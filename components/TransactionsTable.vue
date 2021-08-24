@@ -11,12 +11,12 @@ export default {
   name: 'TransactionsTable',
   components: {},
   props: {},
-  data () {
-    return {}
+  data() {
+    return {};
   },
   computed: {},
-  methods: {}
-}
+  methods: {},
+};
 </script>
 
 <style lang="stylus" scoped>

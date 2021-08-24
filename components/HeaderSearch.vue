@@ -6,7 +6,7 @@
           class="headerSearch__input"
           type="search"
           :placeholder="$t('Transaction or Address')"
-        >
+        />
       </div>
       <button class="headerSearch__button" type="button">
         <svg-icon name="common/search" class="headerSearch__icon" />
@@ -20,12 +20,12 @@ export default {
   name: 'HeaderSearch',
   components: {},
   props: {},
-  data () {
-    return {}
+  data() {
+    return {};
   },
   computed: {},
-  methods: {}
-}
+  methods: {},
+};
 </script>
 
 <style lang="stylus" scoped>

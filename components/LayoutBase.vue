@@ -14,24 +14,24 @@
 </template>
 
 <script>
-import homePage from '@/utils/homePage.js'
+import homePage from '@/utils/homePage';
 
 export default {
   name: 'LayoutBase',
   props: {},
-  data () {
-    return {}
+  data() {
+    return {};
   },
   computed: {
-    pageTitle () {
+    pageTitle() {
       if (homePage.includes(this.$route.path)) {
-        return this.$t('Latest Transactions')
+        return this.$t('Latest Transactions');
       }
-      const pathArr = this.$route.path.split('/')
-      return pathArr[pathArr.length - 1]
-    }
-  }
-}
+      const pathArr = this.$route.path.split('/');
+      return pathArr[pathArr.length - 1];
+    },
+  },
+};
 </script>
 
 <style lang="stylus" scoped>

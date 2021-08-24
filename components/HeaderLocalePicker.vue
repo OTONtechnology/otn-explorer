@@ -28,20 +28,20 @@ export default {
   components: {
   },
 
-  data () {
+  data() {
     return {
-    }
+    };
   },
 
   computed: {
-    locale () {
-      return this.$i18n.locale
+    locale() {
+      return this.$i18n.locale;
     },
-    availableLangs () {
-      return this.$i18n.locales.filter(i => i.code !== this.locale)
-    }
-  }
-}
+    availableLangs() {
+      return this.$i18n.locales.filter((i) => i.code !== this.locale);
+    },
+  },
+};
 </script>
 
 <style lang="stylus" scoped>

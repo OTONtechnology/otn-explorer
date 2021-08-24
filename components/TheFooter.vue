@@ -12,40 +12,38 @@
       </a>
     </div>
 
-    <span class="footer__copyright">
-      © OTON, {{ year }}
-    </span>
+    <span class="footer__copyright"> © OTON, {{ year }} </span>
   </footer>
 </template>
 
 <script>
 export default {
   name: 'TheFooter',
-  data () {
+  data() {
     return {
       footerLinks: [
         {
           text: 'Terms of use',
-          docName: 'terms-of-use'
+          docName: 'terms-of-use',
         },
         {
           text: 'Cookie policy',
-          docName: 'cookie-policy'
+          docName: 'cookie-policy',
         },
         {
           text: 'Privacy notice',
-          docName: 'privacy-notice'
-        }
-      ]
-    }
+          docName: 'privacy-notice',
+        },
+      ],
+    };
   },
   computed: {
-    year () {
-      const year = new Date()
-      return year.getFullYear()
-    }
-  }
-}
+    year() {
+      const year = new Date();
+      return year.getFullYear();
+    },
+  },
+};
 </script>
 
 <style lang="stylus" scoped>
@@ -55,7 +53,7 @@ export default {
   justify-content: space-between;
   margin-top: auto;
   padding: 24px 0 16px;
-  border-top 4px solid $colorFiller;
+  border-top: 4px solid $colorFiller;
   getFont();
 
   +mediaTablet() {
@@ -63,7 +61,6 @@ export default {
   }
 
   &__links {
-
     +mediaTablet() {
     }
   }
@@ -73,7 +70,8 @@ export default {
     width: fit-content;
     color: $colorLink;
     text-decoration: underline;
-    transition all .1s;
+    transition: all 0.1s;
+
     &:hover {
       color: $colorDanger;
     }
