@@ -30,16 +30,13 @@ const readCsv = async (file = translationsFile) => {
 };
 
 const getMessages = async () => {
-  // [key: string]: [key, context, ru, en, de, tr][]
+  // [key: string]: [key, ru, en, de, tr][]
   const base = await readCsv();
 
   base.splice(0, 1);
 
   const normalizedBase = base.map((row) => {
     const copyRow = [...row];
-
-    // remove context
-    copyRow.splice(1, 1);
 
     return copyRow.map((item) => item
       .trim()
@@ -99,4 +96,6 @@ const generateFiles = async () => {
   );
 };
 
-generateFiles();
+(async () => {
+  await generateFiles();
+})();
