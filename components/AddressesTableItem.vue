@@ -47,7 +47,6 @@ export default {
 .addressTableItem {
   position: relative;
   z-index: 3;
-  display: block;
 
   &:hover {
     background-color: $colorBg;
