@@ -1,0 +1,44 @@
+<template>
+  <div class="notFound">
+    <p class="notFound__text">
+      {{ $t("SORRY, We couldn’t find what you were looking for") }}
+    </p>
+    <img class="notFound__image" src="@/assets/images/not-found.png" alt="">
+  </div>
+</template>
+
+<script>
+export default {
+  name: 'NotFound',
+  components: {},
+  props: {},
+  data () {
+    return {}
+  },
+  computed: {},
+  methods: {}
+}
+</script>
+
+<style lang="stylus" scoped>
+.notFound {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 20px auto auto;
+  width: 100%;
+  max-width: 627px;
+
+  &__text {
+    getFontH1();
+    margin-bottom: 25px;
+    text-align: center;
+  }
+
+  &__image {
+    display: block;
+    width: 440px;
+    height: 340px;
+  }
+}
+</style>

@@ -1,13 +1,13 @@
 <template>
-  <div class="transactionsTableButtonBox">
+  <div class="tableButtonBox">
     <nuxt-link
       v-if="isHomePage"
       :to="localePath('/transactions')"
-      class="transactionsTableButton"
+      class="tableButton"
     >
       {{ $t("All Transactions") }}
     </nuxt-link>
-    <button v-else type="button" class="transactionsTableButton">
+    <button v-else type="button" class="tableButton">
       {{ $t("More") }}
     </button>
   </div>
@@ -17,7 +17,7 @@
 import homePage from '@/utils/homePage.js'
 
 export default {
-  name: 'TransactionsTableButton',
+  name: 'TableButton',
   components: {},
   props: {},
   data () {
@@ -36,13 +36,17 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-.transactionsTableButton {
-  display inline-block
+.tableButton {
+  display: inline-block;
   padding: 7px 12px;
   border-radius: 4px;
   background-color: $colorFontBase;
   getFont('transactionButton');
   font-weight: 700;
   color: $colorFiller;
+
+  &:hover {
+    opacity: 0.8;
+  }
 }
 </style>

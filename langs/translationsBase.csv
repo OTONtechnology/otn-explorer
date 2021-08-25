@@ -1,5 +1,5 @@
 Key,RU,EN,DE,TR
-Addresses,Адреса,addresses,Adressen,Adresler
+Addresses,Адреса,Addresses,Adressen,Adresler
 Transaction or Address,Транзакция или Адрес,Transaction or Address,Transaktion oder Adresse,İşlem veya adres
 Total Received,Всего получено,Total Received,Insgesamt erhalten,Toplam alınan
 Total Sent,Всего отправлено,Total Sent,Insgesamt gesendet,Toplam gönderilen
@@ -28,3 +28,6 @@ Sent,Исходящие,Sent,Gesendet,Çıkanlar
 Transaction,Транзакция,Transaction,Transaktion,İşlem
 Sender,Отправитель,Sender,Absender,Gönderen
 Recipient,Получатель,Recipient,Empfänger,Alıcı
+Адрес,Адрес,Address,Adresse,Adres
+Адресов,Адресов,Addresses,Adressen,Adresler
+Адреса,Адреса,Addresses,Adressen,Adresler

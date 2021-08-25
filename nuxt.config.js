@@ -6,7 +6,7 @@ export default {
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: 'BLC-explorer',
+    title: 'otn-explorer',
     htmlAttrs: {
       lang: 'ru'
     },
@@ -80,7 +80,8 @@ export default {
   modules: [
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
-    'nuxt-i18n'
+    'nuxt-i18n',
+    'nuxt-clipboard2',
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios

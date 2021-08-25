@@ -1,9 +1,14 @@
 <template>
-  <LayoutBase />
+  <LayoutBase>
+    <Table>
+      <ContainerAddresses />
+    </Table>
+  </LayoutBase>
 </template>
 
 <script>
 export default {
+  name: 'AddressesPage'
 }
 </script>
 

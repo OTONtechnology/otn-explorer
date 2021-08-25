@@ -1,14 +1,15 @@
 <template>
   <LayoutBase>
     <Table>
-      <ContainerTransactions />
+      <ContainerTransaction />
     </Table>
   </LayoutBase>
 </template>
 
 <script>
 export default {
-  name: 'HomePage'
+  name: 'TransactionPage',
+  components: { }
 }
 </script>
 
