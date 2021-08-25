@@ -8,9 +8,8 @@
 
 <script>
 export default {
-  name: 'TransactionsPage'
-}
+  name: "TransactionsPage",
+};
 </script>
 
-<style lang="stylus" scoped>
-</style>
+<style lang="stylus" scoped></style>

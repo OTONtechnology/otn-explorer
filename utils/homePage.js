@@ -1,3 +1,3 @@
-const homePage = ['/', '/en', '/de', '/tr']
+const homePage = ['/', '/en', '/de', '/tr'];
 
-export default homePage
+export default homePage;

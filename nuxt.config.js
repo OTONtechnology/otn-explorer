@@ -1,4 +1,4 @@
-import allowedLangs from './langs/allowedLangs'
+import allowedLangs from './langs/allowedLangs';
 
 export default {
   // Target: https://go.nuxtjs.dev/config-target
@@ -8,35 +8,45 @@ export default {
   head: {
     title: 'otn-explorer',
     htmlAttrs: {
-      lang: 'ru'
+      lang: 'ru',
     },
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       { hid: 'description', name: 'description', content: '' },
-      { name: 'format-detection', content: 'telephone=no' }
+      { name: 'format-detection', content: 'telephone=no' },
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon/favicon.ico' },
-      { rel: 'apple-touch-icon', sizes: '180x180', href: '/favicon/apple-touch-icon.png' },
       {
-        rel: 'icon', type: 'image/png', sizes: '32x32', href: '/favicon/favicon-32x32.png'
+        rel: 'apple-touch-icon',
+        sizes: '180x180',
+        href: '/favicon/apple-touch-icon.png',
       },
       {
-        rel: 'icon', type: 'image/png', sizes: '16x16', href: '/favicon/favicon-16x16.png'
+        rel: 'icon',
+        type: 'image/png',
+        sizes: '32x32',
+        href: '/favicon/favicon-32x32.png',
+      },
+      {
+        rel: 'icon',
+        type: 'image/png',
+        sizes: '16x16',
+        href: '/favicon/favicon-16x16.png',
       },
       { rel: 'manifest', href: '/favicon/site.webmanifest' },
       {
-        rel: 'mask-icon', type: 'image/x-icon', href: '/favicon/safari-pinned-tab.svg', color: '#5bbad5'
-      }
-    ]
+        rel: 'mask-icon',
+        type: 'image/x-icon',
+        href: '/favicon/safari-pinned-tab.svg',
+        color: '#5bbad5',
+      },
+    ],
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
-  css: [
-    '~/assets/styles/normalize.css',
-    '~/assets/styles/main.css'
-  ],
+  css: ['~/assets/styles/normalize.css', '~/assets/styles/main.css'],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [],
@@ -51,29 +61,31 @@ export default {
     // https://go.nuxtjs.dev/stylelint
     // '@nuxtjs/stylelint-module',
     '@nuxtjs/style-resources',
-    '@nuxtjs/svg-sprite'
+    '@nuxtjs/svg-sprite',
+    // https://go.nuxtjs.dev/eslint
+    '@nuxtjs/eslint-module',
   ],
 
   styleResources: {
-    stylus: './assets/styles/vars.styl'
+    stylus: './assets/styles/vars.styl',
   },
 
   svgSprite: {
-    input: '~/assets/svg/'
+    input: '~/assets/svg/',
   },
 
   i18n: {
-    locales: allowedLangs.map(lang => ({
+    locales: allowedLangs.map((lang) => ({
       code: lang,
-      file: `${lang}.js`
+      file: `${lang}.js`,
     })),
     defaultLocale: 'ru',
     langDir: 'langs/dist',
     detectBrowserLanguage: {
       useCookie: true,
       cookieKey: 'i18n_redirected',
-      onlyOnRoot: true // recommended
-    }
+      onlyOnRoot: true, // recommended
+    },
   },
 
   // Modules: https://go.nuxtjs.dev/config-modules
@@ -88,5 +100,5 @@ export default {
   axios: {},
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
-  build: {}
-}
+  build: {},
+};

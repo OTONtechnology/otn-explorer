@@ -14,25 +14,25 @@
  */
 
 export default (oneNominative, severalGenitive, severalNominative, number) => {
-  let part = number % 100
+  let part = number % 100;
 
   if (part <= 14 && part >= 11) {
-    return severalGenitive
+    return severalGenitive;
   }
 
-  const lessFive = (part %= 10) < 5
+  const lessFive = (part %= 10) < 5;
 
   if (lessFive && part > 2) {
-    return severalNominative
+    return severalNominative;
   }
 
   if (lessFive && part === 1) {
-    return oneNominative
+    return oneNominative;
   }
 
   if (lessFive) {
-    return part === 0 ? severalGenitive : severalNominative
+    return part === 0 ? severalGenitive : severalNominative;
   }
 
-  return severalGenitive
-}
+  return severalGenitive;
+};

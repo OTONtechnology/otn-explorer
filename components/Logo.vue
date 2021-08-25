@@ -4,8 +4,8 @@
 
 <script>
 export default {
-  name: 'Logo'
-}
+  name: 'Logo',
+};
 </script>
 
 <style lang="stylus" scoped>

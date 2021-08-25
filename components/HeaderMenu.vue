@@ -14,21 +14,21 @@
 <script>
 export default {
   name: 'HeaderMenu',
-  data () {
+  data() {
     return {
       menuLinks: [
         {
           href: '/transactions',
-          text: 'Transactions'
+          text: 'Transactions',
         },
         {
           href: '/addresses',
-          text: 'Addresses'
-        }
-      ]
-    }
-  }
-}
+          text: 'Addresses',
+        },
+      ],
+    };
+  },
+};
 </script>
 
 <style lang="stylus" scoped>

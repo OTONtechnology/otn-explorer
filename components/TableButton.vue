@@ -14,25 +14,25 @@
 </template>
 
 <script>
-import homePage from '@/utils/homePage.js'
+import homePage from '@/utils/homePage';
 
 export default {
   name: 'TableButton',
   components: {},
   props: {},
-  data () {
-    return {}
+  data() {
+    return {};
   },
   computed: {
-    isHomePage () {
+    isHomePage() {
       if (homePage.includes(this.$route.path)) {
-        return true
+        return true;
       }
-      return false
-    }
+      return false;
+    },
   },
-  methods: {}
-}
+  methods: {},
+};
 </script>
 
 <style lang="stylus" scoped>
