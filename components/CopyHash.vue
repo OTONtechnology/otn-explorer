@@ -13,7 +13,6 @@
 <script>
 export default {
   name: "CopyHash",
-  components: {},
   props: {
     hash: {
       type: String,

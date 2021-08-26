@@ -21,10 +21,6 @@ export default {
           href: '/transactions',
           text: 'Transactions',
         },
-        {
-          href: '/addresses',
-          text: 'Addresses',
-        },
       ],
     };
   },

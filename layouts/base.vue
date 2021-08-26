@@ -2,7 +2,7 @@
   <div class="base-wrapper">
     <div class="base-container">
       <TheHeader />
-      <slot />
+      <Nuxt />
       <TheFooter />
     </div>
   </div>
@@ -11,13 +11,7 @@
 <script>
 
 export default {
-  name: 'LayoutBase',
-  props: {},
-  data () {
-    return {}
-  },
-  computed: {
-  }
+  name: "Base"
 }
 </script>
 

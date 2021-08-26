@@ -10,13 +10,6 @@
 <script>
 export default {
   name: 'NotFound',
-  components: {},
-  props: {},
-  data () {
-    return {}
-  },
-  computed: {},
-  methods: {}
 }
 </script>
 

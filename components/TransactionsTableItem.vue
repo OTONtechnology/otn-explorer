@@ -1,5 +1,5 @@
 <template>
-  <nuxt-link class="transactionsTableItem" :to="localePath('/transaction')">
+  <div class="transactionsTableItem" :to="localePath('/transaction')">
     <span class="transactionsTableItem__cell">
       <!-- {{ i === 0 ? $d(row.date, "loopShortFirst") : "" }} -->
       {{ $d(row.date, "loopShortFirst") }}
@@ -14,7 +14,7 @@
         transactionsTableItem__cell_hover
       "
     >
-      <span>{{ row.hash }}</span>
+      <nuxt-link class="transactionsTableItem__link" :to="localePath('/transaction')">{{ row.hash }}</nuxt-link>
     </span>
     <span class="transactionsTableItem__cell">
       {{ $t(row.type) }}
@@ -26,7 +26,7 @@
         transactionsTableItem__cell_hover
       "
     >
-      <span>{{ row.from }}</span>
+      <nuxt-link class="transactionsTableItem__link" :to="localePath('/address')">{{ row.from }}</nuxt-link>
     </span>
     <span class="transactionsTableItem__cell">
       <svg-icon
@@ -44,43 +44,31 @@
         transactionsTableItem__distrTo: row.type === 'Distribution',
       }"
     >
-      <span>{{ row.to }}</span>
       <template v-if="row.type === 'Distribution'">
-        {{ declensionAddresses }}
+        {{ $tc("address", row.to) }}
+      </template>
+      <template v-else>
+        <nuxt-link class="transactionsTableItem__link" :to="localePath('/address')">{{ row.to }}</nuxt-link>
       </template>
     </span>
     <span class="transactionsTableItem__cell transactionsTableItem__sum">
       {{ row.sum }}
     </span>
-  </nuxt-link>
+  </div>
 </template>
 
 <script>
-import declension from "@/utils/declension.js";
 
 export default {
   name: "TransactionsTableItem",
-  components: {},
   props: {
     row: {
       type: Object,
       required: true,
     },
   },
-  data() {
-    return {};
-  },
   computed: {
-    declensionAddresses() {
-      return declension(
-        `${this.$t("Адрес")}`,
-        `${this.$t("Адресов")}`,
-        `${this.$t("Адреса")}`,
-        this.row.to
-      );
-    },
   },
-  methods: {},
 };
 </script>
 
@@ -92,15 +80,15 @@ export default {
   &:hover {
     background-color: $colorBg;
 
-    & .transactionsTableItem__cell_hover:not(.transactionsTableItem__distrTo) {
+    .transactionsTableItem__link {
       color: $colorLink;
 
-      & span:hover {
+      &:hover {
         color: $colorDanger;
       }
     }
 
-    & .transactionsTableItem__cell_pseudoEl::after {
+    .transactionsTableItem__cell_pseudoEl::after {
       background-image: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, $colorBg 100%);
     }
   }

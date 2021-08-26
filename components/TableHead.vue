@@ -4,7 +4,7 @@
       v-for="title in titles"
       :key="title.name"
       class="tableHead__cell"
-      :class="`tableHead__cell_${page}`"
+      :class="{lastCellLeft: lastCellLeft}"
     >
       <template v-if="title.text">
         {{ $t(title.text) }}
@@ -16,15 +16,15 @@
 <script>
 export default {
   name: "TableHead",
-  components: {},
   props: {
     titles: {
       type: Array,
       required: true,
     },
-  },
-  data() {
-    return {};
+    lastCellLeft: {
+      type: Boolean,
+      default: false
+    }
   },
   computed: {
     page() {
@@ -32,7 +32,6 @@ export default {
       return pathArr[pathArr.length - 1];
     },
   },
-  methods: {},
 };
 </script>
 
@@ -40,18 +39,15 @@ export default {
 .tableHead {
   &__cell {
     opacity: 0.4;
-
-    &_addresses {
-      &:not(:first-of-type) {
-        text-align: right;
-      }
+    &:last-of-type {
+      text-align: right;
     }
+  }
+}
 
-    &_transactions {
-      &:last-of-type {
-        text-align: right;
-      }
-    }
+.lastCellLeft {
+  &:last-of-type {
+    text-align: left;
   }
 }
 </style>

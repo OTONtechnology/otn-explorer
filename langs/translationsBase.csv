@@ -21,13 +21,11 @@ Cookie policy,Политика обработки cookie,Cookie policy,Cookie-Ri
 Privacy notice,Политика конфиденциальности,Privacy notice,Datenschutz,Gizlilik Politikası
 Balance,Баланс,Balance,Guthaben,Hesap
 More,Еще,More,Mehr,Daha
-Address,Адрес,Address,Adresse,Adres
+address,"0 адресов | {n} адрес | {n} адреса | {n} адресов","0 address | {n} address | {n} addresses","0 adressen | {n} adresse | {n} adressen","0 adresler | {n} adres | {n} adresler"
+Address,Адрес,Address,Adresse,Adres"
 All,Все,All,Alle,Tümü
 Received,Входящие,Received,Erhalten,Girişler
 Sent,Исходящие,Sent,Gesendet,Çıkanlar
 Transaction,Транзакция,Transaction,Transaktion,İşlem
 Sender,Отправитель,Sender,Absender,Gönderen
 Recipient,Получатель,Recipient,Empfänger,Alıcı
-Адрес,Адрес,Address,Adresse,Adres
-Адресов,Адресов,Addresses,Adressen,Adresler
-Адреса,Адреса,Addresses,Adressen,Adresler

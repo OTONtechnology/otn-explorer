@@ -1,12 +1,12 @@
 <template>
-  <CommonContentBlockWrapper />
+  <CommonButton />
 </template>
 
 <script>
+
 export default {
-  name: 'AddressPage',
-  layout: "base",
-}
+  name: 'CommonButtonMore',
+};
 </script>
 
 <style lang="stylus" scoped>

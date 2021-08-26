@@ -1,7 +1,7 @@
 <template>
   <div class="transactionDistributionList">
     <div
-      class="transactionDistributionList__head transactionDistributionList__box"
+      class="transactionDistributionList__box"
     >
       <div
         v-for="head in heads"
@@ -64,7 +64,6 @@
 <script>
 export default {
   name: "TransactionDistributionList",
-  components: {},
   props: {
     rows: {
       type: Array,
@@ -82,8 +81,6 @@ export default {
       ],
     };
   },
-  computed: {},
-  methods: {},
 };
 </script>
 

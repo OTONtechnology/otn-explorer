@@ -6,8 +6,8 @@
 
 <script>
 export default {
-  name: 'NotFoundPage',
-  components: { }
+  name: "Error",
+  layout: 'error'
 }
 </script>
 

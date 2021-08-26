@@ -1,8 +1,8 @@
 <template>
   <div class="base-content">
     <div class="base-content-inner">
-      <span class="base-title">
-        {{ $t(pageTitle) }}
+      <span v-if="$slots.title" class="base-title">
+        <slot name="title" />
       </span>
       <slot />
     </div>
@@ -10,27 +10,9 @@
 </template>
 
 <script>
-import homePage from "@/utils/homePage.js";
 
 export default {
-  name: "Table",
-  components: {},
-  props: {},
-  data() {
-    return {};
-  },
-  computed: {
-    pageTitle() {
-      if (homePage.includes(this.$route.path)) {
-        return "Latest Transactions";
-      }
-      const pathArr = this.$route.path.split("/");
-      return pathArr[pathArr.length - 1].replace(/(^|\s)[a-z]/g, (x) =>
-        x.toUpperCase()
-      );
-    },
-  },
-  methods: {},
+  name: "CommonContentBlockWrapper",
 };
 </script>
 

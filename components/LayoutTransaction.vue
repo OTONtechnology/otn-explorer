@@ -4,6 +4,7 @@
     <TableHead
       class="transactionTableHead table__box"
       :titles="modifiedTitles"
+      :lastCellLeft="true"
     />
     <div class="table__box">
       <span class="table__cell"> {{ row.date }}, {{ row.time }} </span>
@@ -41,14 +42,13 @@
       v-if="row.type === 'Distribution'"
       :rows="row.to"
     />
-    <TableButton v-if="row.type === 'Distribution'" />
+    <CommonButtonMore v-if="row.type === 'Distribution'" />
   </div>
 </template>
 
 <script>
 export default {
   name: "LayoutTransaction",
-  components: {},
   props: {
     titles: {
       type: Array,
@@ -83,7 +83,6 @@ export default {
       return newTitles;
     },
   },
-  methods: {},
 };
 </script>
 

@@ -8,7 +8,7 @@ export default {
   head: {
     title: 'otn-explorer',
     htmlAttrs: {
-      lang: 'ru',
+      lang: 'en',
     },
     meta: [
       { charset: 'utf-8' },
@@ -79,13 +79,15 @@ export default {
       code: lang,
       file: `${lang}.js`,
     })),
-    defaultLocale: 'ru',
+    defaultLocale: 'en',
+    fallbackLocale: 'en',
     langDir: 'langs/dist',
     detectBrowserLanguage: {
       useCookie: true,
       cookieKey: 'i18n_redirected',
       onlyOnRoot: true, // recommended
     },
+    vueI18n: '~/i18n.js',
   },
 
   // Modules: https://go.nuxtjs.dev/config-modules
