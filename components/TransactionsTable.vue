@@ -1,34 +1,62 @@
 <template>
-  <div class="transactionsTable">
-    <TransactionsTableHead class="transactionsTable__box" />
-    <TransactionsTableItem class="transactionsTable__box" />
-    <TransactionsTableButton />
+  <div class="table">
+    <TableHead
+      class="table__box table__box_transactions"
+      :titles="titles"
+    />
+    <div
+      v-for="day in rows"
+      :key="day[0].dateDay"
+      class="transactionsTable__bodyDay"
+    >
+      <TransactionsTableItem
+        v-for="row in day"
+        :key="row.id"
+        :row="row"
+        class="table__box table__box_transactions"
+      />
+    </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'TransactionsTable',
-  components: {},
-  props: {},
-  data() {
-    return {};
+  name: "LayoutTable",
+  props: {
+    titles: {
+      type: Array,
+      required: true,
+    },
+    rows: {
+      type: Array,
+      required: true,
+    },
   },
-  computed: {},
-  methods: {},
 };
 </script>
 
 <style lang="stylus" scoped>
-.transactionsTable {
+.table {
+  getFont();
+  color: $colorFontBase;
+
   &__box {
     display: grid;
-    grid-template-columns: 58px 75px 335px 93px 180px 27px 180px 82px;
     grid-column-gap: 10px;
+    align-items: center;
+    padding: 6px 0;
 
-    &:not(:last-of-type) {
-      margin-bottom: 12px;
+    &_transactions {
+      transactionsGrid();
     }
+
+    &_addresses {
+      addressGrid();
+    }
+  }
+
+  &__button {
+    margin-top: 14px;
   }
 }
 </style>

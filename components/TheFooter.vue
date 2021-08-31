@@ -51,7 +51,7 @@ export default {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  margin-top: auto;
+  margin-top: 24px;
   padding: 24px 0 16px;
   border-top: 4px solid $colorFiller;
   getFont();

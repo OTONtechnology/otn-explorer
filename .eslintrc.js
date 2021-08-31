@@ -12,9 +12,14 @@ module.exports = {
   plugins: [],
   // add your custom rules here
   rules: {
-    // quotes: 0,
+    quotes: [0, 'double'],
+    'comma-dangle': [0, 'always'],
+    semi: [0, 'always'],
+    'space-before-function-paren': [0, 'never'],
+    'array-bracket-spacing': [0, 'never'],
+    'arrow-parens': [0, 'as-needed'],
     'no-console': 'off',
-    // semi: [1, "always"],
+    // semi: [1, 'always'],
     'vue/attribute-hyphenation': [
       'off',
       {

@@ -1,5 +1,5 @@
 Key,RU,EN,DE,TR
-Addresses,Адреса,addresses,Adressen,Adresler
+Addresses,Адреса,Addresses,Adressen,Adresler
 Transaction or Address,Транзакция или Адрес,Transaction or Address,Transaktion oder Adresse,İşlem veya adres
 Total Received,Всего получено,Total Received,Insgesamt erhalten,Toplam alınan
 Total Sent,Всего отправлено,Total Sent,Insgesamt gesendet,Toplam gönderilen
@@ -21,7 +21,8 @@ Cookie policy,Политика обработки cookie,Cookie policy,Cookie-Ri
 Privacy notice,Политика конфиденциальности,Privacy notice,Datenschutz,Gizlilik Politikası
 Balance,Баланс,Balance,Guthaben,Hesap
 More,Еще,More,Mehr,Daha
-Address,Адрес,Address,Adresse,Adres
+address,"0 адресов | {n} адрес | {n} адреса | {n} адресов","0 address | {n} address | {n} addresses","0 adressen | {n} adresse | {n} adressen","0 adresler | {n} adres | {n} adresler"
+Address,Адрес,Address,Adresse,Adres"
 All,Все,All,Alle,Tümü
 Received,Входящие,Received,Erhalten,Girişler
 Sent,Исходящие,Sent,Gesendet,Çıkanlar

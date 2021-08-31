@@ -25,13 +25,6 @@
 
 export default {
   name: 'HeaderLocalePicker',
-  components: {
-  },
-
-  data() {
-    return {
-    };
-  },
 
   computed: {
     locale() {

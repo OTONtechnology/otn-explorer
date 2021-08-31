@@ -6,9 +6,9 @@ export default {
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: 'BLC-explorer',
+    title: 'otn-explorer',
     htmlAttrs: {
-      lang: 'ru',
+      lang: 'en',
     },
     meta: [
       { charset: 'utf-8' },
@@ -79,13 +79,15 @@ export default {
       code: lang,
       file: `${lang}.js`,
     })),
-    defaultLocale: 'ru',
+    defaultLocale: 'en',
+    fallbackLocale: 'en',
     langDir: 'langs/dist',
     detectBrowserLanguage: {
       useCookie: true,
       cookieKey: 'i18n_redirected',
       onlyOnRoot: true, // recommended
     },
+    vueI18n: '~/i18n.js',
   },
 
   // Modules: https://go.nuxtjs.dev/config-modules
@@ -93,6 +95,7 @@ export default {
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
     'nuxt-i18n',
+    'nuxt-clipboard2',
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
