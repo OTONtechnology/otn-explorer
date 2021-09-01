@@ -1,3 +1,18 @@
+import allowedLangs from './langs/allowedLangs';
+
+const defaultDatesFormat = {
+  loopShortFirst: {
+    month: 'short',
+    day: 'numeric',
+  },
+}
+
+const datetimeFormats = {};
+
+allowedLangs.forEach((l) => {
+  datetimeFormats[l] = defaultDatesFormat;
+});
+
 export default () => ({
   // Key - language to use the rule for, `'ru'`, in this case
   // Value - function to choose right plural form
@@ -29,5 +44,6 @@ export default () => ({
 
       return (choicesLength < 4) ? 2 : 3;
     }
-  }
+  },
+  datetimeFormats
 })

@@ -4,7 +4,7 @@
       v-for="title in titles"
       :key="title.name"
       class="tableHead__cell"
-      :class="{lastCellLeft: lastCellLeft}"
+      :class="[{ lastCellLeft: lastCellLeft }, { lastCellMR: lastCellMR }]"
     >
       <template v-if="title.text">
         {{ $t(title.text) }}
@@ -23,8 +23,12 @@ export default {
     },
     lastCellLeft: {
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
+    lastCellMR: {
+      type: Boolean,
+      default: false,
+    },
   },
   computed: {
     page() {
@@ -39,6 +43,7 @@ export default {
 .tableHead {
   &__cell {
     opacity: 0.4;
+
     &:last-of-type {
       text-align: right;
     }
@@ -48,6 +53,12 @@ export default {
 .lastCellLeft {
   &:last-of-type {
     text-align: left;
+  }
+}
+
+.lastCellMR {
+  &:last-of-type {
+    margin-right: 45px;
   }
 }
 </style>

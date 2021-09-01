@@ -1,8 +1,7 @@
 <template>
   <div class="transactionsTableItem" :to="localePath('/transaction')">
     <span class="transactionsTableItem__cell">
-      <!-- {{ i === 0 ? $d(row.date, "loopShortFirst") : "" }} -->
-      {{ $d(row.date, "loopShortFirst") }}
+      {{ index === 0 ? $d(row.date) : "" }}
     </span>
     <span class="transactionsTableItem__cell">
       {{ row.time }}
@@ -14,7 +13,12 @@
         transactionsTableItem__cell_hover
       "
     >
-      <nuxt-link class="transactionsTableItem__link" :to="localePath('/transaction')">{{ row.hash }}</nuxt-link>
+      <nuxt-link
+        class="transactionsTableItem__link"
+        :to="localePath('/transaction')"
+      >
+        {{ row.hash }}
+      </nuxt-link>
     </span>
     <span class="transactionsTableItem__cell">
       {{ $t(row.type) }}
@@ -25,8 +29,21 @@
         transactionsTableItem__cell_pseudoEl
         transactionsTableItem__cell_hover
       "
+      :class="{
+        transactionsTableItem__addresses: row.from.length > 1,
+      }"
     >
-      <nuxt-link class="transactionsTableItem__link" :to="localePath('/address')">{{ row.from }}</nuxt-link>
+      <template v-if="row.from.length > 1">
+        {{ $tc("address", row.from.length) }}
+      </template>
+      <template v-else>
+        <nuxt-link
+          class="transactionsTableItem__link"
+          :to="localePath('/address')"
+        >
+          {{ row.from[0] }}
+        </nuxt-link>
+      </template>
     </span>
     <span class="transactionsTableItem__cell">
       <svg-icon
@@ -41,24 +58,35 @@
         transactionsTableItem__cell_hover
       "
       :class="{
-        transactionsTableItem__distrTo: row.type === 'Distribution',
+        transactionsTableItem__addresses: row.to.length > 1,
       }"
     >
-      <template v-if="row.type === 'Distribution'">
-        {{ $tc("address", row.to) }}
+      <template v-if="row.to.length > 1">
+        {{ $tc("address", row.to.length) }}
       </template>
       <template v-else>
-        <nuxt-link class="transactionsTableItem__link" :to="localePath('/address')">{{ row.to }}</nuxt-link>
+        <nuxt-link
+          class="transactionsTableItem__link"
+          :to="localePath('/address')"
+        >
+          {{ row.to[0] }}
+        </nuxt-link>
       </template>
     </span>
-    <span class="transactionsTableItem__cell transactionsTableItem__sum">
-      {{ row.sum }}
-    </span>
+    <div class="transactionsTableItem__cell transactionsTableItem__sum">
+      <div
+        v-for="sumItem in row.sum"
+        :key="sumItem.name"
+        class="transactionsTableItem__sumInner"
+      >
+        <span>{{ sumItem.amount }}</span>
+        <span>{{ sumItem.name }}</span>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-
 export default {
   name: "TransactionsTableItem",
   props: {
@@ -66,8 +94,10 @@ export default {
       type: Object,
       required: true,
     },
-  },
-  computed: {
+    index: {
+      type: Number,
+      required: true,
+    },
   },
 };
 </script>
@@ -94,9 +124,6 @@ export default {
   }
 
   &__cell {
-    max-height: 16px;
-    overflow: hidden;
-
     &_pseudoEl {
       position: relative;
       z-index: 1;
@@ -117,11 +144,12 @@ export default {
 
   &__arrowIcon {
     display: block;
+    margin-top: 4px;
     width: 9px;
     height: 9px;
   }
 
-  &__distrTo {
+  &__addresses {
     text-transform: lowercase;
     opacity: 0.4;
   }
@@ -129,6 +157,30 @@ export default {
   &__sum {
     text-align: right;
     font-weight: 700;
+  }
+
+  &__sumInner {
+    margin-bottom: 4px;
+    max-height: 18px;
+    overflow: hidden;
+    display: flex;
+    justify-content: flex-end;
+
+    span:first-of-type {
+      display: inline-block;
+      width: calc(100% - 44px);
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    span:last-of-type {
+      display: inline-block;
+      margin-left: 4px;
+      width: 40px;
+      opacity: 0.4;
+      text-transform: uppercase;
+      text-align: left;
+    }
   }
 }
 </style>

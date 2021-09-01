@@ -3,6 +3,7 @@
     <TableHead
       class="table__box table__box_transactions"
       :titles="titles"
+      :lastCellMR="true"
     />
     <div
       v-for="day in rows"
@@ -10,9 +11,10 @@
       class="transactionsTable__bodyDay"
     >
       <TransactionsTableItem
-        v-for="row in day"
+        v-for="(row, index) in day"
         :key="row.id"
         :row="row"
+        :index="index"
         class="table__box table__box_transactions"
       />
     </div>
@@ -43,7 +45,7 @@ export default {
   &__box {
     display: grid;
     grid-column-gap: 10px;
-    align-items: center;
+    // align-items: center;
     padding: 6px 0;
 
     &_transactions {
