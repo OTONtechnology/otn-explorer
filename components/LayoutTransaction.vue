@@ -1,24 +1,94 @@
 <template>
-  <div class="table">
+  <div class="transactionTable">
     <CopyHash :hash="row.hash" />
-    <TableHead
-      class="transactionTableHead table__box"
-      :titles="modifiedTitles"
-      :lastCellLeft="true"
-    />
-    <div class="table__box">
-      <span class="table__cell"> {{ row.date }}, {{ row.time }} </span>
-      <span class="table__cell">
-        {{ $t(row.type) }}
-      </span>
-      <span v-if="row.type === 'Distribution'" class="table__cell">
-        {{ row.to.length }}
-      </span>
-      <span class="table__cell table__cell_sum">
-        {{ row.sum }}
-      </span>
+    <div class="transactionTableInfo">
+      <TableHead
+        class="transactionTableInfo__head transactionTableInfo__box"
+        :titles="titles"
+        :lastCellMR="true"
+      />
+      <div class="transactionTableInfo__box">
+        <span class="transactionTable__cell">
+          {{ row.date }}, {{ row.time }}
+        </span>
+        <span class="transactionTable__cell">
+          {{ $t(row.type) }}
+        </span>
+        <div class="transactionTable__cell transactionTable__cellSum">
+          <div class="transactionTable__cellSumInner">
+            <span>245</span>
+            <span>EBP</span>
+          </div>
+        </div>
+      </div>
     </div>
-    <template v-if="row.type === 'Transfer'">
+    <div class="transactionTableBody">
+      <div class="transactionTableBody__box transactionTableBody__box_sender">
+        <span class="transactionTableBody__title">
+          {{ $t("Sender") }}
+        </span>
+        <span
+          class="transactionTableBody__title transactionTableBody__title_sum"
+        >
+          {{ $t("Sum") }}
+        </span>
+        <template v-for="sender in row.senders">
+          <nuxt-link
+            :key="sender.address"
+            class="transactionTableBody__link"
+            :to="localePath('/transaction')"
+          >
+            {{ sender.address }}
+          </nuxt-link>
+          <div
+            :key="sender.address"
+            class="transactionTable__cell transactionTable__cellSum"
+          >
+            <div
+              class="transactionTableBody__text transactionTable__cellSumInner"
+            >
+              <span>{{ sender.currAmount }}</span>
+              <span>{{ sender.currName }}</span>
+            </div>
+          </div>
+        </template>
+      </div>
+    </div>
+    <div class="transactionTableBody">
+      <div
+        class="transactionTableBody__box transactionTableBody__box_recipient"
+      >
+        <span class="transactionTableBody__title">
+          {{ $t("Recipients") }}
+        </span>
+        <span
+          class="transactionTableBody__title transactionTableBody__title_sum"
+        >
+          {{ $t("Sum") }}
+        </span>
+        <template v-for="recipient in row.recipients">
+          <nuxt-link
+            :key="recipient.address"
+            class="transactionTableBody__link"
+            :to="localePath('/transaction')"
+          >
+            {{ recipient.address }}
+          </nuxt-link>
+          <div
+            :key="recipient.address"
+            class="transactionTable__cell transactionTable__cellSum"
+          >
+            <div
+              class="transactionTableBody__text transactionTable__cellSumInner"
+            >
+              <span>{{ recipient.currAmount }}</span>
+              <span>{{ recipient.currName }}</span>
+            </div>
+          </div>
+        </template>
+      </div>
+    </div>
+    <!-- <template v-if="row.type === 'Transfer'">
       <div v-for="box in boxes" :key="box.title" class="transactionTableBox">
         <span class="transactionTableBox__title">
           {{ $t(box.title) }}
@@ -37,12 +107,8 @@
           {{ row.from }}
         </span>
       </div>
-    </template>
-    <TransactionDistributionList
-      v-if="row.type === 'Distribution'"
-      :rows="row.to"
-    />
-    <CommonButtonMore v-if="row.type === 'Distribution'" />
+    </template> -->
+    <!-- <CommonButtonMore v-if="row.type === 'Distribution'" /> -->
   </div>
 </template>
 
@@ -61,70 +127,106 @@ export default {
   },
   data() {
     return {
-      boxes: [
-        {
-          title: "Sender",
-          text: this.row.from,
-        },
-        {
-          title: "Recipient",
-          text: this.row.to,
-        },
-      ],
+      format: {
+        day: "YYYY-MM-DD",
+        time: "HH:mm",
+      },
     };
-  },
-  computed: {
-    modifiedTitles() {
-      const newTitles = [...this.titles];
-      if (this.row.type === "Transfer") {
-        newTitles.splice(2, 1);
-        return newTitles;
-      }
-      return newTitles;
-    },
   },
 };
 </script>
 
 <style lang="stylus" scoped>
-.transactionTableHead {
-  margin-bottom: -8px;
-}
+.transactionTableInfo {
+  margin-bottom: 12px;
 
-.transactionTableBox {
-  margin-top: 12px;
-  getFont();
-
-  &__title {
-    display: block;
+  &__head {
     margin-bottom: 4px;
-    opacity: 0.4;
   }
 
-  &__text {
-    color: $colorLink;
+  &__box {
+    display: grid;
+    grid-gap: 4px 30px;
+    grid-template-columns: 155px 80px 78px;
+  }
+}
 
-    &:hover {
-      color: $colorDanger;
+.transactionTable {
+  getFont();
+  color: $colorFontBase;
+
+  &__cellSum {
+    text-align: right;
+    font-weight: 700;
+  }
+
+  &__cellSumInner {
+    margin-bottom: 4px;
+    max-height: 18px;
+    overflow: hidden;
+    display: flex;
+    justify-content: flex-end;
+
+    span:first-of-type {
+      display: inline-block;
+      width: calc(100% - 44px);
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    span:last-of-type {
+      display: inline-block;
+      margin-left: 4px;
+      width: 40px;
+      opacity: 0.4;
+      text-transform: uppercase;
+      text-align: left;
     }
   }
 }
 
-.table {
-  getFont();
-  color: $colorFontBase;
+.transactionTableBody {
+  &:not(:last-child) {
+    margin-bottom: 12px;
+  }
 
   &__box {
     display: grid;
-    grid-column-gap: 30px;
-    grid-template-columns: 155px 80px 78px 68px;
-    align-items: center;
-    padding: 6px 0;
+    grid-gap: 4px 30px;
+    grid-template-columns: 265px 78px;
+
+    &_sender {
+      .transactionTable__cellSumInner {
+        span:first-of-type {
+          color: $colorDanger;
+        }
+      }
+    }
+
+    &_recipient {
+      .transactionTable__cellSumInner {
+        span:first-of-type {
+          color: $colorSuccess;
+        }
+      }
+    }
   }
 
-  &__cell {
+  &__title {
+    opacity: 0.4;
+
     &_sum {
-      font-weight: 700;
+      text-align: right;
+      margin-right: 44px;
+    }
+  }
+
+  &__link {
+    width: fit-content;
+    color: $colorLink;
+
+    &:hover {
+      color: $colorDanger;
     }
   }
 }

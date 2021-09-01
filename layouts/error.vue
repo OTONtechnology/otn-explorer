@@ -1,15 +1,12 @@
 <template>
-  <LayoutBase>
-    <NotFound />
-  </LayoutBase>
+  <NotFound />
 </template>
 
 <script>
 export default {
   name: "Error",
-  layout: 'error'
-}
+  layout: "base",
+};
 </script>
 
-<style lang="stylus" scoped>
-</style>
+<style lang="stylus" scoped></style>
