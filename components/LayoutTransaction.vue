@@ -34,14 +34,14 @@
         </span>
         <template v-for="sender in row.senders">
           <nuxt-link
-            :key="sender.address"
+            :key="sender.id + sender.address"
             class="transactionTableBody__link"
-            :to="localePath('/transaction')"
+            :to="localePath('/address')"
           >
             {{ sender.address }}
           </nuxt-link>
           <div
-            :key="sender.address"
+            :key="sender.id + sender.currAmount + sender.currName"
             class="transactionTable__cell transactionTable__cellSum"
           >
             <div
@@ -68,14 +68,14 @@
         </span>
         <template v-for="recipient in row.recipients">
           <nuxt-link
-            :key="recipient.address"
+            :key="recipient.id + recipient.address"
             class="transactionTableBody__link"
-            :to="localePath('/transaction')"
+            :to="localePath('/address')"
           >
             {{ recipient.address }}
           </nuxt-link>
           <div
-            :key="recipient.address"
+            :key="recipient.id + recipient.currAmount + recipient.currName"
             class="transactionTable__cell transactionTable__cellSum"
           >
             <div
@@ -88,27 +88,6 @@
         </template>
       </div>
     </div>
-    <!-- <template v-if="row.type === 'Transfer'">
-      <div v-for="box in boxes" :key="box.title" class="transactionTableBox">
-        <span class="transactionTableBox__title">
-          {{ $t(box.title) }}
-        </span>
-        <span class="transactionTableBox__text">
-          {{ box.text }}
-        </span>
-      </div>
-    </template>
-    <template v-else-if="row.type === 'Distribution'">
-      <div class="transactionTableBox">
-        <span class="transactionTableBox__title">
-          {{ $t("Transaction Initiator") }}
-        </span>
-        <span class="transactionTableBox__text">
-          {{ row.from }}
-        </span>
-      </div>
-    </template> -->
-    <!-- <CommonButtonMore v-if="row.type === 'Distribution'" /> -->
   </div>
 </template>
 

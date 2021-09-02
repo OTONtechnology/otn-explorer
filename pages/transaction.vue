@@ -25,11 +25,13 @@ export default {
         type: "Transfer",
         senders: [
           {
+            id: 1,
             address: "0x56440a8145330ff838e56",
             currName: "EBP",
             currAmount: 245,
           },
           {
+            id: 2,
             address: "0x56440a8145330ff838e57",
             currName: "EBP",
             currAmount: 245,
@@ -37,12 +39,14 @@ export default {
         ],
         recipients: [
           {
-            address: "0x56440a8145330ff838e56",
+            id: 1,
+            address: "0x56440a8145330ff838e51",
             currName: "EBP",
             currAmount: 200,
           },
           {
-            address: "0x56440a8145330ff838e57",
+            id: 2,
+            address: "0x56440a8145330ff838e52",
             currName: "EBP",
             currAmount: 45,
           },

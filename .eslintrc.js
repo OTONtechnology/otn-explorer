@@ -27,10 +27,10 @@ module.exports = {
       },
     ],
     // 'vue/html-self-closing': [
-    //   'error',
+    //   'warning',
     //   {
     //     html: {
-    //       void: 'always',
+    //       void: 'never',
     //       normal: 'never',
     //       component: 'always',
     //     },

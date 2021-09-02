@@ -17,13 +17,6 @@
         :index="index"
         class="table__box table__box_transactions"
       />
-      <!-- <TransactionsTableItem
-        v-for="(row, index) in day"
-        :key="row.id"
-        :row="row"
-        :index="index"
-        class="table__box table__box_transactions"
-      /> -->
     </div>
   </div>
 </template>
@@ -57,10 +50,6 @@ export default {
 
     &_transactions {
       transactionsGrid();
-    }
-
-    &_addresses {
-      addressGrid();
     }
   }
 
