@@ -41,7 +41,7 @@
             {{ sender.address }}
           </nuxt-link>
           <div
-            :key="sender.address"
+            :key="sender.address + sender.currName"
             class="transactionTable__cell transactionTable__cellSum"
           >
             <div
@@ -75,7 +75,7 @@
             {{ recipient.address }}
           </nuxt-link>
           <div
-            :key="recipient.address"
+            :key="recipient.address + recipient.currName"
             class="transactionTable__cell transactionTable__cellSum"
           >
             <div
