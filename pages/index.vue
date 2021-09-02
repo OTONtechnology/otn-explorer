@@ -11,6 +11,7 @@
 <script>
 import dayjs from "dayjs";
 import { groupBy, prop, reverse } from "rambda";
+import { mapActions } from 'vuex';
 import getArrayFromObjectArray from "@/utils/getArrayFromObjectArray";
 
 export default {
@@ -98,6 +99,17 @@ export default {
       return reverse(rowsArrayGroupByDay);
     },
   },
+
+  mounted() {
+    this.fetch('a3e747a82a7d3cafa48fd643168c2b2c6c83b018');
+  },
+
+  methods: {
+    ...mapActions({
+      fetch: 'transactionsByAddress/fetchByAddress'
+    })
+  },
+
 };
 </script>
 

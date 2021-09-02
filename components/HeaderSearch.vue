@@ -1,14 +1,15 @@
 <template>
   <div class="headerSearch">
     <div class="headerSearch__box">
-      <div class="headerSearch__inputBox">
+      <form class="headerSearch__inputBox" @submit="onSearch">
         <input
+          v-model="searchText"
           class="headerSearch__input"
           type="search"
           :placeholder="$t('Transaction or Address')"
-        >
-      </div>
-      <button class="headerSearch__button" type="button">
+        />
+      </form>
+      <button class="headerSearch__button" type="button" @click="onSearch">
         <svg-icon name="common/search" class="headerSearch__icon" />
       </button>
     </div>
@@ -18,6 +19,16 @@
 <script>
 export default {
   name: "HeaderSearch",
+
+  data: () => ({
+    searchText: '',
+  }),
+
+  methods: {
+    onSearch() {
+
+    }
+  },
 };
 </script>
 
