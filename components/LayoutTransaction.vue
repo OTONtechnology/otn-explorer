@@ -36,7 +36,7 @@
           <nuxt-link
             :key="sender.address"
             class="transactionTableBody__link"
-            :to="localePath('/transaction')"
+            :to="localePath('/address')"
           >
             {{ sender.address }}
           </nuxt-link>
@@ -70,7 +70,7 @@
           <nuxt-link
             :key="recipient.address"
             class="transactionTableBody__link"
-            :to="localePath('/transaction')"
+            :to="localePath('/address')"
           >
             {{ recipient.address }}
           </nuxt-link>
