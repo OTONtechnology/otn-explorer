@@ -88,27 +88,6 @@
         </template>
       </div>
     </div>
-    <!-- <template v-if="row.type === 'Transfer'">
-      <div v-for="box in boxes" :key="box.title" class="transactionTableBox">
-        <span class="transactionTableBox__title">
-          {{ $t(box.title) }}
-        </span>
-        <span class="transactionTableBox__text">
-          {{ box.text }}
-        </span>
-      </div>
-    </template>
-    <template v-else-if="row.type === 'Distribution'">
-      <div class="transactionTableBox">
-        <span class="transactionTableBox__title">
-          {{ $t("Transaction Initiator") }}
-        </span>
-        <span class="transactionTableBox__text">
-          {{ row.from }}
-        </span>
-      </div>
-    </template> -->
-    <!-- <CommonButtonMore v-if="row.type === 'Distribution'" /> -->
   </div>
 </template>
 
