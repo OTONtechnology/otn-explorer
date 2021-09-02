@@ -1,12 +1,15 @@
 <template>
-  <div class="headerSearch">
+  <div
+    class="headerSearch"
+    :class="{ headerSearch_homepage: $route.path === '/' }"
+  >
     <div class="headerSearch__box">
       <div class="headerSearch__inputBox">
         <input
           class="headerSearch__input"
           type="search"
           :placeholder="$t('Transaction or Address')"
-        >
+        />
       </div>
       <button class="headerSearch__button" type="button">
         <svg-icon name="common/search" class="headerSearch__icon" />
@@ -18,6 +21,11 @@
 <script>
 export default {
   name: "HeaderSearch",
+  props: {
+    homePage: {
+      type: Boolean,
+    },
+  },
 };
 </script>
 
@@ -120,6 +128,37 @@ export default {
     display: block;
     width: 21px;
     height: 21px;
+  }
+}
+
+.headerSearch {
+  &_homepage {
+    margin: -35px 0 0 0;
+    padding: 87px 0 64px;
+    background-image: url('@/assets/images/header-search-bg.png');
+    background-size: 500px 280px;
+    background-repeat: no-repeat;
+    background-position: top center;
+
+    .headerSearch__box {
+      width: 736px;
+      height: 64px;
+      border-radius: 16px;
+    }
+
+    .headerSearch__input {
+      padding: 16px 0px 18px 20px;
+      getFontH2();
+    }
+
+    .headerSearch__button {
+      width: 64px;
+    }
+
+    .headerSearch__icon {
+      width: 32px;
+      height: 32px;
+    }
   }
 }
 </style>
