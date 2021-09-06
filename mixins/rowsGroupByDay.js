@@ -12,7 +12,6 @@ export default {
   computed: {
     rowsGroupByDay() {
       let currentDay = 0;
-
       const mappedRows = this.transactionRows.map(({ ...row }) => {
         const dateDay = dayjs(
           dayjs.unix(row.timestamp).format(this.format.day),
@@ -22,9 +21,9 @@ export default {
         const showDate = currentDay !== dateDay;
 
         if (showDate) {
-          currentDay = showDate;
+          currentDay = dateDay;
         }
-        console.info(this.$i18n);
+
         return {
           ...row,
           date: this.$d(row.timestamp * 1000, "loopShortFirst"),

@@ -41,7 +41,16 @@ module.exports = {
     "max-len": 0,
     "import/newline-after-import": "off",
     "no-param-reassign": ["error", { props: false }],
-    "vue/html-self-closing": "off"
+    "vue/html-self-closing": "off",
+    "vue/singleline-html-element-content-newline": [
+      "error",
+      {
+        ignoreWhenNoAttributes: true,
+        ignoreWhenEmpty: true,
+        ignores: ["pre", "textarea", "template"]
+      }
+    ],
+    "no-shadow": "off"
   },
   settings: {
     "import/resolver": {

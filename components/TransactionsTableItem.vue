@@ -1,5 +1,5 @@
 <template>
-  <div class="transactionsTableItem" :to="localePath('/transaction')">
+  <div class="transactionsTableItem">
     <span class="transactionsTableItem__cell">
       {{ row.showDate ? row.date : "" }}
     </span>
@@ -15,7 +15,7 @@
     >
       <nuxt-link
         class="transactionsTableItem__link"
-        :to="localePath('/transaction')"
+        :to="localePath(`/transaction/${row.hash}`)"
       >
         {{ row.hash }}
       </nuxt-link>
@@ -39,7 +39,7 @@
       <template v-else>
         <nuxt-link
           class="transactionsTableItem__link"
-          :to="localePath('/address')"
+          :to="localePath(`/address/${row.from[0]}`)"
         >
           {{ row.from[0] }}
         </nuxt-link>
@@ -66,11 +66,13 @@
       </template>
       <template v-else>
         <nuxt-link
+          v-if="row.to[0]"
           class="transactionsTableItem__link"
-          :to="localePath('/address')"
+          :to="localePath(`/address/${row.to[0]}`)"
         >
           {{ row.to[0] }}
         </nuxt-link>
+        <template v-else> n/a </template>
       </template>
     </span>
     <div class="transactionsTableItem__cell transactionsTableItem__sum">
@@ -121,6 +123,9 @@ export default {
   }
 
   &__cell {
+    text-overflow: ellipsis;
+    overflow: hidden;
+
     &_pseudoEl {
       position: relative;
       z-index: 1;

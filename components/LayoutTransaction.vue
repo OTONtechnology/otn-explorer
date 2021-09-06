@@ -33,9 +33,12 @@
         <span class="transactionTableBox__title">
           {{ $t("Transaction Initiator") }}
         </span>
-        <span class="transactionTableBox__text">
+        <nuxt-link
+          :to="localePath(`/address/${row.from}`)"
+          class="transactionTableBox__text"
+        >
           {{ row.from }}
-        </span>
+        </nuxt-link>
       </div>
     </template>
     <TransactionDistributionList
