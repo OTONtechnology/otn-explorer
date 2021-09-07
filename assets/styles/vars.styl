@@ -3,11 +3,19 @@ $colorFontBase = #182F37;
 $colorBg = #F0EDEA;
 $colorLink = #028dc9;
 $colorDanger = #ef616a;
+$colorSuccess = #2aa414;
 
 transactionsGrid() {
   grid-template-columns: 58px 75px 335px 93px 180px 10px 180px 82px;
   @media (min-width: $mediaSizes.large) {
-    grid-template-columns: 58px 75px 335px 110px 180px 10px 180px 82px;
+    grid-template-columns: 58px 75px 320px 110px 180px 10px 180px 97px;
+  }
+}
+
+adressGrid() {
+  grid-template-columns: 57px 83px 327px 92px 327px auto;
+  @media (min-width: $mediaSizes.large) {
+    grid-template-columns: 57px 83px 327px 92px 327px auto;
   }
 }
 

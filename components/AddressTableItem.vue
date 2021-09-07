@@ -1,85 +1,55 @@
 <template>
-  <div class="transactionsTableItem">
-    <span class="transactionsTableItem__cell transactionsTableItem__cell_date">
-      {{ row.showDate ? row.date : "" }}
+  <div class="addressTableItem">
+    <span class="addressTableItem__cell">
+      {{ index === 0 ? $d(row.date) : "" }}
     </span>
-    <span class="transactionsTableItem__cell">
+    <span class="addressTableItem__cell">
       {{ row.time }}
     </span>
     <span
       class="
-        transactionsTableItem__cell
-        transactionsTableItem__cell_pseudoEl
-        transactionsTableItem__cell_hover
+        addressTableItem__cell
+        addressTableItem__cell_pseudoEl
+        addressTableItem__cell_hover
       "
     >
       <nuxt-link
-        class="transactionsTableItem__link"
+        class="addressTableItem__link"
         :to="localePath(`/transaction/${row.hash}`)"
       >
         {{ row.hash }}
       </nuxt-link>
     </span>
-    <span class="transactionsTableItem__cell">
+    <span class="addressTableItem__cell">
       {{ $t(row.type) }}
     </span>
     <span
       class="
-        transactionsTableItem__cell
-        transactionsTableItem__cell_pseudoEl
-        transactionsTableItem__cell_hover
+        addressTableItem__cell
+        addressTableItem__cell_pseudoEl
+        addressTableItem__cell_hover
       "
       :class="{
-        transactionsTableItem__addresses: row.from.length > 1,
+        addressTableItem__addresses: row.senderRecipient.length > 1,
       }"
     >
-      <template v-if="row.from.length > 1">
-        {{ $tc("address", row.from.length) }}
+      <template v-if="row.senderRecipient.length > 1">
+        {{ $tc("address", row.senderRecipient.length) }}
       </template>
       <template v-else>
         <nuxt-link
-          class="transactionsTableItem__link"
-          :to="localePath(`/address/${row.from[0]}`)"
+          class="addressTableItem__link"
+          :to="localePath(`/address/${row.senderRecipient[0]}`)"
         >
-          {{ row.from[0] }}
+          {{ row.senderRecipient[0] }}
         </nuxt-link>
       </template>
     </span>
-    <span class="transactionsTableItem__cell">
-      <svg-icon
-        name="transactions/arrow"
-        class="transactionsTableItem__arrowIcon"
-      />
-    </span>
-    <span
-      class="
-        transactionsTableItem__cell
-        transactionsTableItem__cell_pseudoEl
-        transactionsTableItem__cell_hover
-      "
-      :class="{
-        transactionsTableItem__addresses: row.to.length > 1,
-      }"
-    >
-      <template v-if="row.to.length > 1">
-        {{ $tc("address", row.to.length) }}
-      </template>
-      <template v-else>
-        <nuxt-link
-          v-if="row.to[0]"
-          class="transactionsTableItem__link"
-          :to="localePath(`/address/${row.to[0]}`)"
-        >
-          {{ row.to[0] }}
-        </nuxt-link>
-        <template v-else> n/a </template>
-      </template>
-    </span>
-    <div class="transactionsTableItem__cell transactionsTableItem__sum">
+    <div class="addressTableItem__cell addressTableItem__sum">
       <div
         v-for="sumItem in row.sum"
         :key="sumItem.name"
-        class="transactionsTableItem__sumInner"
+        class="addressTableItem__sumInner"
       >
         <span>{{ sumItem.amount }}</span>
         <span>{{ sumItem.name }}</span>
@@ -90,10 +60,14 @@
 
 <script>
 export default {
-  name: "TransactionsTableItem",
+  name: "AddressTableItem",
   props: {
     row: {
       type: Object,
+      required: true,
+    },
+    index: {
+      type: Number,
       required: true,
     },
   },
@@ -101,19 +75,14 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-.transactionsTableItem {
+.addressTableItem {
   position: relative;
   z-index: 3;
-  margin-right: -4px;
-  margin-left: -4px;
-  padding-right: 4px;
-  padding-left: 4px;
-  border-radius: 2px;
 
   &:hover {
     background-color: $colorBg;
 
-    .transactionsTableItem__link {
+    .addressTableItem__link {
       color: $colorLink;
 
       &:hover {
@@ -121,15 +90,12 @@ export default {
       }
     }
 
-    .transactionsTableItem__cell_pseudoEl::after {
+    .addressTableItem__cell_pseudoEl::after {
       background-image: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, $colorBg 100%);
     }
   }
 
   &__cell {
-    text-overflow: ellipsis;
-    overflow: hidden;
-
     &_pseudoEl {
       position: relative;
       z-index: 1;
