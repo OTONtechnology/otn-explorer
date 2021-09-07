@@ -15,7 +15,7 @@
     >
       <nuxt-link
         class="transactionsTableItem__link"
-        :to="localePath('/transaction')"
+        :to="localePath(`/transaction/${row.hash}`)"
       >
         {{ row.hash }}
       </nuxt-link>
@@ -39,7 +39,7 @@
       <template v-else>
         <nuxt-link
           class="transactionsTableItem__link"
-          :to="localePath('/address')"
+          :to="localePath(`/address/${row.from[0]}`)"
         >
           {{ row.from[0] }}
         </nuxt-link>
@@ -67,7 +67,7 @@
       <template v-else>
         <nuxt-link
           class="transactionsTableItem__link"
-          :to="localePath('/address')"
+          :to="localePath(`/address/${row.to[0]}`)"
         >
           {{ row.to[0] }}
         </nuxt-link>

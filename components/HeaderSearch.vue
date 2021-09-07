@@ -1,5 +1,5 @@
 <template>
-  <div class="headerSearch" :class="{ headerSearch_homepage: homepage }">
+  <div class="headerSearch" :class="{ headerSearch_homepage: isHomepage }">
     <form class="headerSearch__box">
       <div class="headerSearch__inputBox">
         <input
@@ -23,13 +23,8 @@ export default {
     searchText: '',
   }),
   computed: {
-    homepage() {
-      if (this.$route.path === '/') return true
-      if (this.$route.path === '/ru') return true
-      if (this.$route.path === '/en') return true
-      if (this.$route.path === '/de') return true
-      if (this.$route.path === '/tr') return true
-      return false
+    isHomepage() {
+      return /^\/(ru|en|de|tr)?$/.test(this.$route.path)
     }
   },
   methods: {

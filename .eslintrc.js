@@ -2,12 +2,12 @@ module.exports = {
   root: true,
   env: {
     browser: true,
-    node: true,
+    node: true
   },
   extends: [
     "@nuxtjs/eslint-config-typescript",
     "airbnb-base",
-    "plugin:nuxt/recommended",
+    "plugin:nuxt/recommended"
   ],
   plugins: [],
   // add your custom rules here
@@ -23,29 +23,29 @@ module.exports = {
     "vue/attribute-hyphenation": [
       "off",
       {
-        ignore: [],
-      },
+        ignore: []
+      }
     ],
-    // 'vue/html-self-closing': [
-    //   'warning',
-    //   {
-    //     html: {
-    //       void: 'never',
-    //       normal: 'never',
-    //       component: 'always',
-    //     },
-    //     svg: 'always',
-    //     math: 'always',
-    //   },
-    // ],
+    "vue/html-self-closing": [
+      "off",
+      {
+        html: {
+          void: "never",
+          normal: "never",
+          component: "always"
+        },
+        svg: "always",
+        math: "always"
+      }
+    ],
     "max-len": 0,
-    "import/newline-after-import": "off",
+    "import/newline-after-import": "off"
   },
   settings: {
     "import/resolver": {
       nuxt: {
-        extensions: [".js", ".vue"],
-      },
-    },
-  },
+        extensions: [".js", ".vue"]
+      }
+    }
+  }
 };

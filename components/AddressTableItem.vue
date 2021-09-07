@@ -1,5 +1,5 @@
 <template>
-  <div class="addressTableItem" :to="localePath('/transaction')">
+  <div class="addressTableItem">
     <span class="addressTableItem__cell">
       {{ index === 0 ? $d(row.date) : "" }}
     </span>
@@ -15,7 +15,7 @@
     >
       <nuxt-link
         class="addressTableItem__link"
-        :to="localePath('/transaction')"
+        :to="localePath(`/transaction/${row.hash}`)"
       >
         {{ row.hash }}
       </nuxt-link>
@@ -37,7 +37,10 @@
         {{ $tc("address", row.senderRecipient.length) }}
       </template>
       <template v-else>
-        <nuxt-link class="addressTableItem__link" :to="localePath('/address')">
+        <nuxt-link
+          class="addressTableItem__link"
+          :to="localePath(`/address/${row.senderRecipient[0]}`)"
+        >
           {{ row.senderRecipient[0] }}
         </nuxt-link>
       </template>
