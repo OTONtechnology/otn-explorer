@@ -66,11 +66,13 @@
       </template>
       <template v-else>
         <nuxt-link
+          v-if="row.to[0]"
           class="transactionsTableItem__link"
           :to="localePath(`/address/${row.to[0]}`)"
         >
           {{ row.to[0] }}
         </nuxt-link>
+        <template v-else> n/a </template>
       </template>
     </span>
     <div class="transactionsTableItem__cell transactionsTableItem__sum">
@@ -125,6 +127,9 @@ export default {
   }
 
   &__cell {
+    text-overflow: ellipsis;
+    overflow: hidden;
+
     &_pseudoEl {
       position: relative;
       z-index: 1;

@@ -70,7 +70,7 @@
           <nuxt-link
             :key="recipient.id + recipient.address"
             class="transactionTableBody__link"
-            :to="localePath('/address')"
+            :to="localePath(`/address/${recipient.address}`)"
           >
             {{ recipient.address }}
           </nuxt-link>

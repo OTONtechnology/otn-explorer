@@ -3,15 +3,21 @@
     <template #title>
       {{ $t("Transactions") }}
     </template>
-    <TransactionsTable
-      :titles="transactionTitles"
-      :rows="transactionsGroupByDay"
-    />
-    <CommonButtonMore class="table__button" />
+
+    <WithLoader :state="fetchState">
+      <div>
+        <TransactionsTable
+          :titles="transactionTitles"
+          :rows="transactionsGroupByDay"
+        />
+        <CommonButtonMore class="table__button" />
+      </div>
+    </WithLoader>
   </CommonContentBlockWrapper>
 </template>
 
 <script>
+import { mapActions, mapGetters, mapState } from 'vuex';
 import transactionsGroupByDay from "@/mixins/transactionsGroupByDay";
 
 export default {
@@ -30,86 +36,26 @@ export default {
         { name: "to", text: "" },
         { name: "sum", text: "Sum" },
       ],
-      transactionRows: [
-        {
-          timestamp: "1629474423",
-          hash: "0x40160a8130ff838e5659d48b58b6c17651011f05",
-          type: "Transfer",
-          from: ["0x56440a8145330ff838e56"],
-          to: ["0x34673454358130ff838e71"],
-          sum: [
-            {
-              name: "EBP",
-              amount: 12,
-            },
-          ],
-        },
-        {
-          timestamp: "1629468603",
-          hash: "0x5647830ff838e5659d48b58b636617651011f00",
-          type: "Transfer",
-          from: ["0x440a814533056ff838e56"],
-          to: ["0x67343454358130ff838e71"],
-          sum: [
-            {
-              name: "EBP",
-              amount: 241,
-            },
-            {
-              name: "RANK",
-              amount: 2,
-            },
-          ],
-        },
-        {
-          timestamp: "1629379680",
-          hash: "0x40160a8130ff838e5659d48b58b6c17651011f06",
-          type: "Distribution",
-          from: ["0x440a814533056ff838e56", "0x67343454358130ff838e71"],
-          to: [
-            "0x67343454358130ff838e71",
-            "0x67343454358130ff838e71",
-            "0x67343454358130ff838e71",
-            "0x67343454358130ff838e71",
-            "0x67343454358130ff838e71",
-          ],
-          sum: [
-            {
-              name: "EBP",
-              amount: 241,
-            },
-          ],
-        },
-        {
-          timestamp: "1629376868",
-          hash: "0x5647830ff838e5659d48b58b636617651011f07",
-          type: "Distribution",
-          from: [
-            "0x440a814533056ff838e56",
-            "0x67343454358130ff838e71",
-            "0x67343454358130ff838e71",
-            "0x67343454358130ff838e71",
-            "0x67343454358130ff838e71",
-            "0x67343454358130ff838e71",
-          ],
-          to: ["0x67343454358130ff838e71", "0x67343454358130ff838e71"],
-          sum: [
-            {
-              name: "EBP",
-              amount: 241,
-            },
-            {
-              name: "RANK",
-              amount: 2,
-            },
-            {
-              name: "CP",
-              amount: 2,
-            },
-          ],
-        },
-      ],
     };
+  },
+
+  computed: {
+    ...mapState({
+      fetchState: state => state.lastTransactions.fetchState
+    }),
+    ...mapGetters({
+      transactionRows: 'lastTransactions/transactionsRows'
+    }),
+  },
+
+  mounted() {
+    this.fetch();
+  },
+
+  methods: {
+    ...mapActions({
+      fetch: 'lastTransactions/fetch'
+    })
   },
 };
 </script>

@@ -12,6 +12,7 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex';
 import transactionsGroupByDay from "@/mixins/transactionsGroupByDay";
 
 export default {
@@ -111,6 +112,17 @@ export default {
       ],
     };
   },
+
+  mounted() {
+    this.fetch('a3e747a82a7d3cafa48fd643168c2b2c6c83b018');
+  },
+
+  methods: {
+    ...mapActions({
+      fetch: 'transactionsByAddress/fetchByAddress'
+    })
+  },
+
 };
 </script>
 

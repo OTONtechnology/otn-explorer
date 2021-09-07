@@ -26,20 +26,31 @@ module.exports = {
         ignore: []
       }
     ],
-    "vue/html-self-closing": [
-      "off",
+    // 'vue/html-self-closing': [
+    //   'error',
+    //   {
+    //     html: {
+    //       void: 'always',
+    //       normal: 'never',
+    //       component: 'always',
+    //     },
+    //     svg: 'always',
+    //     math: 'always',
+    //   },
+    // ],
+    "max-len": 0,
+    "import/newline-after-import": "off",
+    "no-param-reassign": ["error", { props: false }],
+    "vue/html-self-closing": "off",
+    "vue/singleline-html-element-content-newline": [
+      "error",
       {
-        html: {
-          void: "never",
-          normal: "never",
-          component: "always"
-        },
-        svg: "always",
-        math: "always"
+        ignoreWhenNoAttributes: true,
+        ignoreWhenEmpty: true,
+        ignores: ["pre", "textarea", "template"]
       }
     ],
-    "max-len": 0,
-    "import/newline-after-import": "off"
+    "no-shadow": "off"
   },
   settings: {
     "import/resolver": {
