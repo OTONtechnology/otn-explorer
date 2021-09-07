@@ -13,7 +13,7 @@ export const actions = {
     const transactions = await this.$axios.$get(
       `/address/${address}/transactions`
     );
-    console.info(transactions);
+
     commit("UPDATE_TRANSACTIONS", transactions);
   }
 };
