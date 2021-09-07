@@ -1,23 +1,22 @@
 <template>
-  <transition name="home">
-    <div
-      class="headerSearch"
-      :class="{ headerSearch_homepage: $route.path === '/' }"
-    >
-      <div class="headerSearch__box">
-        <div class="headerSearch__inputBox">
-          <input
-            class="headerSearch__input"
-            type="search"
-            :placeholder="$t('Transaction or Address')"
-          />
-        </div>
-        <button class="headerSearch__button" type="button">
-          <svg-icon name="common/search" class="headerSearch__icon" />
-        </button>
+  <div
+    class="headerSearch"
+    :class="{ headerSearch_homepage: $route.path === '/' }"
+  >
+    <form class="headerSearch__box">
+      <div class="headerSearch__inputBox">
+        <input
+          v-model="searchText"
+          class="headerSearch__input"
+          type="search"
+          :placeholder="$t('Transaction or Address')"
+        />
       </div>
-    </div>
-  </transition>
+      <button class="headerSearch__button" type="button">
+        <svg-icon name="common/search" class="headerSearch__icon" />
+      </button>
+    </form>
+  </div>
 </template>
 
 <script>
@@ -28,6 +27,13 @@ export default {
       type: Boolean,
     },
   },
+  data: () => ({
+    searchText: '',
+  }),
+  methods: {
+    onSearch() {
+    },
+  }
 };
 </script>
 

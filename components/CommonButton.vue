@@ -4,11 +4,7 @@
       <slot v-if="$slots.icon" name="icon" />
       <slot>{{ $t("More") }}</slot>
     </button>
-    <nuxt-link
-      v-else
-      :to="localePath(href)"
-      class="tableButton"
-    >
+    <nuxt-link v-else :to="localePath(href)" class="tableButton">
       <slot>{{ $t("All Transactions") }}</slot>
     </nuxt-link>
   </div>
@@ -32,14 +28,14 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-
 .tableButton {
   display: grid;
   grid-auto-flow: column;
-  grid-column-gap: 5px
+  grid-column-gap: 5px;
   align-items: center;
+  margin-top: 14px;
   padding: 7px 12px;
-  width fit-content
+  width: fit-content;
   border-radius: 4px;
   background-color: $colorFontBase;
   getFont('transactionButton');

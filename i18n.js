@@ -7,10 +7,10 @@ const defaultDatesFormat = {
   },
 }
 
-const datetimeFormats = {};
+const dateTimeFormats = {};
 
 allowedLangs.forEach((l) => {
-  datetimeFormats[l] = defaultDatesFormat;
+  dateTimeFormats[l] = defaultDatesFormat;
 });
 
 export default () => ({
@@ -45,5 +45,5 @@ export default () => ({
       return (choicesLength < 4) ? 2 : 3;
     }
   },
-  datetimeFormats
+  dateTimeFormats
 })

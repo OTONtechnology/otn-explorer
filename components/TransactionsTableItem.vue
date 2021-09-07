@@ -1,7 +1,7 @@
 <template>
-  <div class="transactionsTableItem" :to="localePath('/transaction')">
-    <span class="transactionsTableItem__cell">
-      {{ index === 0 ? $d(row.date) : "" }}
+  <div class="transactionsTableItem">
+    <span class="transactionsTableItem__cell transactionsTableItem__cell_date">
+      {{ row.showDate ? row.date : "" }}
     </span>
     <span class="transactionsTableItem__cell">
       {{ row.time }}
@@ -94,10 +94,6 @@ export default {
       type: Object,
       required: true,
     },
-    index: {
-      type: Number,
-      required: true,
-    },
   },
 };
 </script>
@@ -106,6 +102,11 @@ export default {
 .transactionsTableItem {
   position: relative;
   z-index: 3;
+  margin-right: -4px;
+  margin-left: -4px;
+  padding-right: 4px;
+  padding-left: 4px;
+  border-radius: 2px;
 
   &:hover {
     background-color: $colorBg;
