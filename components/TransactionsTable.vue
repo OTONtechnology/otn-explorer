@@ -51,10 +51,6 @@ export default {
     &_transactions {
       transactionsGrid();
     }
-
-    &_addresses {
-      addressGrid();
-    }
   }
 
   &__button {

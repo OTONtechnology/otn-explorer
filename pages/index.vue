@@ -9,11 +9,11 @@
 </template>
 
 <script>
-import rowsGroupByDay from "@/mixins/rowsGroupByDay";
+import transactionsGroupByDay from "~/mixins/transactionsGroupByDay";
 
 export default {
   name: "HomePage",
-  mixins: [rowsGroupByDay],
+  mixins: [transactionsGroupByDay],
   layout: "base",
   data() {
     return {
@@ -29,7 +29,6 @@ export default {
       ],
       transactionRows: [
         {
-          id: "1",
           timestamp: "1629474423",
           hash: "0x40160a8130ff838e5659d48b58b6c17651011f05",
           type: "Transfer",
@@ -43,7 +42,6 @@ export default {
           ],
         },
         {
-          id: "2",
           timestamp: "1629468603",
           hash: "0x5647830ff838e5659d48b58b636617651011f00",
           type: "Transfer",
@@ -61,7 +59,6 @@ export default {
           ],
         },
         {
-          id: "3",
           timestamp: "1629379680",
           hash: "0x40160a8130ff838e5659d48b58b6c17651011f05",
           type: "Distribution",
@@ -81,7 +78,6 @@ export default {
           ],
         },
         {
-          id: "4",
           timestamp: "1629376868",
           hash: "0x5647830ff838e5659d48b58b636617651011f00",
           type: "Distribution",

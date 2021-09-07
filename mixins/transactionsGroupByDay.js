@@ -16,7 +16,6 @@ export default {
       const mappedRows = this.transactionRows.map(({ ...row }) => ({
         ...row,
 
-        id: row.id,
         date: row.timestamp * 1000,
         hash: row.hash,
         type: row.type,

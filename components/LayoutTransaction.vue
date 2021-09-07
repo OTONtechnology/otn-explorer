@@ -34,14 +34,14 @@
         </span>
         <template v-for="sender in row.senders">
           <nuxt-link
-            :key="sender.address"
+            :key="sender.id + sender.address"
             class="transactionTableBody__link"
             :to="localePath('/address')"
           >
             {{ sender.address }}
           </nuxt-link>
           <div
-            :key="sender.address + sender.currName"
+            :key="sender.id + sender.currAmount + sender.currName"
             class="transactionTable__cell transactionTable__cellSum"
           >
             <div
@@ -68,14 +68,14 @@
         </span>
         <template v-for="recipient in row.recipients">
           <nuxt-link
-            :key="recipient.address"
+            :key="recipient.id + recipient.address"
             class="transactionTableBody__link"
             :to="localePath('/address')"
           >
             {{ recipient.address }}
           </nuxt-link>
           <div
-            :key="recipient.address + recipient.currName"
+            :key="recipient.id + recipient.currAmount + recipient.currName"
             class="transactionTable__cell transactionTable__cellSum"
           >
             <div
