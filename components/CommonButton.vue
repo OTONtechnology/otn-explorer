@@ -33,7 +33,7 @@ export default {
   grid-auto-flow: column;
   grid-column-gap: 5px;
   align-items: center;
-  margin-top: 12px;
+  margin-top: 14px;
   padding: 7px 12px;
   width: fit-content;
   border-radius: 4px;

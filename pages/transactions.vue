@@ -3,13 +3,16 @@
     <template #title>
       {{ $t("Transactions") }}
     </template>
-    <TransactionsTable :titles="transactionTitles" :rows="rowsGroupByDay" />
+    <TransactionsTable
+      :titles="transactionTitles"
+      :rows="transactionsGroupByDay"
+    />
     <CommonButtonMore class="table__button" />
   </CommonContentBlockWrapper>
 </template>
 
 <script>
-import transactionsGroupByDay from "~/mixins/transactionsGroupByDay";
+import transactionsGroupByDay from "@/mixins/transactionsGroupByDay";
 
 export default {
   name: "TransactionsPage",
@@ -60,7 +63,7 @@ export default {
         },
         {
           timestamp: "1629379680",
-          hash: "0x40160a8130ff838e5659d48b58b6c17651011f05",
+          hash: "0x40160a8130ff838e5659d48b58b6c17651011f06",
           type: "Distribution",
           from: ["0x440a814533056ff838e56", "0x67343454358130ff838e71"],
           to: [
@@ -79,7 +82,7 @@ export default {
         },
         {
           timestamp: "1629376868",
-          hash: "0x5647830ff838e5659d48b58b636617651011f00",
+          hash: "0x5647830ff838e5659d48b58b636617651011f07",
           type: "Distribution",
           from: [
             "0x440a814533056ff838e56",
