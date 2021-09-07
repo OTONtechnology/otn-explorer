@@ -1,8 +1,5 @@
 <template>
-  <div
-    class="headerSearch"
-    :class="{ headerSearch_homepage: $route.path === '/' }"
-  >
+  <div class="headerSearch" :class="{ headerSearch_homepage: homepage }">
     <form class="headerSearch__box">
       <div class="headerSearch__inputBox">
         <input
@@ -22,14 +19,19 @@
 <script>
 export default {
   name: "HeaderSearch",
-  props: {
-    homepage: {
-      type: Boolean,
-    },
-  },
   data: () => ({
     searchText: '',
   }),
+  computed: {
+    homepage() {
+      if (this.$route.path === '/') return true
+      if (this.$route.path === '/ru') return true
+      if (this.$route.path === '/en') return true
+      if (this.$route.path === '/de') return true
+      if (this.$route.path === '/tr') return true
+      return false
+    }
+  },
   methods: {
     onSearch() {
     },
