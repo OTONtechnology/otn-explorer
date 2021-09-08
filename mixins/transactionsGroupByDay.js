@@ -1,11 +1,11 @@
-import dayjs from "dayjs";
+import dayjs from 'dayjs';
 
 export default {
   data() {
     return {
       format: {
-        day: "YYYY-MM-DD",
-        time: "HH:mm"
+        day: 'YYYY-MM-DD',
+        time: 'HH:mm'
       }
     };
   },
@@ -26,7 +26,7 @@ export default {
 
         return {
           ...row,
-          date: this.$d(row.timestamp * 1000, "loopShortFirst"),
+          date: this.$d(row.timestamp * 1000, 'loopShortFirst'),
           showDate,
           time: dayjs.unix(row.timestamp).format(this.format.time)
         };

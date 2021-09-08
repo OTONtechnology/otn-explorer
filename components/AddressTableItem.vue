@@ -1,7 +1,7 @@
 <template>
   <div class="addressTableItem">
     <span class="addressTableItem__cell">
-      {{ index === 0 ? $d(row.date) : "" }}
+      {{ row.showDate ? row.date : "" }}
     </span>
     <span class="addressTableItem__cell">
       {{ row.time }}
@@ -51,7 +51,9 @@
         :key="sumItem.name"
         class="addressTableItem__sumInner"
       >
-        <span>{{ sumItem.amount }}</span>
+        <span :class="{ success: !row.isSender, danger: row.isSender }">
+          {{ sumItem.amount }}
+        </span>
         <span>{{ sumItem.name }}</span>
       </div>
     </div>
@@ -60,7 +62,7 @@
 
 <script>
 export default {
-  name: "AddressTableItem",
+  name: 'AddressTableItem',
   props: {
     row: {
       type: Object,
@@ -96,6 +98,8 @@ export default {
   }
 
   &__cell {
+    overflow: hidden;
+
     &_pseudoEl {
       position: relative;
       z-index: 1;
@@ -143,6 +147,14 @@ export default {
       width: calc(100% - 44px);
       overflow: hidden;
       text-overflow: ellipsis;
+
+      &.success {
+        color: $colorSuccess;
+      }
+
+      &.danger {
+        color: $colorDanger;
+      }
     }
 
     span:last-of-type {

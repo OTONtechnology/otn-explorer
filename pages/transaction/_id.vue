@@ -14,14 +14,14 @@ import { mapActions, mapGetters, mapState } from 'vuex';
 
 export default {
   name: 'TransactionPage',
-  layout: "base",
+  layout: 'base',
   data() {
     return {
       transactionTitles: [
-        { name: "date", text: "Date and Time, UTC" },
-        { name: "type", text: "Type" },
-        { name: "addresses", text: "Addresses" },
-        { name: "sum", text: "Sum" },
+        { name: 'date', text: 'Date and Time, UTC' },
+        { name: 'type', text: 'Type' },
+        { name: 'addresses', text: 'Addresses' },
+        { name: 'sum', text: 'Sum' },
       ],
 
     };

@@ -2,23 +2,33 @@
   <div class="address">
     <CopyHash hash="0x47830ff838e5659d48b5658b636617651011f00" />
     <div class="addressInfo">
-      <span
-        v-for="title in infoTitles"
-        :key="title.name"
-        class="addressInfo__cell addressInfo__title"
-      >
-        {{ $t(title.text) }}
-      </span>
-      <template v-for="headRow in headRows">
-        <span :key="headRow.received" class="address__cell">
+      <template v-if="headRows.length > 0">
+        <span
+          v-for="(title, i) in infoTitles"
+          :key="title.name + i"
+          class="addressInfo__cell addressInfo__title"
+        >
+          {{ $t(title.text) }}
+        </span>
+      </template>
+      <template v-for="(headRow, i) in headRows">
+        <span
+          v-if="/number|string/.test(typeof headRow.received)"
+          :key="headRow.received + i"
+          class="address__cell"
+        >
           {{ headRow.received }}
         </span>
-        <span :key="headRow.sent" class="address__cell">
+        <span
+          v-if="/number|string/.test(typeof headRow.sent)"
+          :key="headRow.sent + i + 1"
+          class="address__cell"
+        >
           {{ headRow.sent }}
         </span>
         <div :key="headRow.currName" class="address__cell address__cellSum">
           <div class="addressBody__text address__cellSumInner">
-            <span>{{ headRow.received - headRow.sent }}</span>
+            <span>{{ headRow.balance }}</span>
             <span>{{ headRow.currName }}</span>
           </div>
         </div>
@@ -27,11 +37,11 @@
     <div class="addressBody">
       <div class="addressButtonGroups">
         <RadioGroup :buttons="btns" @pick="radioPick" />
-        <RadioGroup
+        <!-- <RadioGroup
           :buttons="btnsCurrNames"
           :uppercase="true"
           @pick="radioPick"
-        />
+        /> -->
       </div>
       <div class="addressTable">
         <TableHead
@@ -39,19 +49,14 @@
           :titles="tableTitles"
           :lastCellMR="true"
         />
-        <div
-          v-for="day in rows"
-          :key="day[0].dateDay"
-          class="addressTable__bodyDay"
-        >
-          <AddressTableItem
-            v-for="(row, index) in day"
-            :key="row.id"
-            :row="row"
-            :index="index"
-            class="addressTable__box"
-          />
-        </div>
+
+        <AddressTableItem
+          v-for="(row, index) in filteredRows"
+          :key="row.id"
+          :row="row"
+          :index="index"
+          class="addressTable__box"
+        />
       </div>
     </div>
   </div>
@@ -59,7 +64,7 @@
 
 <script>
 export default {
-  name: "LayoutAddress",
+  name: 'LayoutAddress',
   props: {
     infoTitles: {
       type: Array,
@@ -81,30 +86,46 @@ export default {
   data() {
     return {
       btns: {
-        name: "btns",
+        name: 'btns',
+        active: 'all',
         array: [
-          { name: "all", text: "All" },
-          { name: "received", text: "Received" },
-          { name: "sent", text: "Sent" },
+          { name: 'all', text: 'All' },
+          { name: 'received', text: 'Received' },
+          { name: 'sent', text: 'Sent' },
         ],
       },
       btnsCurrNames: {
-        name: "btnsCurrNames",
+        name: 'btnsCurrNames',
+        active: 'currsAll',
         array: [
-          { name: "currsAll", text: "All" },
-          { name: "ebp", text: "EBP" },
-          { name: "rank", text: "RANK" },
-          { name: "cp", text: "CP" },
-          { name: "pct", text: "PCT" },
+          { name: 'currsAll', text: 'All' },
+          { name: 'ebp', text: 'EBP' },
+          { name: 'rank', text: 'RANK' },
+          { name: 'cp', text: 'CP' },
+          { name: 'pct', text: 'PCT' },
         ],
       },
     };
   },
+  computed: {
+    filteredRows() {
+      if (this.btns.active === 'all') {
+        return this.rows
+      }
+      return this.rows.filter(({ isSender }) => {
+        if (this.btns.active === 'received') {
+          return !isSender
+        }
+
+        return isSender
+      });
+    }
+  },
   methods: {
     radioPick(name) {
-      console.log(`radio: ${name}`);
+      this.btns.active = name;
     },
-  },
+  }
 };
 </script>
 

@@ -4,7 +4,7 @@
 
 <script>
 export default {
-  name: 'Error',
+  name: 'SearchError',
   layout: 'base',
 };
 </script>

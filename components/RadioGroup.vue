@@ -1,11 +1,11 @@
 <template>
   <div class="radioGroup" :class="{ radioGroup_uppercase: uppercase }">
-    <label v-for="(btn, i) in buttons.array" :key="btn.name" class="radioLabel">
+    <label v-for="btn in buttons.array" :key="btn.name" class="radioLabel">
       <input
         type="radio"
         :name="buttons.name"
         class="radioInput"
-        :checked="i === selectedRadio"
+        :checked="buttons.active === btn.name"
         @change="pick(btn.name)"
       />
       <span class="radioText">
@@ -17,7 +17,7 @@
 
 <script>
 export default {
-  name: "AddressButtonGroup",
+  name: 'AddressButtonGroup',
   props: {
     buttons: {
       type: Object,
@@ -28,14 +28,10 @@ export default {
       default: false,
     },
   },
-  data() {
-    return {
-      selectedRadio: 0,
-    };
-  },
+
   methods: {
     pick(name) {
-      this.$emit("pick", name);
+      this.$emit('pick', name);
     },
   },
 };

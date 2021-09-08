@@ -1,38 +1,38 @@
-import dayjs from "dayjs";
-import { groupBy, prop, reverse } from "rambda";
-import getArrayFromObjectArray from "@/utils/getArrayFromObjectArray";
+import dayjs from 'dayjs';
 
 export default {
   data() {
     return {
       format: {
-        day: "YYYY-MM-DD",
-        time: "HH:mm",
-      },
+        day: 'YYYY-MM-DD',
+        time: 'HH:mm'
+      }
     };
   },
   computed: {
     addressGroupByDay() {
-      const mappedRows = this.addressRows.map(({ ...row }) => ({
-        ...row,
+      let currentDay = 0;
+      const mappedRows = this.addressRows.map(({ ...row }) => {
+        const dateDay = dayjs(
+          dayjs.unix(row.timestamp).format(this.format.day),
+          this.format.day
+        ).unix();
 
-        date: row.timestamp * 1000,
-        hash: row.hash,
-        type: row.type,
-        senderRecipient: row.senderRecipient,
-        sum: row.sum,
-        dateDay: String(
-          dayjs(
-            dayjs.unix(row.timestamp).format(this.format.day),
-            this.format.day
-          ).unix()
-        ),
-        time: dayjs.unix(row.timestamp).format(this.format.time),
-      }));
-      const rowsObjGroupByDay = groupBy(prop("dateDay"), mappedRows);
-      const rowsArrayGroupByDay = getArrayFromObjectArray(rowsObjGroupByDay);
+        const showDate = currentDay !== dateDay;
 
-      return reverse(rowsArrayGroupByDay);
-    },
-  },
-}
+        if (showDate) {
+          currentDay = dateDay;
+        }
+
+        return {
+          ...row,
+          date: this.$d(row.timestamp * 1000, 'loopShortFirst'),
+          showDate,
+          time: dayjs.unix(row.timestamp).format(this.format.time)
+        };
+      });
+
+      return mappedRows;
+    }
+  }
+};

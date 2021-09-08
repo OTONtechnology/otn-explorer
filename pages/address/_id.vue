@@ -3,106 +3,124 @@
     <template #title>
       {{ $t("Address") }}
     </template>
-    <LayoutAddress
-      :infoTitles="addressInfoTitles"
-      :tableTitles="addressTableTitles"
-      :rows="addressGroupByDay"
-      :headRows="addressHeadRows"
-    />
-    <CommonButtonMore class="table__button" />
+    <WithLoader :state="balanceState">
+      <WithLoader :state="transactionsState">
+        <div>
+          <LayoutAddress
+            :infoTitles="addressInfoTitles"
+            :tableTitles="addressTableTitles"
+            :rows="addressGroupByDay"
+            :headRows="addressHeadRows"
+          />
+          <CommonButtonMore class="table__button" />
+        </div>
+      </WithLoader>
+    </WithLoader>
   </CommonContentBlockWrapper>
 </template>
 
 <script>
-import addressGroupByDay from "@/mixins/addressGroupByDay";
+import { mapActions, mapState } from 'vuex';
+import { prop, propEq } from 'rambda';
+import addressGroupByDay from '@/mixins/addressGroupByDay';
+import { FULFILLED } from '~/utils/constants';
+
 export default {
-  name: "AddressPage",
+  name: 'AddressPage',
   mixins: [addressGroupByDay],
-  layout: "base",
-  data() {
-    return {
-      addressInfoTitles: [
-        { name: "totalReceived", text: "Total Received" },
-        { name: "totalSent", text: "Total Sent" },
-        { name: "balances", text: "Balances" },
-      ],
-      addressTableTitles: [
-        { name: "date", text: "Date" },
-        { name: "time, UTC", text: "Time, UTC" },
-        { name: "hash", text: "Hash" },
-        { name: "type", text: "Type" },
-        { senderRecipient: "from", text: "Sender/Recipient" },
-        { name: "sum", text: "Sum" },
-      ],
-      addressHeadRows: [
-        { received: 44152, sent: 52, currName: "EBP" },
-        { received: 84, sent: 0, currName: "RANK" },
-        { received: 1629, sent: 784, currName: "CP" },
-        { received: 285, sent: 11, currName: "PCT" },
-      ],
-      addressRows: [
-        {
-          timestamp: "1629474423",
-          hash: "0x40160a8130ff838e5659d48b58b6c17651011f05",
-          type: "Distribution",
-          senderRecipient: ["0x440a814533056ff838e534838e5659d48b5456"],
-          sum: [
-            {
-              name: "EBP",
-              amount: 241,
-            },
-            {
-              name: "RANK",
-              amount: 2,
-            },
-          ],
-        },
-        {
-          timestamp: "1629468603",
-          hash: "0x40160a8130ff838e5659d48b58b6c17651011f05",
-          type: "Transfer",
-          senderRecipient: ["0x440a814533056ff838e534838e5659d48b5456"],
-          sum: [
-            {
-              name: "EBP",
-              amount: 241,
-            },
-          ],
-        },
-        {
-          timestamp: "1629379680",
-          hash: "0x40160a8130ff838e5659d48b58b6c17651011f05",
-          type: "Transfer",
-          senderRecipient: ["0x440a814533056ff838e534838e5659d48b5456"],
-          sum: [
-            {
-              name: "EBP",
-              amount: 12,
-            },
-          ],
-        },
-        {
-          timestamp: "1629376868",
-          hash: "0x40160a8130ff838e5659d48b58b6c17651011f05",
-          type: "Distribution",
-          senderRecipient: ["0x440a814533056ff838e534838e5659d48b5456"],
-          sum: [
-            {
-              name: "EBP",
-              amount: 241,
-            },
-            {
-              name: "RANK",
-              amount: 2,
-            },
-            {
-              name: "CP",
-              amount: 2,
-            },
-          ],
-        },
-      ],
-    };
+  layout: 'base',
+
+  computed: {
+    ...mapState({
+      balanceState: state => state.addressBalance.fetchState,
+      transactionsState: state => state.addressTransactions.fetchState,
+
+      balanceData: state => state.addressBalance.balance,
+      transactionsData: state => state.addressTransactions.transactions,
+    }),
+
+    addressInfoTitles() {
+      const result = [];
+
+      const hasReceived = this.addressHeadRows.some(({ received }) => typeof received !== 'undefined');
+      const hasSent = this.addressHeadRows.some(({ sent }) => typeof sent !== 'undefined');
+
+      if (hasReceived) {
+        result.push({ name: 'totalReceived', text: 'Total Received' });
+      }
+      if (hasSent) {
+        result.push({ name: 'totalSent', text: 'Total Sent' },);
+      }
+
+      return [
+        ...result,
+        { name: 'balances', text: 'Balances' },
+      ]
+    },
+    addressHeadRows() {
+      if (this.transactionsState !== FULFILLED || this.balanceState !== FULFILLED) {
+        return [];
+      }
+
+      const currencies = {};
+
+      (this.transactionsData || []).forEach(trn => {
+        currencies.id = trn.id;
+      });
+
+      const balances = Object.keys(this.balanceData || {});
+
+      return balances.map(key => ({
+        received: 'n/a',
+        sent: 'n/a',
+        currName: key,
+        balance: this.balanceData[key]
+      }));
+    },
+    addressTableTitles: () => ([
+      { name: 'date', text: 'Date' },
+      { name: 'time, UTC', text: 'Time, UTC' },
+      { name: 'hash', text: 'Hash' },
+      { name: 'type', text: 'Type' },
+      { senderRecipient: 'from', text: 'Sender/Recipient' },
+      { name: 'sum', text: 'Sum' },
+    ]),
+    addressRows() {
+      const currentAddress = this.$route.params.id;
+
+      return [
+        ...this.transactionsData.map(trn => {
+          const isSender = trn.inputs.some(input => input.address === currentAddress);
+
+          const sumData = isSender ? trn.inputs : trn.outputs;
+
+          return {
+            isSender,
+            timestamp: trn.block.timestamp,
+            hash: trn.id,
+            type: trn.type,
+            senderRecipient: sumData.map(prop('address')),
+            sum: sumData.filter(propEq('address', currentAddress)).map(d => ({
+              name: d.ticker,
+              amount: d.amount,
+            })),
+
+          }
+        })
+      ];
+    },
+  },
+  mounted() {
+    const address = this.$route.params.id;
+    this.fetchBalance(address);
+    this.fetchTransactions(address);
+  },
+
+  methods: {
+    ...mapActions({
+      fetchBalance: 'addressBalance/fetch',
+      fetchTransactions: 'addressTransactions/fetch'
+    })
   },
 };
 </script>

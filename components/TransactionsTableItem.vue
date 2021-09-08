@@ -78,7 +78,7 @@
     <div class="transactionsTableItem__cell transactionsTableItem__sum">
       <div
         v-for="sumItem in row.sum"
-        :key="sumItem.name"
+        :key="sumItem.name + sumItem.amount"
         class="transactionsTableItem__sumInner"
       >
         <span>{{ sumItem.amount }}</span>
@@ -90,7 +90,7 @@
 
 <script>
 export default {
-  name: "TransactionsTableItem",
+  name: 'TransactionsTableItem',
   props: {
     row: {
       type: Object,

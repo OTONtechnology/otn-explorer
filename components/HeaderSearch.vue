@@ -1,6 +1,6 @@
 <template>
   <div class="headerSearch" :class="{ headerSearch_homepage: isHomepage }">
-    <form class="headerSearch__box">
+    <form class="headerSearch__box" @submit.prevent="onSearch">
       <div class="headerSearch__inputBox">
         <input
           v-model="searchText"
@@ -9,7 +9,7 @@
           :placeholder="$t('Transaction or Address')"
         />
       </div>
-      <button class="headerSearch__button" type="button">
+      <button class="headerSearch__button" type="submit">
         <svg-icon name="common/search" class="headerSearch__icon" />
       </button>
     </form>
@@ -18,7 +18,7 @@
 
 <script>
 export default {
-  name: "HeaderSearch",
+  name: 'HeaderSearch',
   data: () => ({
     searchText: '',
   }),
@@ -29,6 +29,21 @@ export default {
   },
   methods: {
     onSearch() {
+      const searchLength = this.searchText.length;
+      let searchPage = '';
+
+      switch (searchLength) {
+        case 64:
+          searchPage = { name: 'transaction-id', params: { id: this.searchText } };
+          break;
+        case 40:
+          searchPage = { name: 'address-id', params: { id: this.searchText } };
+          break;
+        default:
+          searchPage = 'searchError';
+      }
+      console.info(searchPage);
+      this.$router.push(this.localePath(searchPage));
     },
   }
 };

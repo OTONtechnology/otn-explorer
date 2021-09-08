@@ -1,6 +1,6 @@
 <template>
   <div class="transactionTable">
-    <CopyHash :hash="row.hash" />
+    <CopyHash :hash="row.id" />
     <div class="transactionTableInfo">
       <TableHead
         class="transactionTableInfo__head transactionTableInfo__box"
@@ -9,15 +9,15 @@
       />
       <div class="transactionTableInfo__box">
         <span class="transactionTable__cell">
-          {{ row.date }}, {{ row.time }}
+          {{ $d(row.block.timestamp * 1000, "transactionDate") }}
         </span>
         <span class="transactionTable__cell">
           {{ $t(row.type) }}
         </span>
         <div class="transactionTable__cell transactionTable__cellSum">
           <div class="transactionTable__cellSumInner">
-            <span>245</span>
-            <span>EBP</span>
+            <span>{{ row.total }}</span>
+            <span>{{ row.inputs[0].ticker }}</span>
           </div>
         </div>
       </div>
@@ -32,23 +32,23 @@
         >
           {{ $t("Sum") }}
         </span>
-        <template v-for="sender in row.senders">
+        <template v-for="input in row.inputs">
           <nuxt-link
-            :key="sender.id + sender.address"
+            :key="input.address + 'address'"
             class="transactionTableBody__link"
-            :to="localePath('/address')"
+            :to="localePath(`/address/${input.address}`)"
           >
-            {{ sender.address }}
+            {{ input.address }}
           </nuxt-link>
           <div
-            :key="sender.id + sender.currAmount + sender.currName"
+            :key="input.address + 'sum'"
             class="transactionTable__cell transactionTable__cellSum"
           >
             <div
               class="transactionTableBody__text transactionTable__cellSumInner"
             >
-              <span>{{ sender.currAmount }}</span>
-              <span>{{ sender.currName }}</span>
+              <span>{{ input.amount }}</span>
+              <span>{{ input.ticker }}</span>
             </div>
           </div>
         </template>
@@ -66,23 +66,23 @@
         >
           {{ $t("Sum") }}
         </span>
-        <template v-for="recipient in row.recipients">
+        <template v-for="output in row.outputs">
           <nuxt-link
-            :key="recipient.id + recipient.address"
+            :key="output.address + 'address'"
             class="transactionTableBody__link"
-            :to="localePath(`/address/${recipient.address}`)"
+            :to="localePath(`/address/${output.address}`)"
           >
-            {{ recipient.address }}
+            {{ output.address }}
           </nuxt-link>
           <div
-            :key="recipient.id + recipient.currAmount + recipient.currName"
+            :key="output.address + 'sum'"
             class="transactionTable__cell transactionTable__cellSum"
           >
             <div
               class="transactionTableBody__text transactionTable__cellSumInner"
             >
-              <span>{{ recipient.currAmount }}</span>
-              <span>{{ recipient.currName }}</span>
+              <span>{{ output.amount }}</span>
+              <span>{{ output.ticker }}</span>
             </div>
           </div>
         </template>
@@ -93,7 +93,7 @@
 
 <script>
 export default {
-  name: "LayoutTransaction",
+  name: 'LayoutTransaction',
   props: {
     titles: {
       type: Array,
@@ -107,8 +107,8 @@ export default {
   data() {
     return {
       format: {
-        day: "YYYY-MM-DD",
-        time: "HH:mm",
+        day: 'YYYY-MM-DD',
+        time: 'HH:mm',
       },
     };
   },

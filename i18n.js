@@ -1,9 +1,16 @@
-import allowedLangs from "./langs/allowedLangs";
+import allowedLangs from './langs/allowedLangs';
 
 const defaultDatesFormat = {
   loopShortFirst: {
-    month: "short",
-    day: "numeric"
+    month: 'short',
+    day: 'numeric'
+  },
+  transactionDate: {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+    hour: 'numeric',
+    minute: 'numeric'
   }
 };
 

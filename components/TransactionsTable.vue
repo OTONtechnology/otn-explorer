@@ -16,7 +16,7 @@
 
 <script>
 export default {
-  name: "LayoutTable",
+  name: 'LayoutTable',
   props: {
     titles: {
       type: Array,

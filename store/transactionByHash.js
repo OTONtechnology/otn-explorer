@@ -1,7 +1,8 @@
-import { isEmpty, prop } from "rambda";
+import Decimal from 'decimal.js';
+import { isEmpty } from 'rambda';
 import {
   FULFILLED, INIT, PENDING, REJECTED
-} from "~/utils/constants";
+} from '~/utils/constants';
 
 const initState = {
   fetchState: INIT,
@@ -50,43 +51,44 @@ export const getters = {
      *       initiator: null
      *     }
      *   ],
-     *   outputs: []
+     *   outputs: [
+     *    {
+     *      address: "d0320dedbc35cc0769772dae3abdd85ec6b01d2b"
+     *      amount: "0.0050"
+     *      ticker: "bitboneCoin"
+     *    }
+     *  ]
      * };
      */
 
     return {
       ...transaction,
-
-      date: transaction.block.timestamp,
-
-      hash: transaction.block.hash,
-      type: "Distribution",
-      from: transaction.inputs[0].address,
-      to: transaction.outputs.map(prop("address")),
-      sum: transaction.inputs[0].amount
+      total: transaction.inputs
+        .reduce((prev, { amount }) => prev.plus(amount), new Decimal(0))
+        .toNumber()
     };
   }
 };
 
 export const actions = {
   async fetchByHash({ commit }, hash) {
-    if (typeof hash !== "string" || hash.length !== 64) {
-      commit("SET_STATE", REJECTED);
+    if (typeof hash !== 'string' || hash.length !== 64) {
+      commit('SET_STATE', REJECTED);
     }
 
     if (state.fetchState === PENDING) {
       return;
     }
 
-    commit("SET_STATE", PENDING);
+    commit('SET_STATE', PENDING);
 
     try {
       const response = await this.$axios.$get(`/transaction/${hash}`);
 
-      commit("UPDATE_TRANSACTION", response.data);
-      commit("SET_STATE", FULFILLED);
+      commit('UPDATE_TRANSACTION', response.data);
+      commit('SET_STATE', FULFILLED);
     } catch (err) {
-      commit("SET_STATE", REJECTED);
+      commit('SET_STATE', REJECTED);
       console.error(err);
     }
   }
