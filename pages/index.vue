@@ -3,11 +3,15 @@
     <template #title>
       {{ $t("Latest Transactions") }}
     </template>
-    <TransactionsTable
-      :titles="transactionTitles"
-      :rows="transactionsGroupByDay"
-    />
-    <CommonButton href="/transactions" :button="false" />
+    <WithLoader :state="fetchState">
+      <div>
+        <TransactionsTable
+          :titles="transactionTitles"
+          :rows="transactionsGroupByDay"
+        />
+        <CommonButton href="/transactions" :button="false" />
+      </div>
+    </WithLoader>
   </CommonContentBlockWrapper>
 </template>
 
