@@ -17,7 +17,9 @@
         <div class="transactionTable__cell transactionTable__cellSum">
           <div class="transactionTable__cellSumInner">
             <span>{{ row.total }}</span>
-            <span>{{ row.inputs[0].ticker }}</span>
+            <span :title="row.inputs[0].ticker.toUpperCase()">{{
+              row.inputs[0].ticker
+            }}</span>
           </div>
         </div>
       </div>
@@ -48,7 +50,9 @@
               class="transactionTableBody__text transactionTable__cellSumInner"
             >
               <span>{{ input.amount }}</span>
-              <span>{{ input.ticker }}</span>
+              <span :title="input.ticker.toUpperCase()">{{
+                input.ticker
+              }}</span>
             </div>
           </div>
         </template>
@@ -82,7 +86,9 @@
               class="transactionTableBody__text transactionTable__cellSumInner"
             >
               <span>{{ output.amount }}</span>
-              <span>{{ output.ticker }}</span>
+              <span :title="output.ticker.toUpperCase()">{{
+                output.ticker
+              }}</span>
             </div>
           </div>
         </template>
@@ -126,7 +132,8 @@ export default {
   &__box {
     display: grid;
     grid-gap: 4px 30px;
-    grid-template-columns: 155px 80px 78px;
+    // grid-template-columns: 155px 80px 78px;
+    grid-template-columns: 155px 80px 120px;
   }
 }
 
@@ -148,7 +155,8 @@ export default {
 
     span:first-of-type {
       display: inline-block;
-      width: calc(100% - 44px);
+      // width: calc(100% - 44px);
+      width: calc(100% - 65px);
       overflow: hidden;
       text-overflow: ellipsis;
     }
@@ -156,10 +164,13 @@ export default {
     span:last-of-type {
       display: inline-block;
       margin-left: 4px;
-      width: 40px;
+      // width: 40px;
+      width: 60px;
       opacity: 0.4;
       text-transform: uppercase;
       text-align: left;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
   }
 }
@@ -172,7 +183,8 @@ export default {
   &__box {
     display: grid;
     grid-gap: 4px 30px;
-    grid-template-columns: 265px 78px;
+    // grid-template-columns: 265px 78px;
+    grid-template-columns: 310px 120px;
 
     &_sender {
       .transactionTable__cellSumInner {
@@ -196,7 +208,8 @@ export default {
 
     &_sum {
       text-align: right;
-      margin-right: 44px;
+      // margin-right: 45px;
+      margin-right: 65px;
     }
   }
 
