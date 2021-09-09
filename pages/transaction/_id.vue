@@ -20,7 +20,7 @@ export default {
       transactionTitles: [
         { name: 'date', text: 'Date and Time, UTC' },
         { name: 'type', text: 'Type' },
-        { name: 'addresses', text: 'Addresses' },
+        // { name: 'addresses', text: 'Addresses' },
         { name: 'sum', text: 'Sum' },
       ],
 
