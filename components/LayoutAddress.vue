@@ -1,6 +1,6 @@
 <template>
   <div class="address">
-    <CopyHash hash="0x47830ff838e5659d48b5658b636617651011f00" />
+    <CopyHash :hash="$route.params.id" />
     <div class="addressInfo">
       <template v-if="headRows.length > 0">
         <span
@@ -152,6 +152,11 @@ export default {
 
   &__title {
     opacity: 0.4;
+
+    &:nth-of-type(3) {
+      margin-right: 65px;
+      text-align: right;
+    }
   }
 }
 
@@ -169,6 +174,7 @@ export default {
   }
 
   &__cellSumInner {
+    width: 160px;
     max-height: 18px;
     overflow: hidden;
     display: flex;
@@ -176,7 +182,7 @@ export default {
 
     span:first-of-type {
       display: inline-block;
-      width: calc(100% - 44px);
+      width: calc(100% - 65px);
       overflow: hidden;
       text-overflow: ellipsis;
     }
@@ -184,10 +190,12 @@ export default {
     span:last-of-type {
       display: inline-block;
       margin-left: 4px;
-      width: 40px;
+      width: 60px;
       opacity: 0.4;
       text-transform: uppercase;
       text-align: left;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
   }
 }
