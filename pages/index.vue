@@ -35,7 +35,6 @@ export default {
         { name: 'to', text: '' },
         { name: 'sum', text: 'Sum' },
       ],
-
     };
   },
 

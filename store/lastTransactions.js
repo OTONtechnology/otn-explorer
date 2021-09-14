@@ -1,7 +1,7 @@
-import { isEmpty, prop } from "rambda";
+import { isEmpty, prop } from 'rambda';
 import {
   FULFILLED, INIT, PENDING, REJECTED
-} from "~/utils/constants";
+} from '~/utils/constants';
 
 /**
  * transaction
@@ -59,9 +59,9 @@ export const getters = {
       id: row.id,
       timestamp: row.block.timestamp,
       hash: row.id,
-      type: "Transfer",
-      from: row.inputs.map(prop("address")),
-      to: row.outputs.map(prop("address")),
+      type: 'Transfer',
+      from: row.inputs.map(prop('address')),
+      to: row.outputs.map(prop('address')),
       sum: row.inputs.map(input => ({
         name: input.ticker,
         amount: input.amount
@@ -76,15 +76,15 @@ export const actions = {
       return;
     }
 
-    commit("SET_STATE", PENDING);
+    commit('SET_STATE', PENDING);
 
     try {
-      const transactions = await this.$axios.$get(`/transactions?limit=2`);
+      const transactions = await this.$axios.$get('/transactions?limit=300');
 
-      commit("UPDATE_TRANSACTIONS", transactions.data);
-      commit("SET_STATE", FULFILLED);
+      commit('UPDATE_TRANSACTIONS', transactions.data);
+      commit('SET_STATE', FULFILLED);
     } catch (err) {
-      commit("SET_STATE", REJECTED);
+      commit('SET_STATE', REJECTED);
       console.error(err);
     }
   }
