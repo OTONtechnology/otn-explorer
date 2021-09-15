@@ -15,9 +15,13 @@
           {{ $t(row.type) }}
         </span>
         <div class="transactionTable__cell transactionTable__cellSum">
-          <div class="transactionTable__cellSumInner">
-            <span>{{ row.total }}</span>
-            <span :title="ticker.toUpperCase()">{{ ticker }}</span>
+          <div
+            v-for="total in row.totals"
+            :key="total[0]"
+            class="transactionTable__cellSumInner"
+          >
+            <span>{{ total[1] }}</span>
+            <span :title="total[0].toUpperCase()">{{ total[0] }}</span>
           </div>
         </div>
       </div>
@@ -96,7 +100,6 @@
 </template>
 
 <script>
-import { path } from 'rambda';
 
 export default {
   name: 'LayoutTransaction',
@@ -118,10 +121,6 @@ export default {
       },
     };
   },
-
-  computed: {
-    ticker: (vm) => path('inputs.0.ticker', vm.row) || path('fee.ticker', vm.row) || 'n/a',
-  }
 };
 </script>
 
