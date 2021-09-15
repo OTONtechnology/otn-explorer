@@ -35,9 +35,13 @@ import {
  * }
  */
 
-export const state = () => ({
+const initState = {
   fetchState: INIT,
   transactions: []
+}
+
+export const state = () => ({
+  ...initState
 });
 
 export const mutations = {
@@ -46,7 +50,10 @@ export const mutations = {
   },
   SET_STATE(s, fetchState) {
     s.fetchState = fetchState;
-  }
+  },
+  CLEAR(s) {
+    Object.assign(s, initState);
+  },
 };
 
 export const getters = {

@@ -55,7 +55,7 @@ export const mutations = {
 };
 
 export const actions = {
-  async fetch({ commit }, address) {
+  async fetch({ commit, state }, address) {
     if (typeof address !== 'string' || address.length !== 40) {
       commit('SET_STATE', REJECTED);
     }

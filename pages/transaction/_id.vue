@@ -39,6 +39,10 @@ export default {
     this.fetch(this.$route.params.id);
   },
 
+  destroyed() {
+    this.$store.commit('transactionByHash/CLEAR')
+  },
+
   methods: {
     ...mapActions({
       fetch: 'transactionByHash/fetchByHash'

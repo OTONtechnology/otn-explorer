@@ -116,6 +116,11 @@ export default {
     this.fetchTransactions(address);
   },
 
+  destroyed() {
+    this.$store.commit('addressBalance/CLEAR')
+    this.$store.commit('addressTransactions/CLEAR')
+  },
+
   methods: {
     ...mapActions({
       fetchBalance: 'addressBalance/fetch',

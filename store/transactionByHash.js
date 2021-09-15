@@ -71,7 +71,7 @@ export const getters = {
 };
 
 export const actions = {
-  async fetchByHash({ commit }, hash) {
+  async fetchByHash({ commit, state }, hash) {
     if (typeof hash !== 'string' || hash.length !== 64) {
       commit('SET_STATE', REJECTED);
     }
