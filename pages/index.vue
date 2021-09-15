@@ -51,6 +51,10 @@ export default {
     this.fetch();
   },
 
+  destroyed() {
+    this.$store.commit('lastTransactions/CLEAR')
+  },
+
   methods: {
     ...mapActions({
       fetch: 'lastTransactions/fetch'

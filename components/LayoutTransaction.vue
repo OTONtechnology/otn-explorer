@@ -15,16 +15,21 @@
           {{ $t(row.type) }}
         </span>
         <div class="transactionTable__cell transactionTable__cellSum">
-          <div class="transactionTable__cellSumInner">
-            <span>{{ row.total }}</span>
-            <span :title="row.inputs[0].ticker.toUpperCase()">{{
-              row.inputs[0].ticker
-            }}</span>
+          <div
+            v-for="total in row.totals"
+            :key="total[0]"
+            class="transactionTable__cellSumInner"
+          >
+            <span>{{ total[1] }}</span>
+            <span :title="total[0].toUpperCase()">{{ total[0] }}</span>
+            <span v-if="total[0] === row.fee.ticker">
+              (includes fee {{ row.fee.amount }} {{ row.fee.ticker }})
+            </span>
           </div>
         </div>
       </div>
     </div>
-    <div class="transactionTableBody">
+    <div v-if="row.inputs.length > 0" class="transactionTableBody">
       <div class="transactionTableBody__box transactionTableBody__box_sender">
         <span class="transactionTableBody__title">
           {{ $t("Sender") }}
@@ -58,7 +63,7 @@
         </template>
       </div>
     </div>
-    <div class="transactionTableBody">
+    <div v-if="row.outputs.length > 0" class="transactionTableBody">
       <div
         class="transactionTableBody__box transactionTableBody__box_recipient"
       >
@@ -98,6 +103,7 @@
 </template>
 
 <script>
+
 export default {
   name: 'LayoutTransaction',
   props: {

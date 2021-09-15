@@ -1,5 +1,7 @@
 import Decimal from 'decimal.js';
-import { isEmpty } from 'rambda';
+import {
+  groupBy, isEmpty, map, pipe, prop, toPairs
+} from 'rambda';
 import {
   FULFILLED, INIT, PENDING, REJECTED
 } from '~/utils/constants';
@@ -61,17 +63,25 @@ export const getters = {
      * };
      */
 
+    const sumInputs = inputs => inputs
+      .reduce((prev, { amount }) => prev.plus(amount), new Decimal(0))
+      .toNumber();
+
+    const totals = pipe(
+      groupBy(prop('ticker')),
+      toPairs,
+      map(group => [group[0], sumInputs(group[1])])
+    )(transaction.inputs);
+
     return {
       ...transaction,
-      total: transaction.inputs
-        .reduce((prev, { amount }) => prev.plus(amount), new Decimal(0))
-        .toNumber()
+      totals
     };
   }
 };
 
 export const actions = {
-  async fetchByHash({ commit }, hash) {
+  async fetchByHash({ commit, state }, hash) {
     if (typeof hash !== 'string' || hash.length !== 64) {
       commit('SET_STATE', REJECTED);
     }
