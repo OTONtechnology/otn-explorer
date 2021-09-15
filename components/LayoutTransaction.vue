@@ -132,7 +132,6 @@ export default {
   &__box {
     display: grid;
     grid-gap: 4px 30px;
-    // grid-template-columns: 155px 80px 78px;
     grid-template-columns: 155px 80px 120px;
   }
 }
@@ -155,7 +154,6 @@ export default {
 
     span:first-of-type {
       display: inline-block;
-      // width: calc(100% - 44px);
       width: calc(100% - 65px);
       overflow: hidden;
       text-overflow: ellipsis;
@@ -164,7 +162,6 @@ export default {
     span:last-of-type {
       display: inline-block;
       margin-left: 4px;
-      // width: 40px;
       width: 60px;
       opacity: 0.4;
       text-transform: uppercase;
@@ -183,7 +180,6 @@ export default {
   &__box {
     display: grid;
     grid-gap: 4px 30px;
-    // grid-template-columns: 265px 78px;
     grid-template-columns: 310px 120px;
 
     &_sender {
@@ -208,7 +204,6 @@ export default {
 
     &_sum {
       text-align: right;
-      // margin-right: 45px;
       margin-right: 65px;
     }
   }

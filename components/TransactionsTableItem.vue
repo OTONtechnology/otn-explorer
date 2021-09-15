@@ -174,7 +174,6 @@ export default {
 
     span:first-of-type {
       display: inline-block;
-      // width: calc(100% - 44px);
       width: calc(100% - 65px);
       overflow: hidden;
       text-overflow: ellipsis;
@@ -183,7 +182,6 @@ export default {
     span:last-of-type {
       display: inline-block;
       margin-left: 4px;
-      // width: 40px;
       width: 60px;
       opacity: 0.4;
       text-transform: uppercase;
