@@ -5,7 +5,6 @@
       <TableHead
         class="transactionTableInfo__head transactionTableInfo__box"
         :titles="titles"
-        :lastCellMR="true"
       />
       <div class="transactionTableInfo__box">
         <span class="transactionTable__cell">
@@ -14,16 +13,16 @@
         <span class="transactionTable__cell">
           {{ $t(row.type) }}
         </span>
-        <div class="transactionTable__cell transactionTable__cellSum">
+        <div class="transactionTable__cell transactionTableInfo__cellSum">
           <div
             v-for="total in row.totals"
             :key="total[0]"
-            class="transactionTable__cellSumInner"
+            class="transactionTableInfo__cellSumInner"
           >
             <span>{{ total[1] }}</span>
             <span :title="total[0].toUpperCase()">{{ total[0] }}</span>
             <span v-if="total[0] === row.fee.ticker">
-              (includes fee {{ row.fee.amount }} {{ row.fee.ticker }})
+              {{ $t("Included {fee} fee", { fee: row.fee.amount }) }}
             </span>
           </div>
         </div>
@@ -55,9 +54,9 @@
               class="transactionTableBody__text transactionTable__cellSumInner"
             >
               <span>{{ input.amount }}</span>
-              <span :title="input.ticker.toUpperCase()">{{
-                input.ticker
-              }}</span>
+              <span :title="input.ticker.toUpperCase()">
+                {{ input.ticker }}
+              </span>
             </div>
           </div>
         </template>
@@ -91,9 +90,9 @@
               class="transactionTableBody__text transactionTable__cellSumInner"
             >
               <span>{{ output.amount }}</span>
-              <span :title="output.ticker.toUpperCase()">{{
-                output.ticker
-              }}</span>
+              <span :title="output.ticker.toUpperCase()">
+                {{ output.ticker }}
+              </span>
             </div>
           </div>
         </template>
@@ -137,8 +136,89 @@ export default {
 
   &__box {
     display: grid;
-    grid-gap: 4px 30px;
-    grid-template-columns: 155px 80px 120px;
+    grid-gap: 4px;
+    grid-template-columns: 105px 75px minmax(65px, max-content);
+
+    +mediaTablet() {
+      grid-gap: 4px 30px;
+      grid-template-columns: 155px 126px minmax(65px, max-content);
+    }
+  }
+
+  &__cellSum {
+    text-align: right;
+    font-weight: 700;
+  }
+
+  &__cellSumInner {
+    display: grid;
+    grid-template-columns: 65px calc(100% - 69px);
+    grid-gap: 2px 4px;
+    margin-bottom: 4px;
+    overflow: hidden;
+
+    +mediaTablet() {
+      display: flex;
+      max-height: 18px;
+    }
+
+    span {
+      &:not(:last-of-type) {
+        margin-right: 4px;
+      }
+
+      &:first-of-type {
+        display: inline-block;
+        width: 65px;
+        overflow: hidden;
+        grid-column: 1 / 2;
+
+        // text-overflow: ellipsis;
+        +mediaTablet() {
+          grid-column-start: unset;
+          grid-column-end: unset;
+        }
+      }
+
+      &:nth-of-type(2) {
+        grid-column: 2 / 3;
+        position: relative;
+        display: inline-block;
+        opacity: 0.4;
+        text-transform: uppercase;
+        text-align: left;
+        overflow: hidden;
+
+        +mediaTablet() {
+          width: 50px;
+          grid-column-start: unset;
+          grid-column-end: unset;
+        }
+
+        // text-overflow: ellipsis;
+        &::after {
+          position: absolute;
+          z-index: 2;
+          top: 0;
+          right: 0;
+          content: '';
+          display: block;
+          width: 12px;
+          height: 100%;
+          background-image: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, #ffffff 100%);
+        }
+      }
+
+      &:last-of-type {
+        grid-column: 1 / 3;
+        text-align: right;
+
+        +mediaTablet() {
+          grid-column-start: unset;
+          grid-column-end: unset;
+        }
+      }
+    }
   }
 }
 
@@ -160,20 +240,33 @@ export default {
 
     span:first-of-type {
       display: inline-block;
-      width: calc(100% - 65px);
+      width: 65px;
       overflow: hidden;
       text-overflow: ellipsis;
     }
 
     span:last-of-type {
+      position: relative;
       display: inline-block;
       margin-left: 4px;
-      width: 60px;
+      width: 50px;
       opacity: 0.4;
       text-transform: uppercase;
       text-align: left;
       overflow: hidden;
-      text-overflow: ellipsis;
+
+      // text-overflow: ellipsis;
+      &::after {
+        position: absolute;
+        z-index: 2;
+        top: 0;
+        right: 0;
+        content: '';
+        display: block;
+        width: 12px;
+        height: 100%;
+        background-image: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, #ffffff 100%);
+      }
     }
   }
 }
@@ -185,8 +278,13 @@ export default {
 
   &__box {
     display: grid;
-    grid-gap: 4px 30px;
-    grid-template-columns: 310px 120px;
+    grid-gap: 4px 8px;
+    grid-template-columns: calc(100% - 128px) 120px;
+
+    +mediaTablet() {
+      grid-gap: 4px 30px;
+      grid-template-columns: 310px minmax(65px, max-content);
+    }
 
     &_sender {
       .transactionTable__cellSumInner {
@@ -210,13 +308,35 @@ export default {
 
     &_sum {
       text-align: right;
-      margin-right: 65px;
+      margin-right: 55px;
     }
   }
 
   &__link {
-    width: fit-content;
+    position: relative;
+    display: block;
+    overflow: hidden;
     color: $colorLink;
+
+    &::after {
+      position: absolute;
+      z-index: 2;
+      top: 0;
+      right: 0;
+      content: '';
+      display: block;
+      width: 12px;
+      height: 100%;
+      background-image: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, #ffffff 100%);
+    }
+
+    +mediaTablet() {
+      width: fit-content;
+
+      &::after {
+        display: none;
+      }
+    }
 
     &:hover {
       color: $colorDanger;

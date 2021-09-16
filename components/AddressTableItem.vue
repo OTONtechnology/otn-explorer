@@ -1,14 +1,34 @@
 <template>
   <div class="addressTableItem">
-    <span class="addressTableItem__cell">
+    <span
+      class="
+        addressTableItem__cell
+        addressTableItem__date
+        addressTableItem__date_desktop
+      "
+    >
       {{ row.showDate ? row.date : "" }}
     </span>
-    <span class="addressTableItem__cell">
+    <span
+      class="
+        addressTableItem__cell
+        addressTableItem__date
+        addressTableItem__date_mobile
+      "
+    >
+      {{ row.date }}
+    </span>
+    <span
+      class="
+        addressTableItem__cell addressTableItem__time addressTableItem__mobile
+      "
+    >
       {{ row.time }}
     </span>
     <span
       class="
         addressTableItem__cell
+        addressTableItem__hash
         addressTableItem__cell_pseudoEl
         addressTableItem__cell_hover
       "
@@ -20,7 +40,11 @@
         {{ row.hash }}
       </nuxt-link>
     </span>
-    <span class="addressTableItem__cell">
+    <span
+      class="
+        addressTableItem__cell addressTableItem__type addressTableItem__mobile
+      "
+    >
       {{ $t(row.type) }}
     </span>
     <span
@@ -81,24 +105,64 @@ export default {
   position: relative;
   z-index: 3;
 
-  &:hover {
-    background-color: $colorBg;
+  +mediaDesktop() {
+    &:hover {
+      background-color: $colorBg;
 
-    .addressTableItem__link {
-      color: $colorLink;
+      .addressTableItem__link {
+        color: $colorLink;
 
-      &:hover {
-        color: $colorDanger;
+        &:hover {
+          color: $colorDanger;
+        }
+      }
+
+      .addressTableItem__cell_pseudoEl::after {
+        background-image: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, $colorBg 100%);
+      }
+    }
+  }
+
+  &__link {
+    color: $colorLink;
+
+    +mediaDesktop() {
+      color: $colorFontBase;
+    }
+  }
+
+  &__date {
+    &_mobile {
+      +mediaDesktop() {
+        display: none;
       }
     }
 
-    .addressTableItem__cell_pseudoEl::after {
-      background-image: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, $colorBg 100%);
+    &_desktop {
+      display: none;
+
+      +mediaDesktop() {
+        display: block;
+      }
+    }
+  }
+
+  &__mobile {
+    position: absolute;
+
+    +mediaDesktop() {
+      position: static;
     }
   }
 
   &__cell {
     overflow: hidden;
+    grid-column: 1 / 2;
+
+    +mediaDesktop() {
+      grid-column-start: unset;
+      grid-column-end: unset;
+    }
 
     &_pseudoEl {
       position: relative;
@@ -118,6 +182,34 @@ export default {
     }
   }
 
+  &__time {
+    top: 23px;
+    left: 50px;
+
+    +mediaTablet() {
+      top: 26px;
+      left: 60px;
+    }
+  }
+
+  &__type {
+    top: 23px;
+    left: 90px;
+
+    +mediaTablet() {
+      top: 26px;
+      left: 110px;
+    }
+  }
+
+  &__hash {
+    order: -1;
+
+    +mediaDesktop() {
+      order: unset;
+    }
+  }
+
   &__arrowIcon {
     display: block;
     margin-top: 4px;
@@ -133,6 +225,15 @@ export default {
   &__sum {
     text-align: right;
     font-weight: 700;
+    grid-column: 2 / 3;
+    grid-row: 1 / 4;
+
+    +mediaDesktop() {
+      grid-column-start: unset;
+      grid-column-end: unset;
+      grid-row-start: unset;
+      grid-row-end: unset;
+    }
   }
 
   &__sumInner {
@@ -144,9 +245,12 @@ export default {
 
     span:first-of-type {
       display: inline-block;
-      width: calc(100% - 65px);
+      width: calc(70% - 2px);
       overflow: hidden;
-      text-overflow: ellipsis;
+
+      +mediaTablet() {
+        width: calc(100% - 65px);
+      }
 
       &.success {
         color: $colorSuccess;
@@ -158,14 +262,30 @@ export default {
     }
 
     span:last-of-type {
+      position: relative;
       display: inline-block;
       margin-left: 4px;
-      width: 60px;
+      width: calc(30% - 2px);
       opacity: 0.4;
       text-transform: uppercase;
       text-align: left;
       overflow: hidden;
-      text-overflow: ellipsis;
+
+      +mediaTablet() {
+        width: 50px;
+      }
+
+      &::after {
+        position: absolute;
+        z-index: 2;
+        top: 0;
+        right: 0;
+        content: '';
+        display: block;
+        width: 12px;
+        height: 100%;
+        background-image: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, #ffffff 100%);
+      }
     }
   }
 }

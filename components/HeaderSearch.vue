@@ -8,6 +8,12 @@
           type="search"
           :placeholder="$t('Transaction or Address')"
         />
+        <button
+          v-if="!searchTextIsEmpty"
+          @click="clearInput"
+          class="headerSearch__clearBtn"
+          type="button"
+        />
       </div>
       <button class="headerSearch__button" type="submit">
         <svg-icon name="common/search" class="headerSearch__icon" />
@@ -21,10 +27,14 @@ export default {
   name: 'HeaderSearch',
   data: () => ({
     searchText: '',
+    clearBtn: false
   }),
   computed: {
     isHomepage() {
       return /^\/(ru|en|de|tr)?$/.test(this.$route.path)
+    },
+    searchTextIsEmpty() {
+      return this.searchText.length === 0
     }
   },
   methods: {
@@ -45,6 +55,9 @@ export default {
       console.info(searchPage);
       this.$router.push(this.localePath(searchPage));
     },
+    clearInput() {
+      this.searchText = "";
+    }
   }
 };
 </script>
@@ -56,22 +69,33 @@ $transition() {
 }
 
 .headerSearch {
-  margin: 28px 0 24px;
-  background-image: url('@/assets/images/header-search-bg.png');
+  margin: 13px 0 12px;
   background-size: 500px 280px;
   background-repeat: no-repeat;
   background-position: top center;
   $transition();
 
+  +mediaDesktop() {
+    margin: 28px 0 24px;
+    background-image: url('@/assets/images/header-search-bg.png');
+  }
+
   &__box {
     display: flex;
     margin: 0 auto;
-    width: 502px;
+    width: 100%;
+    max-width: 502px;
     height: 44px;
     border-radius: 8px;
     overflow: hidden;
     box-shadow: 5px 10px 20px -10px $colorFontBase;
     $transition();
+
+    +mediaDesktop() {
+      width: 502px;
+      max-width: unset;
+      height: 44px;
+    }
   }
 
   &__input {
@@ -142,9 +166,37 @@ $transition() {
       content: '';
       top: 0;
       right: 0;
-      width: 32px;
+      width: 52px;
       height: 100%;
-      background-image: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, #ffffff 100%);
+      background-image: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, #ffffff 50%);
+    }
+  }
+
+  &__clearBtn {
+    position: absolute;
+    z-index: 3;
+    top: 0;
+    right: 10px;
+    bottom: 0;
+    margin: auto;
+    width: 16px;
+    height: 16px;
+
+    &::before, &::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      width: 2px;
+      height: 100%;
+      background-color: $colorFontBase;
+    }
+
+    &::before {
+      transform: rotate(45deg);
+    }
+
+    &::after {
+      transform: rotate(-45deg);
     }
   }
 
@@ -159,44 +211,51 @@ $transition() {
 
   &__icon {
     display: block;
-    width: 21px;
-    height: 21px;
+    width: 24px;
+    height: 24px;
     $transition();
+
+    +mediaTablet() {
+      width: 21px;
+      height: 21px;
+    }
   }
 }
 
-.headerSearch {
-  &_homepage {
-    margin: -35px 0 0 0;
-    padding: 87px 0 64px;
-    background-image: url('@/assets/images/header-search-bg.png');
-    background-size: 500px 280px;
-    background-repeat: no-repeat;
-    background-position: top center;
-    $transition();
-
-    .headerSearch__box {
-      width: 736px;
-      height: 64px;
-      border-radius: 16px;
++mediaDesktop() {
+  .headerSearch {
+    &_homepage {
+      margin: -35px 0 0 0;
+      padding: 87px 0 64px;
+      background-image: url('@/assets/images/header-search-bg.png');
+      background-size: 500px 280px;
+      background-repeat: no-repeat;
+      background-position: top center;
       $transition();
-    }
 
-    .headerSearch__input {
-      padding: 16px 0px 18px 20px;
-      getFontH2();
-      $transition();
-    }
+      .headerSearch__box {
+        width: 736px;
+        height: 64px;
+        border-radius: 16px;
+        $transition();
+      }
 
-    .headerSearch__button {
-      width: 64px;
-      $transition();
-    }
+      .headerSearch__input {
+        padding: 16px 0px 18px 20px;
+        getFontH2();
+        $transition();
+      }
 
-    .headerSearch__icon {
-      width: 32px;
-      height: 32px;
-      $transition();
+      .headerSearch__button {
+        width: 64px;
+        $transition();
+      }
+
+      .headerSearch__icon {
+        width: 32px;
+        height: 32px;
+        $transition();
+      }
     }
   }
 }

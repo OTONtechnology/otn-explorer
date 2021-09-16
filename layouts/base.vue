@@ -29,11 +29,16 @@ export default {
   padding: 0 8px;
   margin: auto;
   width: 100%;
-  max-width: 1120 + 30 px;
+  max-width: 480px;
   min-height: 100vh;
 
-  +mediaDesktop() {
+  +mediaTablet() {
+    max-width: 750px;
     padding: 0 15px;
+  }
+
+  +mediaDesktop() {
+    max-width: 1150px;
   }
 }
 </style>

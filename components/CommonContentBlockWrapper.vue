@@ -33,9 +33,13 @@ export default {
 
 .base-title {
   display: block;
-  margin-bottom: 18px;
+  margin-bottom: 10px;
   color: $colorFontBase;
   getFontSubtitle();
   opacity: 0.4;
+
+  +mediaTablet() {
+    margin-bottom: 18px;
+  }
 }
 </style>

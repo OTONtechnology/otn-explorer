@@ -58,7 +58,7 @@ export default {
 
 .lastCellMR {
   &:last-of-type {
-    margin-right: 65px;
+    margin-right: 55px;
   }
 }
 </style>

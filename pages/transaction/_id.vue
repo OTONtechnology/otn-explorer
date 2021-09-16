@@ -18,9 +18,9 @@ export default {
   data() {
     return {
       transactionTitles: [
-        { name: 'date', text: 'Date and Time, UTC' },
+        { name: 'date', text: 'Date and Time' },
         { name: 'type', text: 'Type' },
-        { name: 'sum', text: 'Sum' },
+        { name: 'total', text: 'Total' },
       ],
 
     };

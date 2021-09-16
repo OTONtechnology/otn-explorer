@@ -11,13 +11,18 @@ export default {
 <style lang="stylus" scoped>
 .logo {
   display: block;
-  width: 88px;
-  height: 48px;
+  width: 80px;
+  height: 44px;
   color: $colorFontBase;
   transition: all 0.1s;
 
-  &:hover {
-    color: $colorDanger;
+  +mediaTablet() {
+    width: 88px;
+    height: 48px;
+
+    &:hover {
+      color: $colorDanger;
+    }
   }
 }
 </style>

@@ -12,7 +12,7 @@
             :rows="addressGroupByDay"
             :headRows="addressHeadRows"
           />
-          <CommonButtonMore class="table__button" />
+          <CommonButtonMore class="table__button" v-if="false" />
         </div>
       </WithLoader>
     </WithLoader>
@@ -21,7 +21,7 @@
 
 <script>
 import { mapActions, mapState } from 'vuex';
-import { prop, propEq } from 'rambda';
+import { prop, propEq, reverse } from 'rambda';
 import addressGroupByDay from '@/mixins/addressGroupByDay';
 import { FULFILLED } from '~/utils/constants';
 
@@ -71,15 +71,19 @@ export default {
       const balances = Object.keys(this.balanceData || {});
 
       return balances.map(key => ({
-        received: 'n/a',
-        sent: 'n/a',
+        received: this.balanceData[key].received,
+        sent: this.balanceData[key].spent,
         currName: key,
-        balance: this.balanceData[key]
+        balance: this.balanceData[key].balance
+        // received: 'n/a',
+        // sent: 'n/a',
+        // currName: key,
+        // balance: this.balanceData[key]
       }));
     },
     addressTableTitles: () => ([
       { name: 'date', text: 'Date' },
-      { name: 'time, UTC', text: 'Time, UTC' },
+      { name: 'time', text: 'Time' },
       { name: 'hash', text: 'Hash' },
       { name: 'type', text: 'Type' },
       { senderRecipient: 'from', text: 'Sender/Recipient' },
@@ -89,7 +93,7 @@ export default {
       const currentAddress = this.$route.params.id;
 
       return [
-        ...this.transactionsData.map(trn => {
+        ...reverse(this.transactionsData.map(trn => {
           const isSender = trn.inputs.some(input => input.address === currentAddress);
 
           const sumData = isSender ? trn.inputs : trn.outputs;
@@ -106,7 +110,7 @@ export default {
             })),
 
           }
-        })
+        }))
       ];
     },
   },

@@ -3,7 +3,7 @@
     <p class="notFound__text">
       {{ $t("SORRY, We couldn’t find what you were looking for") }}
     </p>
-    <img class="notFound__image" src="@/assets/images/not-found.png" alt="">
+    <img class="notFound__image" src="@/assets/images/not-found.png" alt="" />
   </div>
 </template>
 
@@ -23,15 +23,25 @@ export default {
   max-width: 627px;
 
   &__text {
-    getFontH1();
+    getFontH2();
     margin-bottom: 25px;
     text-align: center;
+
+    +mediaTablet() {
+      getFontH1();
+    }
   }
 
   &__image {
     display: block;
-    width: 440px;
-    height: 340px;
+    width: 100%;
+    height: auto;
+    max-width: 440px;
+
+    +mediaTablet() {
+      width: 440px;
+      height: 340px;
+    }
   }
 }
 </style>

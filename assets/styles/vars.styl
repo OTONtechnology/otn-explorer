@@ -6,25 +6,33 @@ $colorDanger = #ef616a;
 $colorSuccess = #2aa414;
 
 transactionsGrid() {
-  grid-template-columns: 58px 75px 335px 93px 180px 10px 180px 82px;
-  @media (min-width: $mediaSizes.large) {
-    grid-template-columns: 58px 75px 320px 110px 168px 10px 168px 120px;
-    // grid-template-columns: 58px 75px 320px 110px max-content 10px max-content 120px;
+  grid-template-columns: auto 80px;
+  +mediaPhoneS() {
+    grid-template-columns: auto 90px;
+  }
+  +mediaDesktop() {
+    grid-template-columns: 58px 75px 320px 110px 366px 120px;
   }
 }
 
 adressGrid() {
-  grid-template-columns: 57px 83px 327px 92px 327px auto;
-  @media (min-width: $mediaSizes.large) {
+  grid-template-columns: auto 90px;
+  +mediaPhoneS() {
+    grid-template-columns: auto 100px;
+  }
+  +mediaTablet() {
+    grid-template-columns: auto 160px;
+  }
+  +mediaDesktop() {
     grid-template-columns: 57px 83px 327px 92px 327px auto;
   }
 }
 
 $mediaSizes = {
-  phoneS: 374px,
+  phoneS: 375px,
   phone: 480px,
-  tablet: 799px,
-  desktop: 992px,
+  tablet: 768px,
+  desktop: 1200px,
   large: 1025px,
   extraLarge: 1280px,
   giant: 1600px
@@ -102,7 +110,7 @@ $fontSizes = {
     text: 12px,
     small: 10px,
     subtitle: 12px,
-    button: 14px
+    button: 16px
     transactionButton: 14px
   }
 };

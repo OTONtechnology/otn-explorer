@@ -1,14 +1,14 @@
 <template>
   <div class="table">
     <TableHead
-      class="table__box table__box_transactions"
+      class="table__box table__box_head table__box_transactions"
       :titles="titles"
       :lastCellMR="true"
     />
     <div v-for="row in rows" :key="row.hash" class="transactionsTable__bodyDay">
       <TransactionsTableItem
         :row="row"
-        class="table__box table__box_transactions"
+        class="table__box table__box_transactions table__item"
       />
     </div>
   </div>
@@ -37,11 +37,32 @@ export default {
 
   &__box {
     display: grid;
-    grid-column-gap: 10px;
-    padding: 6px 0;
+    grid-gap: 4px 8px;
+    padding: 2px 0;
+
+    +mediaDesktop() {
+      padding: 6px 0;
+      grid-gap: 4px 10px;
+    }
 
     &_transactions {
       transactionsGrid();
+    }
+
+    &_head {
+      display: none;
+
+      +mediaDesktop() {
+        display: grid;
+      }
+    }
+  }
+
+  &__item {
+    margin-bottom: 12px;
+
+    +mediaDesktop() {
+      margin-bottom: 0;
     }
   }
 

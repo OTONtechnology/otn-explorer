@@ -9,7 +9,7 @@
         @change="pick(btn.name)"
       />
       <span class="radioText">
-        {{ btn.text }}
+        {{ $t(btn.text) }}
       </span>
     </label>
   </div>
@@ -81,6 +81,12 @@ export default {
 .radioLabel {
   display: block;
   cursor: pointer;
+  flex-basis: 33%;
+  text-align: center;
+
+  +mediaTablet() {
+    flex-basis: unset;
+  }
 
   &:hover {
     opacity: 0.6;
