@@ -173,7 +173,6 @@ export default {
         overflow: hidden;
         grid-column: 1 / 2;
 
-        // text-overflow: ellipsis;
         +mediaTablet() {
           grid-column-start: unset;
           grid-column-end: unset;
@@ -195,7 +194,6 @@ export default {
           grid-column-end: unset;
         }
 
-        // text-overflow: ellipsis;
         &::after {
           position: absolute;
           z-index: 2;
@@ -255,7 +253,6 @@ export default {
       text-align: left;
       overflow: hidden;
 
-      // text-overflow: ellipsis;
       &::after {
         position: absolute;
         z-index: 2;

@@ -75,10 +75,6 @@ export default {
         sent: this.balanceData[key].spent,
         currName: key,
         balance: this.balanceData[key].balance
-        // received: 'n/a',
-        // sent: 'n/a',
-        // currName: key,
-        // balance: this.balanceData[key]
       }));
     },
     addressTableTitles: () => ([

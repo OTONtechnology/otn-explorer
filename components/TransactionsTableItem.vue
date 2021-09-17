@@ -159,7 +159,6 @@ export default {
   }
 
   &__cell {
-    // text-overflow: ellipsis;
     overflow: hidden;
     grid-column: 1 / 2;
 
@@ -180,7 +179,6 @@ export default {
   &__pseudoEl {
     position: relative;
     z-index: 1;
-    // text-overflow: ellipsis;
     overflow: hidden;
 
     &::after {
@@ -257,10 +255,8 @@ export default {
   &__addressesGroup {
     display: grid;
     grid-gap: 0 9px;
-    grid-template-columns: calc(50% - 15px) 10px calc(50% - 15px);
     grid-template-columns: minmax(50px, max-content) 10px minmax(50px, max-content);
 
-    // grid-template-columns: minmax(max-content, 50px) 10px minmax(max-content, 50px);
     +mediaDesktop() {
       grid-gap: 0 10px;
       grid-template-columns: 168px 10px 168px;
@@ -290,7 +286,6 @@ export default {
     overflow: hidden;
     display: flex;
 
-    // flex-direction: column;
     &:not(:last-of-type) {
       margin-bottom: 4px;
     }
@@ -298,10 +293,7 @@ export default {
     span:first-of-type {
       display: inline-block;
       width: calc(70% - 2px);
-      // text-align: left;
       text-align: right;
-      // overflow: hidden;
-      // text-overflow: ellipsis;
     }
 
     span:last-of-type {
@@ -311,8 +303,6 @@ export default {
       opacity: 0.4;
       text-transform: uppercase;
       text-align: left;
-      // overflow: hidden;
-      // text-overflow: ellipsis;
     }
 
     +mediaDesktop() {
@@ -322,15 +312,10 @@ export default {
 
       span:first-of-type {
         width: calc(100% - 55px);
-        // text-align: right;
-        // overflow: hidden;
-        // text-overflow: ellipsis;
       }
 
       span:last-of-type {
         width: 50px;
-        // overflow: hidden;
-        // text-overflow: ellipsis;
       }
     }
   }
