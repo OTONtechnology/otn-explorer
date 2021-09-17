@@ -10,7 +10,7 @@
           :titles="transactionTitles"
           :rows="transactionsGroupByDay"
         />
-        <CommonButtonMore class="table__button" />
+        <CommonButtonMore class="table__button" v-if="false" />
       </div>
     </WithLoader>
   </CommonContentBlockWrapper>
@@ -28,12 +28,10 @@ export default {
     return {
       transactionTitles: [
         { name: 'date', text: 'Date' },
-        { name: 'time, UTC', text: 'Time, UTC' },
+        { name: 'time', text: 'Time' },
         { name: 'hash', text: 'Hash' },
         { name: 'type', text: 'Type' },
-        { name: 'from', text: '' },
-        { name: 'arrow', text: '' },
-        { name: 'to', text: '' },
+        { name: 'addresses', text: '' },
         { name: 'sum', text: 'Sum' },
       ],
     };

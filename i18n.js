@@ -6,7 +6,6 @@ const defaultDatesFormat = {
     day: 'numeric'
   },
   transactionDate: {
-    year: 'numeric',
     month: 'short',
     day: 'numeric',
     hour: 'numeric',

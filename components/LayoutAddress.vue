@@ -45,7 +45,7 @@
       </div>
       <div class="addressTable">
         <TableHead
-          class="addressTable__box"
+          class="addressTable__box addressTable__box_head"
           :titles="tableTitles"
           :lastCellMR="true"
         />
@@ -132,9 +132,14 @@ export default {
 <style lang="stylus" scoped>
 .addressInfo {
   display: grid;
-  grid-template-columns: repeat(3, max-content);
-  grid-column-gap: 30px;
+  grid-template-columns: max-content max-content minmax(65px, max-content);
+  grid-column-gap: 4px;
   margin-bottom: 12px;
+
+  +mediaDesktop() {
+    grid-column-gap: 30px;
+    grid-template-columns: repeat(3, max-content);
+  }
 
   &__head {
     margin-bottom: 4px;
@@ -154,8 +159,12 @@ export default {
     opacity: 0.4;
 
     &:nth-of-type(3) {
-      margin-right: 65px;
+      margin-right: 50px;
       text-align: right;
+
+      +mediaDesktop() {
+        margin-right: 65px;
+      }
     }
   }
 }
@@ -174,28 +183,51 @@ export default {
   }
 
   &__cellSumInner {
-    width: 160px;
-    max-height: 18px;
     overflow: hidden;
     display: flex;
-    justify-content: flex-end;
+
+    +mediaDesktop() {
+      justify-content: flex-end;
+      width: 160px;
+      max-height: 18px;
+    }
 
     span:first-of-type {
       display: inline-block;
-      width: calc(100% - 65px);
+      width: 70px;
       overflow: hidden;
       text-overflow: ellipsis;
+
+      +mediaDesktop() {
+        width: calc(100% - 65px);
+      }
     }
 
     span:last-of-type {
+      position: relative;
       display: inline-block;
       margin-left: 4px;
-      width: 60px;
+      width: 45px;
       opacity: 0.4;
       text-transform: uppercase;
       text-align: left;
       overflow: hidden;
-      text-overflow: ellipsis;
+
+      &::after {
+        position: absolute;
+        z-index: 2;
+        top: 0;
+        right: 0;
+        content: '';
+        display: block;
+        width: 12px;
+        height: 100%;
+        background-image: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, #ffffff 100%);
+      }
+
+      +mediaDesktop() {
+        width: 60px;
+      }
     }
   }
 }
@@ -259,8 +291,20 @@ export default {
 
 .addressTable__box {
   display: grid;
-  grid-column-gap: 10px;
+  grid-gap: 4px 8px;
   padding: 6px 0;
   adressGrid();
+
+  +mediaDesktop() {
+    grid-gap: 0 10px;
+  }
+
+  &_head {
+    display: none;
+
+    +mediaDesktop() {
+      display: grid;
+    }
+  }
 }
 </style>

@@ -48,16 +48,42 @@ export default {
 
 <style lang="stylus" scoped>
 .tableTitle {
-  display: grid;
-  grid-auto-flow: column;
-  grid-column-gap: 9px;
-  align-items: center;
-  margin-top: -14px;
+  margin-top: -4px;
+  margin-bottom: 10px;
   width: fit-content;
 
+  +mediaTablet() {
+    display: grid;
+    grid-auto-flow: column;
+    grid-column-gap: 9px;
+    align-items: center;
+    margin-top: -14px;
+    margin-bottom: 0;
+  }
+
   &__text {
-    getFontH3();
-    line-height: 32px;
+    word-break: break-word;
+    font-size: 22px;
+    line-height: 30px;
+    font-weight: 700;
+    margin: 0;
+
+    +mediaTablet() {
+      word-break: unset;
+      font-size: 18px;
+      line-height: 32px;
+    }
+  }
+
+  &__button {
+    display: inline-block;
+    margin: 0 -5px -15px -5px;
+    padding: 5px;
+
+    +mediaTablet() {
+      margin: 0;
+      padding: 0;
+    }
   }
 
   &__icon {

@@ -49,14 +49,17 @@ export default {
 <style lang="stylus" scoped>
 .footer {
   display: flex;
+  flex-direction: column;
   flex-wrap: wrap;
-  justify-content: space-between;
   margin-top: 24px;
-  padding: 24px 0 16px;
+  padding: 12px 0 16px;
   border-top: 4px solid $colorFiller;
   getFont();
 
   +mediaTablet() {
+    padding: 24px 0 16px;
+    flex-direction: row;
+    justify-content: space-between;
     padding: 16px 0;
   }
 
@@ -83,8 +86,13 @@ export default {
 
   &__copyright {
     display: block;
+    margin-top: 12px;
     font-weight: 700;
     opacity: 0.4;
+
+    +mediaTablet() {
+      margin-top: 0;
+    }
   }
 }
 </style>
