@@ -16,12 +16,20 @@ export default {
   color: $colorFontBase;
   transition: all 0.1s;
 
+  &:active {
+    color: $colorDanger;
+  }
+
   +mediaTablet() {
     width: 88px;
     height: 48px;
 
     &:hover {
       color: $colorDanger;
+    }
+
+    &:active {
+      color: $colorFontBase;
     }
   }
 }

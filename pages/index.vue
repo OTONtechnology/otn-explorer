@@ -31,7 +31,7 @@ export default {
         { name: 'hash', text: 'Hash' },
         { name: 'type', text: 'Type' },
         { name: 'addresses', text: '' },
-        { name: 'sum', text: 'Sum' },
+        { name: 'total', text: 'Total' },
       ],
     };
   },

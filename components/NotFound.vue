@@ -29,6 +29,8 @@ export default {
 
     +mediaTablet() {
       getFontH1();
+      margin-bottom: 25px;
+      line-height: 51px;
     }
   }
 
@@ -39,6 +41,7 @@ export default {
     max-width: 440px;
 
     +mediaTablet() {
+      margin-bottom: 53px;
       width: 440px;
       height: 340px;
     }

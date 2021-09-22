@@ -58,7 +58,7 @@ export default {
     grid-column-gap: 9px;
     align-items: center;
     margin-top: -14px;
-    margin-bottom: 0;
+    margin-bottom: 16px;
   }
 
   &__text {
@@ -69,8 +69,8 @@ export default {
     margin: 0;
 
     +mediaTablet() {
+      font-size: 24px;
       word-break: unset;
-      font-size: 18px;
       line-height: 32px;
     }
   }
@@ -89,11 +89,16 @@ export default {
   &__icon {
     display: block;
     width: 16px;
-    height: 18px;
+    height: 16px;
     opacity: 0.3;
 
     &:hover {
       opacity: 1;
+    }
+
+    +mediaTablet() {
+      width: 20px;
+      height: 20px;
     }
   }
 
