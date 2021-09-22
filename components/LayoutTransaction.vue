@@ -31,7 +31,8 @@
     <div v-if="row.inputs.length > 0" class="transactionTableBody">
       <div class="transactionTableBody__box transactionTableBody__box_sender">
         <span class="transactionTableBody__title">
-          {{ $t("Sender") }}
+          <template v-if="row.inputs.length > 1">{{ $t("Senders") }}</template>
+          <template v-else>{{ $t("Sender") }}</template>
         </span>
         <span
           class="transactionTableBody__title transactionTableBody__title_sum"
@@ -67,7 +68,10 @@
         class="transactionTableBody__box transactionTableBody__box_recipient"
       >
         <span class="transactionTableBody__title">
-          {{ $t("Recipients") }}
+          <template v-if="row.outputs.length > 1">{{
+            $t("Recipients")
+          }}</template>
+          <template v-else>{{ $t("Recipient") }}</template>
         </span>
         <span
           class="transactionTableBody__title transactionTableBody__title_sum"
@@ -163,10 +167,6 @@ export default {
     }
 
     span {
-      &:not(:last-of-type) {
-        margin-right: 4px;
-      }
-
       &:first-of-type {
         display: inline-block;
         width: 65px;

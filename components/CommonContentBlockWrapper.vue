@@ -36,6 +36,7 @@ export default {
   margin-bottom: 10px;
   color: $colorFontBase;
   getFontSubtitle();
+  line-height: 15px;
   opacity: 0.4;
 
   +mediaTablet() {

@@ -10,7 +10,7 @@ Transaction Initiator,Инициатор транзакции,Transaction Initia
 Latest Transactions,Последние транзакции,Latest Transactions,Letzte Transaktionen,Son işlemler
 Transactions,Транзакции,Transactions,Transaktionen,İşlemler
 Date,Дата,Date,Datum,Tarih
-"Time","Время","Time","Zeit","Saat"
+Time,Время,Time,Zeit,Saat
 Hash,Хэш,Hash,Hash,Hash
 Type,Тип,Type,Typ,Tümü
 Sum,Сумма,Sum,Betrag,Tutar

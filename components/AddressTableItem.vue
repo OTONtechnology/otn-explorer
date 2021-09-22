@@ -110,9 +110,11 @@ export default {
       background-color: $colorBg;
 
       .addressTableItem__link {
+        font-weight: 700;
         color: $colorLink;
 
         &:hover {
+          font-weight: 400;
           color: $colorDanger;
         }
       }

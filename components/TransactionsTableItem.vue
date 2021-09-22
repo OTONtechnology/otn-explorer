@@ -239,9 +239,11 @@ export default {
   &__link {
     display: block;
     color: $colorLink;
+    font-weight 700
 
     +mediaDesktop() {
-      color: $fontBase;
+      font-weight 400
+      color: $colorFontBase;
     }
   }
 
