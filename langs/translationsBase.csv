@@ -28,9 +28,10 @@ Received,Входящие,Received,Erhalten,Girişler
 Sent,Исходящие,Sent,Gesendet,Çıkanlar
 Transaction,Транзакция,Transaction,Transaktion,İşlem
 Sender,Отправитель,Sender,Absender,Gönderen
+Senders,Отправители,Senders,Versender,Gönderenler
 Recipient,Получатель,Recipient,Empfänger,Alıcı
 Recipients,Получатели,Recipients,Empfänger,Alıcılar
 Total,Всего,Total,Insgesamt,Toplam
-Balances,Балансы,Balances,Balances,Balances
+Balances,Балансы,Balances,Guthaben,Bakiye
 Sender/Recipient,Отправитель/Получатель,Sender/Recipient,Absender/Empfänger,Gönderen/Alıcı
 Included {fee} fee,Включая {fee} комиссии,Included {fee} fee,Einschließlich {fee} Gebühr,{fee} Komisyon dahil

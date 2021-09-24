@@ -4,7 +4,11 @@
       v-for="title in titles"
       :key="title.name"
       class="tableHead__cell"
-      :class="[{ lastCellLeft: lastCellLeft }, { lastCellMR: lastCellMR }]"
+      :class="[
+        { lastCellLeft: lastCellLeft },
+        { lastCellMR: lastCellMR },
+        { lastCellMRTrans: lastCellMRTrans },
+      ]"
     >
       <template v-if="title.text">
         {{ $t(title.text) }}
@@ -15,7 +19,7 @@
 
 <script>
 export default {
-  name: "TableHead",
+  name: 'TableHead',
   props: {
     titles: {
       type: Array,
@@ -29,10 +33,14 @@ export default {
       type: Boolean,
       default: false,
     },
+    lastCellMRTrans: {
+      type: Boolean,
+      default: false,
+    },
   },
   computed: {
     page() {
-      const pathArr = this.$route.path.split("/");
+      const pathArr = this.$route.path.split('/');
       return pathArr[pathArr.length - 1];
     },
   },
@@ -45,7 +53,9 @@ export default {
     opacity: 0.4;
 
     &:last-of-type {
-      text-align: right;
+      +mediaDesktop() {
+        text-align: left;
+      }
     }
   }
 }
@@ -59,6 +69,13 @@ export default {
 .lastCellMR {
   &:last-of-type {
     margin-right: 55px;
+    text-align: right;
+  }
+}
+
+.lastCellMRTrans {
+  &:last-of-type {
+    margin-right: 40px;
   }
 }
 </style>

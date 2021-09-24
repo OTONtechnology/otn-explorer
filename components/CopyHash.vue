@@ -70,8 +70,11 @@ export default {
 
     +mediaTablet() {
       font-size: 24px;
-      word-break: unset;
       line-height: 32px;
+    }
+
+    +mediaDesktop() {
+      word-break: unset;
     }
   }
 

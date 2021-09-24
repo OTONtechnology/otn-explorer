@@ -132,8 +132,8 @@ export default {
 <style lang="stylus" scoped>
 .addressInfo {
   display: grid;
-  grid-template-columns: max-content max-content minmax(65px, max-content);
-  grid-column-gap: 4px;
+  grid-template-columns: max-content max-content auto;
+  grid-column-gap: 6px;
   margin-bottom: 12px;
 
   +mediaDesktop() {
@@ -159,11 +159,7 @@ export default {
     opacity: 0.4;
 
     &:nth-of-type(3) {
-      margin-right: 50px;
-      text-align: right;
-
       +mediaDesktop() {
-        margin-right: 65px;
       }
     }
   }
@@ -183,23 +179,23 @@ export default {
   }
 
   &__cellSumInner {
+    display: grid;
+    grid-template-columns: max-content auto;
     overflow: hidden;
-    display: flex;
 
     +mediaDesktop() {
+      display: flex;
       justify-content: flex-end;
-      width: 160px;
       max-height: 18px;
     }
 
     span:first-of-type {
       display: inline-block;
-      width: 70px;
       overflow: hidden;
       text-overflow: ellipsis;
 
       +mediaDesktop() {
-        width: calc(100% - 65px);
+        width: auto;
       }
     }
 
@@ -207,7 +203,6 @@ export default {
       position: relative;
       display: inline-block;
       margin-left: 4px;
-      width: 45px;
       opacity: 0.4;
       text-transform: uppercase;
       text-align: left;
@@ -223,10 +218,14 @@ export default {
         width: 12px;
         height: 100%;
         background-image: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, #ffffff 100%);
+
+        +mediaDesktop() {
+          display: none;
+        }
       }
 
       +mediaDesktop() {
-        width: 60px;
+        width: auto;
       }
     }
   }

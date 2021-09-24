@@ -1,9 +1,10 @@
 <template>
   <div class="table">
     <TableHead
-      class="table__box table__box_head table__box_transactions"
+      class="table__box table__box_head table__box_transactionsHead"
       :titles="titles"
       :lastCellMR="true"
+      :lastCellMRTrans="true"
     />
     <div v-for="row in rows" :key="row.hash" class="transactionsTable__bodyDay">
       <TransactionsTableItem
@@ -47,6 +48,10 @@ export default {
 
     &_transactions {
       transactionsGrid();
+    }
+
+    &_transactionsHead {
+      grid-template-columns: 58px 75px 320px 110px 366px 120px;
     }
 
     &_head {

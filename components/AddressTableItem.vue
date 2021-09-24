@@ -34,7 +34,7 @@
       "
     >
       <nuxt-link
-        class="addressTableItem__link"
+        class="addressTableItem__link addressTableItem__link_hash"
         :to="localePath(`/transaction/${row.hash}`)"
       >
         {{ row.hash }}
@@ -110,11 +110,9 @@ export default {
       background-color: $colorBg;
 
       .addressTableItem__link {
-        font-weight: 700;
         color: $colorLink;
 
         &:hover {
-          font-weight: 400;
           color: $colorDanger;
         }
       }
@@ -128,8 +126,16 @@ export default {
   &__link {
     color: $colorLink;
 
+    &_hash {
+      font-weight: 700;
+    }
+
     +mediaDesktop() {
       color: $colorFontBase;
+
+      &_hash {
+        font-weight: 400;
+      }
     }
   }
 
@@ -249,6 +255,7 @@ export default {
       display: inline-block;
       width: calc(70% - 2px);
       overflow: hidden;
+      text-overflow: ellipsis;
 
       +mediaTablet() {
         width: calc(100% - 65px);
