@@ -156,7 +156,7 @@ export default {
 
   &__cellSumInner {
     display: grid;
-    grid-template-columns: 65px calc(100% - 69px);
+    grid-template-columns: min-content auto;
     grid-gap: 2px 4px;
     margin-bottom: 4px;
     overflow: hidden;
@@ -169,7 +169,6 @@ export default {
     span {
       &:first-of-type {
         display: inline-block;
-        width: 65px;
         overflow: hidden;
         grid-column: 1 / 2;
 
@@ -233,25 +232,33 @@ export default {
     margin-bottom: 4px;
     max-height: 18px;
     overflow: hidden;
-    display: flex;
-    justify-content: flex-end;
+    display: grid;
+    grid-template-columns: minmax(46%, max-content) auto;
+
+    +mediaDesktop() {
+      display: flex;
+      justify-content: flex-end;
+    }
 
     span:first-of-type {
       display: inline-block;
-      width: 65px;
       overflow: hidden;
       text-overflow: ellipsis;
+
+      +mediaDesktop() {
+        max-width: unset;
+      }
     }
 
     span:last-of-type {
       position: relative;
       display: inline-block;
       margin-left: 4px;
-      width: 50px;
       opacity: 0.4;
       text-transform: uppercase;
       text-align: left;
       overflow: hidden;
+      min-width: 30px;
 
       &::after {
         position: absolute;
@@ -263,6 +270,14 @@ export default {
         width: 12px;
         height: 100%;
         background-image: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, #ffffff 100%);
+      }
+
+      +mediaDesktop() {
+        max-width: unset;
+
+        &::after {
+          display: none;
+        }
       }
     }
   }
@@ -276,11 +291,11 @@ export default {
   &__box {
     display: grid;
     grid-gap: 4px 8px;
-    grid-template-columns: calc(100% - 128px) 120px;
+    grid-template-columns: calc(100% - 98px) 90px;
 
     +mediaTablet() {
       grid-gap: 4px 30px;
-      grid-template-columns: 310px minmax(65px, max-content);
+      grid-template-columns: 312px minmax(65px, max-content);
     }
 
     &_sender {
@@ -304,8 +319,10 @@ export default {
     opacity: 0.4;
 
     &_sum {
-      text-align: right;
-      margin-right: 55px;
+      +mediaDesktop() {
+        text-align: left;
+        margin-right: 0;
+      }
     }
   }
 

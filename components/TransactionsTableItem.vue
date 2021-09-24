@@ -1,32 +1,37 @@
 <template>
   <div class="transactionsTableItem">
-    <span
-      class="
-        transactionsTableItem__cell
-        transactionsTableItem__date
-        transactionsTableItem__date_desktop
-      "
-    >
-      {{ row.showDate ? row.date : "" }}
-    </span>
-    <span
-      class="
-        transactionsTableItem__cell
-        transactionsTableItem__date
-        transactionsTableItem__date_mobile
-      "
-    >
-      {{ row.date }}
-    </span>
-    <span
-      class="
-        transactionsTableItem__cell
-        transactionsTableItem__time
-        transactionsTableItem__mobile
-      "
-    >
-      {{ row.time }}
-    </span>
+    <div class="transactionsTableItem__dateTime">
+      <span
+        class="
+          transactionsTableItem__cell
+          transactionsTableItem__date
+          transactionsTableItem__date_desktop
+        "
+      >
+        {{ row.showDate ? row.date : "" }}
+      </span>
+      <span
+        class="
+          transactionsTableItem__cell
+          transactionsTableItem__date
+          transactionsTableItem__date_mobile
+        "
+      >
+        {{ row.date }}
+      </span>
+      <span class="transactionsTableItem__cell transactionsTableItem__time">
+        {{ row.time }}
+      </span>
+      <span
+        class="
+          transactionsTableItem__cell
+          transactionsTableItem__type
+          transactionsTableItem__type_mobile
+        "
+      >
+        {{ $t(row.type) }}
+      </span>
+    </div>
     <span
       class="
         transactionsTableItem__cell
@@ -36,19 +41,13 @@
       "
     >
       <nuxt-link
-        class="transactionsTableItem__link"
+        class="transactionsTableItem__link transactionsTableItem__link_hash"
         :to="localePath(`/transaction/${row.hash}`)"
       >
         {{ row.hash }}
       </nuxt-link>
     </span>
-    <span
-      class="
-        transactionsTableItem__cell
-        transactionsTableItem__type
-        transactionsTableItem__mobile
-      "
-    >
+    <span class="transactionsTableItem__cell transactionsTableItem__type">
       {{ $t(row.type) }}
     </span>
     <div
@@ -168,6 +167,14 @@ export default {
     }
   }
 
+  &__dateTime {
+    +mediaDesktop() {
+      display: grid;
+      grid-template-columns: 58px 75px;
+      grid-column-gap: 8px;
+    }
+  }
+
   &__hash {
     order: -1;
 
@@ -194,16 +201,10 @@ export default {
     }
   }
 
-  &__mobile {
-    position: absolute;
-
-    +mediaDesktop() {
-      position: static;
-    }
-  }
-
   &__date {
     &_mobile {
+      margin-right: 2px;
+
       +mediaDesktop() {
         display: none;
       }
@@ -219,31 +220,43 @@ export default {
   }
 
   &__time {
-    top: 19px;
-    left: 50px;
+    margin-right: 12px;
 
-    +mediaTablet() {
-      top: 22px;
+    +mediaDesktop() {
+      margin-right: 0;
     }
   }
 
   &__type {
-    top: 19px;
-    left: 90px;
+    display: none;
 
-    +mediaTablet() {
-      top: 22px;
+    &_mobile {
+      display: inline;
+    }
+
+    +mediaDesktop() {
+      display: block;
+
+      &_mobile {
+        display: none;
+      }
     }
   }
 
   &__link {
     display: block;
     color: $colorLink;
-    font-weight 700
+
+    &_hash {
+      font-weight: 700;
+    }
 
     +mediaDesktop() {
-      font-weight 400
       color: $colorFontBase;
+
+      &_hash {
+        font-weight: 400;
+      }
     }
   }
 
@@ -296,6 +309,8 @@ export default {
       display: inline-block;
       width: calc(70% - 2px);
       text-align: right;
+      text-overflow: ellipsis;
+      overflow: hidden;
     }
 
     span:last-of-type {
@@ -308,16 +323,19 @@ export default {
     }
 
     +mediaDesktop() {
-      flex-direction: row;
+      display: grid;
+      grid-template-columns: minmax(60%, max-content) auto;
       justify-content: flex-end;
       max-height: 18px;
 
       span:first-of-type {
-        width: calc(100% - 55px);
+        width: auto;
       }
 
       span:last-of-type {
-        width: 50px;
+        width: auto;
+        min-width: 30px;
+        max-width: 34px;
       }
     }
   }

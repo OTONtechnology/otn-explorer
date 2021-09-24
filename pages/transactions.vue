@@ -10,7 +10,7 @@
           :titles="transactionTitles"
           :rows="transactionsGroupByDay"
         />
-        <CommonButtonMore class="table__button" v-if="false" />
+        <CommonButtonMore v-if="false" class="table__button" />
       </div>
     </WithLoader>
   </CommonContentBlockWrapper>

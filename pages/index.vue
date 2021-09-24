@@ -9,7 +9,7 @@
           :titles="transactionTitles"
           :rows="transactionsGroupByDay"
         />
-        <CommonButton href="/transactions" :button="false" v-if="false" />
+        <CommonButton v-if="false" href="/transactions" :button="false" />
       </div>
     </WithLoader>
   </CommonContentBlockWrapper>
