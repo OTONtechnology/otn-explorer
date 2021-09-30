@@ -1,21 +1,36 @@
 <template>
-  <div class="layoutHeaderLocalePicker">
-    <svg-icon name="common/lang-picker" class="langPickerIcon" />
+  <div class="layoutHeaderLocalePickerWrap">
+    <div class="layoutHeaderLocalePicker" @click="menu = !menu">
+      <svg-icon name="common/lang-picker" class="langPickerIcon" />
 
-    <div class="currentValue">
-      {{ locale }}
+      <div class="currentValue">
+        {{ locale }}
+      </div>
+
+      <div class="popup">
+        <div class="popupList">
+          <nuxt-link
+            v-for="lang in availableLangs"
+            :key="lang.code"
+            class="popupListItem"
+            :to="switchLocalePath(lang.code)"
+            @click.prevent="menu = false"
+          >
+            {{ lang.code }}
+          </nuxt-link>
+        </div>
+      </div>
     </div>
-
-    <div class="popup">
+    <div :class="['popup', { popup_mobile: menu }]" @mouseleave="menu = false">
       <div class="popupList">
-        <nuxt-link
+        <div
           v-for="lang in availableLangs"
           :key="lang.code"
           class="popupListItem"
-          :to="switchLocalePath(lang.code)"
+          @click="toggleLang(lang.code)"
         >
           {{ lang.code }}
-        </nuxt-link>
+        </div>
       </div>
     </div>
   </div>
@@ -26,6 +41,12 @@
 export default {
   name: 'HeaderLocalePicker',
 
+  data() {
+    return {
+      menu: false
+    }
+  },
+
   computed: {
     locale() {
       return this.$i18n.locale;
@@ -34,6 +55,13 @@ export default {
       return this.$i18n.locales.filter((i) => i.code !== this.locale);
     },
   },
+
+  methods: {
+    toggleLang(lang) {
+      this.$router.push(this.switchLocalePath(lang));
+      this.menu = false;
+    }
+  }
 };
 </script>
 
@@ -48,9 +76,12 @@ export default {
   color: $colorFontBase;
 
   &:hover {
-    .popup {
-      opacity: 1;
-      z-index: 20;
+    +mediaTablet() {
+      .popup {
+        display: block;
+        opacity: 1;
+        z-index: 20;
+      }
     }
   }
 }
@@ -77,6 +108,7 @@ export default {
 
 .popup {
   position: absolute;
+  display: none;
   background: #ffffff;
   top: calc(100% - 6px);
   right: -4px;
@@ -85,6 +117,18 @@ export default {
   color: $colorFontBase;
   opacity: 0;
   z-index: -1;
+
+  &_mobile {
+    display: block;
+    opacity: 1;
+    z-index: 20;
+
+    +mediaTablet() {
+      display: none;
+      opacity: 0;
+      z-index: -1;
+    }
+  }
 }
 
 .popupList {
