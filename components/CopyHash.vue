@@ -4,15 +4,18 @@
       {{ hash }}
     </span>
     <button class="tableTitle__button" type="button" @click="copy">
-      <svg-icon name="common/copy" class="tableTitle__icon" />
+      <svg-icon
+        name="common/copy"
+        :class="['tableTitle__icon', { tableTitle__icon_copied: copied }]"
+      />
     </button>
-    <span v-if="copied" class="tableTitle__copied"> copied </span>
+    <span v-if="copied" class="tableTitle__copied"> {{ $t("Copied") }} </span>
   </div>
 </template>
 
 <script>
 export default {
-  name: "CopyHash",
+  name: 'CopyHash',
   props: {
     hash: {
       type: String,
@@ -29,11 +32,11 @@ export default {
     copy() {
       this.$copyText(this.hash).then(
         (e) => {
-          console.log("Copied");
+          console.log('Copied');
           console.log(e);
         },
         (e) => {
-          console.log("Can not copy");
+          console.log('Can not copy');
           console.log(e);
         }
       );
@@ -95,6 +98,10 @@ export default {
     height: 16px;
     opacity: 0.3;
 
+    &_copied {
+      opacity: 1;
+    }
+
     &:hover {
       opacity: 1;
     }
@@ -106,11 +113,21 @@ export default {
   }
 
   &__copied {
+    position: relative;
+    bottom: 4px;
+    left: 4px;
+    display: inline-block;
     margin-left: -3px;
-    getFont();
+    width: 65px;
+    font-size: 10px;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.62px;
+
+    +mediaTablet() {
+      position: static;
+      font-size: 12px;
+    }
   }
 }
 </style>

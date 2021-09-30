@@ -10,9 +10,9 @@
         />
         <button
           v-if="!searchTextIsEmpty"
-          @click="clearInput"
           class="headerSearch__clearBtn"
           type="button"
+          @click="clearInput"
         />
       </div>
       <button class="headerSearch__button" type="submit">
@@ -52,11 +52,14 @@ export default {
         default:
           searchPage = 'searchError';
       }
-      console.info(searchPage);
+      // console.info(searchPage);
       this.$router.push(this.localePath(searchPage));
+      if (searchPage !== 'searchError') {
+        this.searchText = '';
+      }
     },
     clearInput() {
-      this.searchText = "";
+      this.searchText = '';
     }
   }
 };

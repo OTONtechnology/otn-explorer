@@ -14,6 +14,6 @@ export const actions = {
       `/address/${address}/transactions`
     );
 
-    commit("UPDATE_TRANSACTIONS", transactions);
+    commit('UPDATE_TRANSACTIONS', transactions);
   }
 };
