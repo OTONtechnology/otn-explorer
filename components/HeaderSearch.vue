@@ -39,6 +39,10 @@ export default {
   },
   methods: {
     onSearch() {
+      if (!this.searchText.trim()) {
+        return;
+      }
+
       const searchLength = this.searchText.length;
       let searchPage = '';
 
