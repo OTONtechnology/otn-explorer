@@ -34,11 +34,15 @@ export default {
       return /^\/(ru|en|de|tr)?$/.test(this.$route.path)
     },
     searchTextIsEmpty() {
-      return this.searchText.length === 0
+      return this.searchText.trim().length === 0
     }
   },
   methods: {
     onSearch() {
+      if (this.searchTextIsEmpty) {
+        return;
+      }
+
       const searchLength = this.searchText.length;
       let searchPage = '';
 
