@@ -240,7 +240,6 @@ export default {
     +mediaTablet() {
       position: absolute;
       left: 100%;
-      margin-left: 5px;
     }
   }
 
@@ -286,6 +285,10 @@ export default {
         width: 12px;
         height: 100%;
         background-image: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, #ffffff 100%);
+      }
+
+      +mediaTablet() {
+        width: auto;
       }
 
       +mediaDesktop() {
