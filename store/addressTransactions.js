@@ -35,7 +35,9 @@ import {
 
 const initState = {
   fetchState: INIT,
-  transactions: []
+  transactions: [],
+  lastTxid: '',
+  limit: 25
 };
 
 export const state = () => ({
@@ -51,7 +53,10 @@ export const mutations = {
   },
   SET_STATE(s, fetchState) {
     s.fetchState = fetchState;
-  }
+  },
+  SET_LASTTXID(s, lastTxid) {
+    s.lastTxid = lastTxid;
+  },
 };
 
 export const actions = {
@@ -68,10 +73,17 @@ export const actions = {
 
     try {
       const response = await this.$axios.$get(
-        `/address/${address}/transactions`
+        `/address/${address}/transactions`,
+        {
+          params: {
+            last_txid: state.lastTxid,
+            limit: state.limit
+          }
+        }
       );
 
       commit('UPDATE_DATA', response.data);
+      commit('SET_LASTTXID', response.data[response.data.length - 1].id);
       commit('SET_STATE', FULFILLED);
     } catch (err) {
       commit('SET_STATE', REJECTED);

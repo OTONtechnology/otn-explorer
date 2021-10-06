@@ -3,7 +3,6 @@
     <template #title>
       {{ $t("Transactions") }}
     </template>
-
     <WithLoader :state="fetchState" :loadMore="true">
       <div>
         <TransactionsTable
@@ -12,10 +11,7 @@
         />
       </div>
     </WithLoader>
-    <CommonButtonMore
-      v-show="transactionRows && transactionRows.length"
-      @click="fetch"
-    />
+    <CommonButtonMore v-if="btnMoreOn" @click="fetch" />
   </CommonContentBlockWrapper>
 </template>
 
@@ -37,7 +33,6 @@ export default {
         { name: 'addresses', text: '' },
         { name: 'total', text: 'Total' },
       ],
-      // limitTransactions: 25,
     };
   },
 
@@ -48,6 +43,12 @@ export default {
     ...mapGetters({
       transactionRows: 'lastTransactions/transactionsRows'
     }),
+    btnMoreOn() {
+      if (this.transactionRows && this.transactionRows.length % 25 === 0) {
+        return true
+      }
+      return false
+    }
   },
 
   mounted() {

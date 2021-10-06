@@ -12,10 +12,7 @@
             :rows="addressGroupByDay"
             :headRows="addressHeadRows"
           />
-          <!-- <CommonButtonMore
-            v-show="addressHeadRows && addressHeadRows.length"
-            class="table__button"
-          /> -->
+          <CommonButtonMore v-show="btnMoreOn" class="table__button" />
         </div>
       </WithLoader>
     </WithLoader>
@@ -112,6 +109,12 @@ export default {
         }))
       ];
     },
+    btnMoreOn() {
+      if (this.addressHeadRows && this.transactionRows.length % 25 === 0) {
+        return true
+      }
+      return false
+    }
   },
   mounted() {
     const address = this.$route.params.id;

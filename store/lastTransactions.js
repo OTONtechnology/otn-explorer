@@ -38,6 +38,7 @@ import {
 const initState = {
   fetchState: INIT,
   transactions: [],
+  lastTxid: '',
   limit: 25
 }
 
@@ -47,16 +48,16 @@ export const state = () => ({
 
 export const mutations = {
   UPDATE_TRANSACTIONS(s, transactions) {
-    s.transactions = transactions;
+    s.transactions = [...s.transactions, ...transactions];
   },
   SET_STATE(s, fetchState) {
     s.fetchState = fetchState;
   },
+  SET_LASTTXID(s, lastTxid) {
+    s.lastTxid = lastTxid;
+  },
   CLEAR(s) {
     Object.assign(s, initState);
-  },
-  SET_LIMIT(s, limit) {
-    s.limit = limit;
   },
 };
 
@@ -92,12 +93,13 @@ export const actions = {
     try {
       const transactions = await this.$axios.$get('/transactions', {
         params: {
-          limit: state.limit
+          last_txid: state.lastTxid,
+          limit: 25
         }
       });
-      commit('SET_LIMIT', state.limit + 25);
 
       commit('UPDATE_TRANSACTIONS', transactions.data);
+      commit('SET_LASTTXID', transactions.data[transactions.data.length - 1].id);
       commit('SET_STATE', FULFILLED);
     } catch (err) {
       commit('SET_STATE', REJECTED);
