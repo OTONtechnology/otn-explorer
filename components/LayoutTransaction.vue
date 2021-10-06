@@ -58,6 +58,12 @@
               <span :title="input.ticker.toUpperCase()">
                 {{ input.ticker }}
               </span>
+              <div
+                v-if="row.fee.amount === input.amount"
+                class="transactionTable__feeText"
+              >
+                {{ $t('fee') }}
+              </div>
             </div>
           </div>
         </template>
@@ -228,10 +234,19 @@ export default {
     font-weight: 700;
   }
 
+  &__feeText {
+    display: inline-block;
+    +mediaTablet() {
+      position: absolute;
+      top: 0;
+      right: -25px;
+    }
+  }
+
   &__cellSumInner {
     margin-bottom: 4px;
     max-height: 18px;
-    overflow: hidden;
+    position: relative;
     display: grid;
     grid-template-columns: minmax(46%, max-content) auto;
 
