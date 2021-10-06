@@ -12,7 +12,10 @@
             :rows="addressGroupByDay"
             :headRows="addressHeadRows"
           />
-          <CommonButtonMore v-if="false" class="table__button" />
+          <!-- <CommonButtonMore
+            v-show="addressHeadRows && addressHeadRows.length"
+            class="table__button"
+          /> -->
         </div>
       </WithLoader>
     </WithLoader>

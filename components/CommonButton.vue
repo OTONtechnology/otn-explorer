@@ -1,6 +1,11 @@
 <template>
   <div class="tableButtonBox">
-    <button v-if="button" type="button" class="tableButton">
+    <button
+      v-if="button"
+      type="button"
+      class="tableButton"
+      @click="$emit('click')"
+    >
       <slot v-if="$slots.icon" name="icon" />
       <slot>{{ $t("More") }}</slot>
     </button>

@@ -1,5 +1,5 @@
 <template>
-  <CommonButton />
+  <CommonButton @click="$emit('click')" />
 </template>
 
 <script>
@@ -9,5 +9,4 @@ export default {
 };
 </script>
 
-<style lang="stylus" scoped>
-</style>
+<style lang="stylus" scoped></style>

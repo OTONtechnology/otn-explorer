@@ -141,7 +141,7 @@ export default {
   &__box {
     display: grid;
     grid-gap: 4px;
-    grid-template-columns: 105px 75px minmax(65px, max-content);
+    grid-template-columns: 105px auto minmax(65px, max-content);
 
     +mediaTablet() {
       grid-gap: 4px 30px;
