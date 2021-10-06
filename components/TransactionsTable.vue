@@ -1,6 +1,7 @@
 <template>
   <div class="table">
     <TableHead
+      v-show="rows && rows.length"
       class="table__box table__box_head table__box_transactionsHead"
       :titles="titles"
       :lastCellMR="true"

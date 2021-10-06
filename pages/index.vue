@@ -9,7 +9,7 @@
           :titles="transactionTitles"
           :rows="transactionsGroupByDay"
         />
-        <CommonButton v-if="false" href="/transactions" :button="false" />
+        <CommonButton href="/transactions" :button="false" />
       </div>
     </WithLoader>
   </CommonContentBlockWrapper>
@@ -55,7 +55,7 @@ export default {
 
   methods: {
     ...mapActions({
-      fetch: 'lastTransactions/fetch'
+      fetch: 'lastTransactions/fetch',
     })
   },
 

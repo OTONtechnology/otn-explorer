@@ -4,15 +4,18 @@
       {{ $t("Transactions") }}
     </template>
 
-    <WithLoader :state="fetchState">
+    <WithLoader :state="fetchState" :loadMore="true">
       <div>
         <TransactionsTable
           :titles="transactionTitles"
           :rows="transactionsGroupByDay"
         />
-        <CommonButtonMore v-if="false" class="table__button" />
       </div>
     </WithLoader>
+    <CommonButtonMore
+      v-show="transactionRows && transactionRows.length"
+      @click="fetch"
+    />
   </CommonContentBlockWrapper>
 </template>
 
@@ -34,6 +37,7 @@ export default {
         { name: 'addresses', text: '' },
         { name: 'total', text: 'Total' },
       ],
+      // limitTransactions: 25,
     };
   },
 
@@ -57,7 +61,7 @@ export default {
   methods: {
     ...mapActions({
       fetch: 'lastTransactions/fetch'
-    })
+    }),
   },
 };
 </script>

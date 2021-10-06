@@ -1,6 +1,16 @@
 <template>
   <div>
     <!-- <transition :name="transitionName"> -->
+    <!-- </transition> -->
+    <transition :name="transitionName">
+      <template v-if="loadMore">
+        <slot />
+      </template>
+
+      <template v-else>
+        <slot v-if="state === 'FULFILLED'" />
+      </template>
+    </transition>
     <CommonLoader
       v-if="state === 'PENDING' || state === 'INIT' || active"
       :state="state"
@@ -8,10 +18,6 @@
       :active="active"
       :top="top"
     />
-    <!-- </transition> -->
-    <transition :name="transitionName">
-      <slot v-if="state === 'FULFILLED'" />
-    </transition>
     <!-- <transition :name="transitionName"> -->
     <div v-if="state === 'REJECTED'" class="NoData">
       <NotFound />
@@ -25,7 +31,7 @@ import { FULFILLED } from '@/utils/constants';
 
 export default {
   name: 'WithLoader',
-  components: { },
+  components: {},
   props: {
     state: {
       type: String,
@@ -38,6 +44,9 @@ export default {
       type: String,
       default: 'fade-enter',
     },
+    loadMore: {
+      type: Boolean
+    }
   },
 };
 </script>
