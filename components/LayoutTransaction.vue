@@ -236,10 +236,11 @@ export default {
 
   &__feeText {
     display: inline-block;
+    margin-left: 5px;
     +mediaTablet() {
       position: absolute;
-      top: 0;
-      right: -25px;
+      left: 100%;
+      margin-left: 5px;
     }
   }
 
@@ -248,7 +249,7 @@ export default {
     max-height: 18px;
     position: relative;
     display: grid;
-    grid-template-columns: minmax(46%, max-content) auto;
+    grid-template-columns: minmax(46%, max-content) auto auto;
 
     +mediaDesktop() {
       display: flex;
@@ -273,7 +274,7 @@ export default {
       text-transform: uppercase;
       text-align: left;
       overflow: hidden;
-      min-width: 30px;
+      width: 30px;
 
       &::after {
         position: absolute;
@@ -306,7 +307,7 @@ export default {
   &__box {
     display: grid;
     grid-gap: 4px 8px;
-    grid-template-columns: calc(100% - 98px) 90px;
+    grid-template-columns: calc(100% - 143px) 98px;
 
     +mediaTablet() {
       grid-gap: 4px 30px;
