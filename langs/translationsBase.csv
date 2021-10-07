@@ -36,3 +36,4 @@ Balances,Балансы,Balances,Guthaben,Bakiye
 Sender/Recipient,Отправитель/Получатель,Sender/Recipient,Absender/Empfänger,Gönderen/Alıcı
 Included {fee} fee,Включая {fee} комиссии,Included {fee} fee,Einschließlich {fee} Gebühr,{fee} Komisyon dahil
 Copied,Скопировано,Copied,Kopiert,Kopyalanmış
+fee,комиссия,fee,Gebühr,komisyon

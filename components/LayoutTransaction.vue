@@ -58,6 +58,12 @@
               <span :title="input.ticker.toUpperCase()">
                 {{ input.ticker }}
               </span>
+              <div
+                v-if="row.fee.amount === input.amount"
+                class="transactionTable__feeText"
+              >
+                {{ $t('fee') }}
+              </div>
             </div>
           </div>
         </template>
@@ -228,12 +234,21 @@ export default {
     font-weight: 700;
   }
 
+  &__feeText {
+    display: inline-block;
+    margin-left: 5px;
+    +mediaTablet() {
+      position: absolute;
+      left: 100%;
+    }
+  }
+
   &__cellSumInner {
     margin-bottom: 4px;
     max-height: 18px;
-    overflow: hidden;
+    position: relative;
     display: grid;
-    grid-template-columns: minmax(46%, max-content) auto;
+    grid-template-columns: minmax(46%, max-content) auto auto;
 
     +mediaDesktop() {
       display: flex;
@@ -258,7 +273,7 @@ export default {
       text-transform: uppercase;
       text-align: left;
       overflow: hidden;
-      min-width: 30px;
+      width: 30px;
 
       &::after {
         position: absolute;
@@ -270,6 +285,10 @@ export default {
         width: 12px;
         height: 100%;
         background-image: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, #ffffff 100%);
+      }
+
+      +mediaTablet() {
+        width: auto;
       }
 
       +mediaDesktop() {
@@ -291,7 +310,7 @@ export default {
   &__box {
     display: grid;
     grid-gap: 4px 8px;
-    grid-template-columns: calc(100% - 98px) 90px;
+    grid-template-columns: calc(100% - 143px) 98px;
 
     +mediaTablet() {
       grid-gap: 4px 30px;
