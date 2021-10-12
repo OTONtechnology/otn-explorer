@@ -39,7 +39,8 @@ const initState = {
   fetchState: INIT,
   transactions: [],
   lastTxid: '',
-  limit: 25
+  limit: 25,
+  btnMore: false,
 }
 
 export const state = () => ({
@@ -55,6 +56,9 @@ export const mutations = {
   },
   SET_LASTTXID(s, lastTxid) {
     s.lastTxid = lastTxid;
+  },
+  SET_BTN_MORE(s, length) {
+    s.btnMore = (length % 25 === 0 && length !== 0)
   },
   CLEAR(s) {
     Object.assign(s, initState);
@@ -79,7 +83,7 @@ export const getters = {
         amount: input.amount
       }))
     }));
-  }
+  },
 };
 
 export const actions = {
@@ -100,6 +104,7 @@ export const actions = {
 
       commit('UPDATE_TRANSACTIONS', transactions.data);
       commit('SET_LASTTXID', transactions.data[transactions.data.length - 1].id);
+      commit('SET_BTN_MORE', transactions.data.length);
       commit('SET_STATE', FULFILLED);
     } catch (err) {
       commit('SET_STATE', REJECTED);

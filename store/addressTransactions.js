@@ -37,7 +37,8 @@ const initState = {
   fetchState: INIT,
   transactions: [],
   lastTxid: '',
-  limit: 25
+  limit: 25,
+  btnMore: false,
 };
 
 export const state = () => ({
@@ -56,6 +57,9 @@ export const mutations = {
   },
   SET_LASTTXID(s, lastTxid) {
     s.lastTxid = lastTxid;
+  },
+  SET_BTN_MORE(s, length) {
+    s.btnMore = (length % 25 === 0 && length !== 0)
   },
 };
 
@@ -84,6 +88,7 @@ export const actions = {
 
       commit('UPDATE_DATA', response.data);
       commit('SET_LASTTXID', response.data[response.data.length - 1].id);
+      commit('SET_BTN_MORE', response.data.length);
       commit('SET_STATE', FULFILLED);
     } catch (err) {
       commit('SET_STATE', REJECTED);
