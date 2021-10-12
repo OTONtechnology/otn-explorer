@@ -11,7 +11,7 @@
         />
       </div>
     </WithLoader>
-    <CommonButtonMore v-if="btnMoreOn" @click="fetch" />
+    <CommonButtonMore v-if="btnMore" @click="fetch" />
   </CommonContentBlockWrapper>
 </template>
 
@@ -38,19 +38,13 @@ export default {
 
   computed: {
     ...mapState({
-      fetchState: state => state.lastTransactions.fetchState
+      fetchState: state => state.lastTransactions.fetchState,
+      btnMore: state => state.lastTransactions.btnMore,
     }),
     ...mapGetters({
-      transactionRows: 'lastTransactions/transactionsRows'
+      transactionRows: 'lastTransactions/transactionsRows',
     }),
-    btnMoreOn() {
-      if (this.transactionRows && this.transactionRows.length % 25 === 0) {
-        return true
-      }
-      return false
-    }
   },
-
   mounted() {
     this.fetch();
   },

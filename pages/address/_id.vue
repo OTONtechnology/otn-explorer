@@ -12,7 +12,7 @@
             :rows="addressGroupByDay"
             :headRows="addressHeadRows"
           />
-          <CommonButtonMore v-show="btnMoreOn" class="table__button" />
+          <CommonButtonMore v-show="btnMore" class="table__button" />
         </div>
       </WithLoader>
     </WithLoader>
@@ -37,8 +37,8 @@ export default {
 
       balanceData: state => state.addressBalance.balance,
       transactionsData: state => state.addressTransactions.transactions,
+      btnMore: state => state.addressTransactions.btnMore,
     }),
-
     addressInfoTitles() {
       const result = [];
 
@@ -109,12 +109,6 @@ export default {
         }))
       ];
     },
-    btnMoreOn() {
-      if (this.addressHeadRows && this.transactionRows.length % 25 === 0) {
-        return true
-      }
-      return false
-    }
   },
   mounted() {
     const address = this.$route.params.id;
