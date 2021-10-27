@@ -79,16 +79,22 @@ export const actions = {
       const response = await this.$axios.$get(
         `/address/${address}/transactions`,
         {
-          // params: {
-          //   last_txid: state.lastTxid,
-          //   limit: state.limit
-          // }
+          params: {
+            last_txid: state.lastTxid,
+            limit: state.limit
+          }
         }
       );
 
       commit('UPDATE_DATA', response.data);
-      commit('SET_LASTTXID', response.data[response.data.length - 1].id);
-      commit('SET_BTN_MORE', response.data.length);
+      try {
+        commit('SET_LASTTXID', response.data[response.data.length - 1].id);
+        commit('SET_BTN_MORE', response.data.length);
+      } catch (err) {
+        commit('SET_BTN_MORE', 0);
+        console.error(err);
+        console.error(response.data);
+      }
       commit('SET_STATE', FULFILLED);
     } catch (err) {
       commit('SET_STATE', REJECTED);
