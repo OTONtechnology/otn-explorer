@@ -98,7 +98,7 @@ export const actions = {
       const transactions = await this.$axios.$get('/transactions', {
         params: {
           last_txid: state.lastTxid,
-          limit: 25
+          limit: state.limit
         }
       });
 
