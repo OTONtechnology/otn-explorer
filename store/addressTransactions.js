@@ -47,7 +47,7 @@ export const state = () => ({
 
 export const mutations = {
   UPDATE_DATA(s, transactions) {
-    s.transactions = transactions;
+    s.transactions = [...s.transactions, ...transactions];
   },
   CLEAR(s) {
     Object.assign(s, initState);

@@ -4,7 +4,7 @@
       {{ $t("Address") }}
     </template>
     <WithLoader :state="balanceState">
-      <WithLoader :state="transactionsState">
+      <WithLoader :state="transactionsState" :loadMore="true">
         <div>
           <LayoutAddress
             :infoTitles="addressInfoTitles"
@@ -12,10 +12,14 @@
             :rows="addressGroupByDay"
             :headRows="addressHeadRows"
           />
-          <CommonButtonMore v-show="btnMore" class="table__button" />
         </div>
       </WithLoader>
     </WithLoader>
+    <CommonButtonMore
+      v-if="btnMore"
+      class="table__button"
+      @click="fetchTransactions($route.params.id)"
+    />
   </CommonContentBlockWrapper>
 </template>
 
@@ -23,7 +27,7 @@
 import { mapActions, mapState } from 'vuex';
 import { prop, propEq, reverse } from 'rambda';
 import addressGroupByDay from '@/mixins/addressGroupByDay';
-import { FULFILLED } from '~/utils/constants';
+import { FULFILLED, PENDING } from '~/utils/constants';
 
 export default {
   name: 'AddressPage',
@@ -58,7 +62,7 @@ export default {
       ]
     },
     addressHeadRows() {
-      if (this.transactionsState !== FULFILLED || this.balanceState !== FULFILLED) {
+      if ((this.transactionsState !== PENDING && this.transactionsState !== FULFILLED) || this.balanceState !== FULFILLED) {
         return [];
       }
 
