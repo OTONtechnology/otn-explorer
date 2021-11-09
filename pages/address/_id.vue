@@ -25,7 +25,7 @@
 
 <script>
 import { mapActions, mapState } from 'vuex';
-import { prop, propEq, reverse } from 'rambda';
+import { prop, propEq } from 'rambda';
 import addressGroupByDay from '@/mixins/addressGroupByDay';
 import { FULFILLED, PENDING } from '~/utils/constants';
 
@@ -93,7 +93,7 @@ export default {
       const currentAddress = this.$route.params.id;
 
       return [
-        ...reverse(this.transactionsData.map(trn => {
+        ...this.transactionsData.map(trn => {
           const isSender = trn.inputs.some(input => input.address === currentAddress);
 
           const sumData = isSender ? trn.inputs : trn.outputs;
@@ -110,7 +110,7 @@ export default {
             })),
 
           }
-        }))
+        })
       ];
     },
   },
