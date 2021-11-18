@@ -12,7 +12,10 @@ export default {
     },
     meta: [
       { charset: 'utf-8' },
-      { name: 'viewport', content: 'width=device-width, minimum-scale=1, initial-scale=1' },
+      {
+        name: 'viewport',
+        content: 'width=device-width, minimum-scale=1, initial-scale=1'
+      },
       { hid: 'description', name: 'description', content: '' },
       { name: 'format-detection', content: 'telephone=no' }
     ],
@@ -100,7 +103,8 @@ export default {
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
-    baseURL: 'https://explorer-dev.108dev.ru/api/v1'
+    baseURL: 'https://explorer.108dev.ru/api/v1'
+    // baseURL: 'https://explorer-dev.108dev.ru/api/v1'
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
