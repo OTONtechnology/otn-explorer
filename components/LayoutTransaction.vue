@@ -59,10 +59,11 @@
                 {{ input.ticker }}
               </span>
               <div
-                v-if="row.fee.amount === input.amount"
+                v-if="input.sequence !== null"
                 class="transactionTable__feeText"
               >
-                {{ $t('fee') }}
+                <div v-if="row.fee.amount === input.amount">{{ $t('fee') }}</div>
+                <div v-else>{{ $t("Included {fee} fee", { fee: row.fee.amount }) }}</div>
               </div>
             </div>
           </div>
@@ -240,6 +241,7 @@ export default {
     +mediaTablet() {
       position: absolute;
       left: 100%;
+      white-space: nowrap;
     }
   }
 
