@@ -5,7 +5,7 @@
         v-for="link in footerLinks"
         :key="link.text"
         class="footer__link"
-        :href="`docs/${link.docName}.pdf`"
+        :href="link.docName"
         target="_blank"
       >
         {{ $t(link.text) }}
@@ -24,15 +24,15 @@ export default {
       footerLinks: [
         {
           text: 'Terms of use',
-          docName: 'terms-of-use',
+          docName: 'https://oton.technology/OtonTechnology_TermsAndConditions.pdf',
         },
         {
-          text: 'Cookie policy',
-          docName: 'cookie-policy',
+          text: 'Cookies policy',
+          docName: 'https://oton.technology/OtonTechnology_CookiesPolicy.pdf',
         },
         {
           text: 'Privacy notice',
-          docName: 'privacy-notice',
+          docName: 'https://oton.technology/OtonTechnology_PrivacyPolicy.pdf',
         },
       ],
     };
