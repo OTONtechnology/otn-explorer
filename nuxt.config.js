@@ -103,9 +103,10 @@ export default {
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
-    // baseURL: 'https://explorer.108dev.ru/api/v1'
-    // baseURL: 'https://explorer-dev.108dev.ru/api/v1'
-    baseURL: 'https://explorer-dev2.108dev.ru/api/v1'
+    // baseURL: 'https://explorer.108dev.ru/api/v1' // 47
+    // baseURL: 'https://explorer-dev.108dev.ru/api/v1' // 57
+
+    baseURL: 'https://explorer-dev2.108dev.ru/api/v1' // 47
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
