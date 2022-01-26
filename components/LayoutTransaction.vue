@@ -21,9 +21,11 @@
           >
             <span>{{ total[1] }}</span>
             <span :title="total[0].toUpperCase()">{{ total[0] }}</span>
-            <span v-if="total[0] === row.fee.ticker && row.fee ">
-              {{ $t("Included {fee} fee", { fee: row.fee.amount }) }}
-            </span>
+            <template v-if="row.fee">
+              <span v-if="total[0] === row.fee.ticker">
+                {{ $t("Included {fee} fee", { fee: row.fee.amount }) }}
+              </span>
+            </template>
           </div>
         </div>
       </div>
