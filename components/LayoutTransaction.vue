@@ -21,7 +21,7 @@
           >
             <span>{{ total[1] }}</span>
             <span :title="total[0].toUpperCase()">{{ total[0] }}</span>
-            <span v-if="total[0] === row.fee.ticker">
+            <span v-if="total[0] === row.fee.ticker && row.fee ">
               {{ $t("Included {fee} fee", { fee: row.fee.amount }) }}
             </span>
           </div>
@@ -59,11 +59,15 @@
                 {{ input.ticker }}
               </span>
               <div
-                v-if="input.sequence !== null"
+                v-if="input.sequence !== null && row.fee"
                 class="transactionTable__feeText"
               >
-                <div v-if="row.fee.amount === input.amount">{{ $t('fee') }}</div>
-                <div v-else>{{ $t("Included {fee} fee", { fee: row.fee.amount }) }}</div>
+                <div v-if="row.fee.amount === input.amount">
+                  {{ $t("fee") }}
+                </div>
+                <div v-else>
+                  {{ $t("Included {fee} fee", { fee: row.fee.amount }) }}
+                </div>
               </div>
             </div>
           </div>
@@ -238,6 +242,7 @@ export default {
   &__feeText {
     display: inline-block;
     margin-left: 5px;
+
     +mediaTablet() {
       position: absolute;
       left: 100%;
