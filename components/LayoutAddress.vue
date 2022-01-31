@@ -51,7 +51,7 @@
         />
 
         <AddressTableItem
-          v-for="(row, index) in filteredRows"
+          v-for="(row, index) in rows"
           :key="row.id"
           :row="row"
           :index="index"
@@ -63,6 +63,7 @@
 </template>
 
 <script>
+import { mapActions, mapState } from 'vuex';
 export default {
   name: 'LayoutAddress',
   props: {
@@ -85,15 +86,6 @@ export default {
   },
   data() {
     return {
-      btns: {
-        name: 'btns',
-        active: 'all',
-        array: [
-          { name: 'all', text: 'All' },
-          { name: 'received', text: 'Received' },
-          { name: 'sent', text: 'Sent' },
-        ],
-      },
       btnsCurrNames: {
         name: 'btnsCurrNames',
         active: 'currsAll',
@@ -108,23 +100,22 @@ export default {
     };
   },
   computed: {
-    filteredRows() {
-      if (this.btns.active === 'all') {
-        return this.rows
-      }
-      return this.rows.filter(({ isSender }) => {
-        if (this.btns.active === 'received') {
-          return !isSender
-        }
-
-        return isSender
-      });
-    }
+    ...mapState({
+      btns: state => ({
+        name: 'btns',
+        active: state.addressTransactions.filters,
+        array: [
+          { name: '', text: 'All' },
+          { name: 'refill', text: 'Received' },
+          { name: 'withdraw', text: 'Sent' },
+        ],
+      }),
+    })
   },
   methods: {
-    radioPick(name) {
-      this.btns.active = name;
-    },
+    ...mapActions({
+      radioPick: 'addressTransactions/updateFilters'
+    }),
   }
 };
 </script>
