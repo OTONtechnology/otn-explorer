@@ -114,8 +114,14 @@ export default {
   },
   methods: {
     ...mapActions({
-      radioPick: 'addressTransactions/updateFilters'
+      updateFilters: 'addressTransactions/updateFilters',
     }),
+    radioPick(name) {
+      this.updateFilters({
+        filters: name,
+        address: this.$route.params.id,
+      })
+    }
   }
 };
 </script>

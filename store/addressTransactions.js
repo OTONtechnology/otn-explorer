@@ -106,12 +106,12 @@ export const actions = {
       console.error(err);
     }
   },
-  async updateFilters({ commit, dispatch, state }, filters) {
+  async updateFilters({ commit, dispatch, state }, { filters, address }) {
     if (state.fetchState === PENDING) {
       return;
     }
     commit('CLEAR');
     commit('SET_FILTERS', filters);
-    dispatch('fetch')
+    dispatch('fetch', address)
   }
 };
