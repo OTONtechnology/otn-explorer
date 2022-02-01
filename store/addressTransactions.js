@@ -39,6 +39,7 @@ const initState = {
   lastTxid: '',
   limit: 25,
   btnMore: false,
+  filters: '',
 };
 
 export const state = () => ({
@@ -61,6 +62,9 @@ export const mutations = {
   SET_BTN_MORE(s, length) {
     s.btnMore = (length % 25 === 0 && length !== 0)
   },
+  SET_FILTERS(s, filters) {
+    s.filters = filters
+  },
 };
 
 export const actions = {
@@ -81,7 +85,8 @@ export const actions = {
         {
           params: {
             last_txid: state.lastTxid,
-            limit: state.limit
+            limit: state.limit,
+            type: state.filters
           }
         }
       );
@@ -100,5 +105,13 @@ export const actions = {
       commit('SET_STATE', REJECTED);
       console.error(err);
     }
+  },
+  async updateFilters({ commit, dispatch, state }, { filters, address }) {
+    if (state.fetchState === PENDING) {
+      return;
+    }
+    commit('CLEAR');
+    commit('SET_FILTERS', filters);
+    dispatch('fetch', address)
   }
 };
