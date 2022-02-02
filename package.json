@@ -27,6 +27,7 @@
   "dependencies": {
     "@nuxtjs/axios": "^5.13.6",
     "core-js": "^3.15.1",
+    "d3-geo-projection": "^4.0.0",
     "dayjs": "^1.10.4",
     "decimal.js": "^10.3.1",
     "nuxt": "^2.15.7",

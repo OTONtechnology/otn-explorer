@@ -1,19 +1,21 @@
 <template>
-  <footer class="footer">
-    <div class="footer__links">
-      <a
-        v-for="link in footerLinks"
-        :key="link.text"
-        class="footer__link"
-        :href="link.docName"
-        target="_blank"
-      >
-        {{ $t(link.text) }}
-      </a>
-    </div>
+  <div class="footerBox">
+    <footer class="footer">
+      <div class="footer__links">
+        <a
+          v-for="link in footerLinks"
+          :key="link.text"
+          class="footer__link"
+          :href="link.docName"
+          target="_blank"
+        >
+          {{ $t(link.text) }}
+        </a>
+      </div>
 
-    <span class="footer__copyright"> © OTON, {{ year }} </span>
-  </footer>
+      <span class="footer__copyright"> © OTON, {{ year }} </span>
+    </footer>
+  </div>
 </template>
 
 <script>
@@ -47,11 +49,15 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
+.footerBox {
+  padding-top: 24px;
+  margin-top: auto;
+}
+
 .footer {
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
-  margin-top: 24px;
   padding: 12px 0 16px;
   border-top: 4px solid $colorFiller;
   getFont();
@@ -88,6 +94,7 @@ export default {
     display: block;
     margin-top: 12px;
     font-weight: 700;
+    color: $colorFontBase;
     opacity: 0.4;
 
     +mediaTablet() {

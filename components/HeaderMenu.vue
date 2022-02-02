@@ -21,6 +21,10 @@ export default {
           href: '/transactions',
           text: 'Transactions',
         },
+        {
+          href: '/live-map',
+          text: 'Nodes live map',
+        },
       ],
     };
   },

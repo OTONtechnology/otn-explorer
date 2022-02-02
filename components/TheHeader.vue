@@ -9,13 +9,12 @@
         <HeaderLocalePicker />
       </div>
     </header>
-    <HeaderSearch />
   </div>
 </template>
 
 <script>
 export default {
-  name: "TheHeader",
+  name: 'TheHeader',
   data() {
     return {
       mobileMenu: false,
