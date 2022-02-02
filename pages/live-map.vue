@@ -7,8 +7,9 @@
 <script>
 /* eslint-disable no-undef */
 
-import { geoMiller } from 'd3-geo-projection';
+// import { geoMiller } from 'd3-geo-projection';
 // import * as am5 from '@amcharts/amcharts5'
+// import geoMiller from 'd3-geo-projection/src/miller'
 
 export default {
   name: 'LiveMap',
@@ -17,17 +18,6 @@ export default {
 
   data() {
     return {}
-  },
-
-  head: {
-    script: [
-      { src: 'https://cdn.amcharts.com/lib/5/index.js' },
-      { src: 'https://cdn.amcharts.com/lib/5/map.js' },
-      { src: 'https://cdn.amcharts.com/lib/5/geodata/worldLow.js' }
-    ],
-    link: [
-      { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Roboto' }
-    ]
   },
 
   computed: {
@@ -43,7 +33,7 @@ export default {
         wheelX: 'none',
         wheelY: 'none',
 
-        projection: geoMiller()
+        projection: d3.geoMiller()
       })
     );
 
@@ -61,26 +51,7 @@ export default {
     });
 
     const pointSeries1 = chart.series.push(
-      am5map.MapPointSeries.new(root, {
-        geoJSON: {
-          type: 'FeatureCollection',
-          features: [
-            {
-              type: 'Feature',
-              properties: {
-                name: 'Kirov',
-                ip: '84.244.54.162:8333',
-              },
-              geometry: {
-                type: 'Point',
-                coordinates: [
-                  49.66007, 58.59665
-                ]
-              }
-            }
-          ]
-        }
-      })
+      am5map.MapPointSeries.new(root, {})
     );
     const pointSeries2 = chart.series.push(
       am5map.MapPointSeries.new(root, {
@@ -140,7 +111,7 @@ export default {
 
     pointSeries1.data.setAll([
       {
-        name: 'Reykjavik, Iceland',
+        name: 'Russia, Kirov',
         ip: '84.244.54.162:8333',
         geometry: {
           type: 'Point',

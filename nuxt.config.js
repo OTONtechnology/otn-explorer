@@ -10,6 +10,17 @@ export default {
     htmlAttrs: {
       lang: 'en'
     },
+    script: [
+      { src: 'https://cdn.amcharts.com/lib/5/index.js', preload: true },
+      { src: 'https://cdn.amcharts.com/lib/5/map.js', preload: true },
+      {
+        src: 'https://cdn.amcharts.com/lib/5/geodata/worldLow.js',
+        preload: true
+      },
+      { src: 'https://cdn.jsdelivr.net/npm/d3-array@3', preload: true },
+      { src: 'https://cdn.jsdelivr.net/npm/d3-geo@3', preload: true },
+      { src: 'https://cdn.jsdelivr.net/npm/d3-geo-projection@4', preload: true }
+    ],
     meta: [
       { charset: 'utf-8' },
       {
