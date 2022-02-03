@@ -1,15 +1,36 @@
 <template>
   <div class="container">
-    <div ref="chartMap" class="map" />
+    <WithLoader :state="infoState">
+      <div class="infoWrapper">
+        <div v-for="item in info" :key="item.label" class="infoItem">
+          <div class="infoLabel">{{ item.label }}</div>
+          <div class="infoValue">{{ item.value }}</div>
+        </div>
+      </div>
+    </WithLoader>
+    <LiveMapChart />
+    <div class="validatorsList">
+      <div class="infoLabel validator">Node queue</div>
+      <WithLoader :state="validatorsState">
+        <div>
+          <div
+            v-for="item in validators"
+            :key="item.validator_address"
+            class="validatorAddress"
+          >
+            {{ item.validator_address }}
+            <div class="validatorNumber">{{ item.id }}</div>
+          </div>
+        </div>
+      </WithLoader>
+    </div>
   </div>
 </template>
 
 <script>
-/* eslint-disable no-undef */
+import { mapActions, mapGetters, mapState } from 'vuex';
 
-// import { geoMiller } from 'd3-geo-projection';
-// import * as am5 from '@amcharts/amcharts5'
-// import geoMiller from 'd3-geo-projection/src/miller'
+// all imports u can see inside nuxt.config.js
 
 export default {
   name: 'LiveMap',
@@ -21,139 +42,35 @@ export default {
   },
 
   computed: {
-
+    ...mapState({
+      infoState: 'blockchainInfo/fetchState',
+      validatorsState: 'blockchainValidators/fetchState',
+    }),
+    ...mapGetters({
+      info: 'blockchainInfo/data',
+      validators: 'blockchainValidators/data',
+    })
   },
 
   mounted() {
-    const root = am5.Root.new(this.$refs.chartMap);
-    const chart = root.container.children.push(
-      am5map.MapChart.new(root, {
-        panX: 'none',
-        panY: 'none',
-        wheelX: 'none',
-        wheelY: 'none',
-
-        projection: d3.geoMiller()
-      })
-    );
-
-    const polygonSeries = chart.series.push(
-      am5map.MapPolygonSeries.new(root, {
-        geoJSON: window.am5geodata_worldLow,
-        exclude: ['AQ'],
-      })
-    );
-
-    polygonSeries.mapPolygons.template.setAll({
-      fill: am5.color(0x233940),
-      stroke: am5.color(0x596A71),
-      strokeWidth: 0.5,
-    });
-
-    const pointSeries1 = chart.series.push(
-      am5map.MapPointSeries.new(root, {})
-    );
-    const pointSeries2 = chart.series.push(
-      am5map.MapPointSeries.new(root, {
-        polygonIdField: 'country'
-      })
-    );
-    const pointSeries3 = chart.series.push(
-      am5map.MapPointSeries.new(root, {
-        polygonIdField: 'country'
-      })
-    );
-    pointSeries1.bullets.push(() => {
-      const circle = am5.Circle.new(root, {
-        radius: 5,
-        fill: am5.color(0xFFFFFF),
-        tooltipText: '[fontSize: 10px #fff]{name}[/][/]\n[fontSize: 10px #7b888c]{ip}[/][/]',
-
-        showTooltipOn: 'always',
-        tooltipY: 12,
-      });
-
-      const tooltip = am5.Tooltip.new(root, {
-        pointerOrientation: 'left',
-        paddingLeft: 6,
-        paddingRight: 6,
-        paddingTop: 6,
-        paddingBottom: 6,
-        getFillFromSprite: false,
-        getStrokeFromSprite: false
-      });
-
-      tooltip.get('background').setAll({
-        stroke: am5.color(0x000000),
-        strokeOpacity: 0
-      });
-
-      circle.set('tooltip', tooltip);
-
-      return am5.Bullet.new(root, {
-        sprite: circle
-      })
-    });
-    pointSeries2.bullets.push(() => am5.Bullet.new(root, {
-      sprite: am5.Circle.new(root, {
-        radius: 3,
-        fill: am5.color(0xFFFFFF),
-        fillOpacity: 0.5
-      })
-    }));
-    pointSeries3.bullets.push(() => am5.Bullet.new(root, {
-      sprite: am5.Circle.new(root, {
-        radius: 2,
-        fill: am5.color(0xFFFFFF),
-        fillOpacity: 0.2
-      })
-    }));
-
-    pointSeries1.data.setAll([
-      {
-        name: 'Russia, Kirov',
-        ip: '84.244.54.162:8333',
-        geometry: {
-          type: 'Point',
-          coordinates: [49.66007, 58.59665],
-        },
-
-      }
-    ]);
-
-    pointSeries2.data.setAll([
-      {
-        country: 'US',
-        type: 'Point',
-        name: 'Reykjavik, Iceland',
-        ip: '84.244.54.162:8333'
-      }
-    ]);
-    pointSeries3.data.setAll([
-
-      {
-        country: 'MX',
-        type: 'Point',
-        name: 'Reykjavik, Iceland',
-        ip: '84.244.54.162:8333'
-      }
-    ]);
-
-    this.root = root;
-  },
-
-  beforeDestroy() {
-    if (this.root) {
-      this.root.dispose();
-    }
+    this.fetchInfo();
+    this.fetchValidators();
   },
 
   destroyed() {
-
+    this.clearTimeoutInfo();
+    this.clearTimeoutValidators();
+    this.$store.commit('blockchainInfo/CLEAR')
+    this.$store.commit('blockchainValidators/CLEAR')
   },
 
   methods: {
-
+    ...mapActions({
+      clearTimeoutInfo: 'blockchainInfo/clearTimeout',
+      fetchInfo: 'blockchainInfo/fetch',
+      fetchValidators: 'blockchainValidators/fetch',
+      clearTimeoutValidators: 'blockchainValidators/clearTimeout',
+    })
   },
 
 };
@@ -161,13 +78,85 @@ export default {
 
 <style lang="stylus" scoped>
 .container {
-  padding-top: 24px;
+  margin-top: 24px;
   color: $colorFontBase;
-}
-
-.map {
+  position: relative;
   width: 100%;
   min-height: 500px;
   height: calc(100vh - 176px);
+}
+
+.infoWrapper {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: nowrap;
+  overflow: auto;
+  width: 100%;
+  max-width: calc(100% - 190px);
+}
+
+.infoItem {
+  padding: 0 10px;
+
+  &:first-child {
+    padding-left: 0;
+  }
+}
+
+.infoLabel {
+  white-space: nowrap;
+  opacity: 0.4;
+  text-transform: uppercase;
+  font-size: 12px;
+  margin-bottom: 3px;
+
+  &.validator {
+    margin-bottom: 8px;
+  }
+}
+
+.infoValue {
+  white-space: nowrap;
+  font-weight: bold;
+  font-size: 20px;
+  position: relative;
+}
+
+.validatorsList {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  overflow: hidden;
+  padding-left: 14px;
+  width: 162px;
+}
+
+.validatorAddress {
+  position: relative;
+  font-size: 14px;
+
+  &:not(:last-child) {
+    margin-bottom: 10px;
+  }
+
+  &::before {
+    content: '';
+    background: linear-gradient(90deg, transparent 0%, $colorBg 100%);
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    width: 16px;
+  }
+}
+
+.validatorNumber {
+  position: absolute;
+  right: 100%;
+  bottom: 0;
+  opacity: 0.4;
+  margin-right: 4px;
+  font-size: 10px;
 }
 </style>
