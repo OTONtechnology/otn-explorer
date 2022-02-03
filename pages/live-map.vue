@@ -18,7 +18,7 @@
             :key="item.validator_address"
             class="validatorAddress"
           >
-            {{ item.validator_address }}
+            {{ item.reward_address }}
             <div class="validatorNumber">{{ item.id }}</div>
           </div>
         </div>
