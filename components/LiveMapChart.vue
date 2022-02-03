@@ -159,6 +159,7 @@ export default {
 
 .map {
   position: absolute;
+  z-index: 5;
   bottom: 0;
   right: 0;
   left: 0;

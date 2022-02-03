@@ -82,7 +82,7 @@ export default {
   color: $colorFontBase;
   position: relative;
   width: 100%;
-  min-height: 500px;
+  min-height: 300px;
   height: calc(100vh - 176px);
 }
 
@@ -92,11 +92,22 @@ export default {
   flex-wrap: nowrap;
   overflow: auto;
   width: 100%;
-  max-width: calc(100% - 190px);
+  max-width: calc(100vw - 16px);
+  padding: 2px 0;
+  position: relative;
+  z-index: 10;
+
+  +mediaTablet() {
+    max-width: calc(100% - 190px);
+  }
 }
 
 .infoItem {
-  padding: 0 10px;
+  padding: 0 5px;
+
+  +mediaTablet() {
+    padding: 0 10px;
+  }
 
   &:first-child {
     padding-left: 0;
@@ -123,6 +134,7 @@ export default {
 }
 
 .validatorsList {
+  display: none;
   position: absolute;
   right: 0;
   bottom: 0;
@@ -130,6 +142,11 @@ export default {
   overflow: hidden;
   padding-left: 14px;
   width: 162px;
+  z-index: 10;
+
+  +mediaTablet() {
+    display: block;
+  }
 }
 
 .validatorAddress {
