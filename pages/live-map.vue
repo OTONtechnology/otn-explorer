@@ -31,7 +31,6 @@
 import { mapActions, mapGetters, mapState } from 'vuex';
 
 // all imports u can see inside nuxt.config.js
-
 export default {
   name: 'LiveMap',
 

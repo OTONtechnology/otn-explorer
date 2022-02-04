@@ -119,5 +119,9 @@ export default {
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
-  build: {}
+  build: {},
+
+  env: {
+    API_SOCKET_BASE_URL: process.env.API_SOCKET_BASE_URL
+  }
 };
