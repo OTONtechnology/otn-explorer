@@ -14,6 +14,10 @@ export default {
       { src: 'https://cdn.amcharts.com/lib/5/index.js', preload: true },
       { src: 'https://cdn.amcharts.com/lib/5/map.js', preload: true },
       {
+        src: 'https://cdn.amcharts.com/lib/5/themes/Animated.js',
+        preload: true
+      },
+      {
         src: 'https://cdn.amcharts.com/lib/5/geodata/worldLow.js',
         preload: true
       },

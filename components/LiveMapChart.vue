@@ -31,9 +31,16 @@ export default {
       },
     );
 
-    const { am5, am5map, d3 } = window;
+    const {
+      am5, am5map, d3, am5themes_Animated: am5themesAnimated
+    } = window;
 
     const root = am5.Root.new(this.$refs.chartMap);
+
+    root.setThemes([
+      am5themesAnimated.new(root)
+    ]);
+
     const chart = root.container.children.push(
       am5map.MapChart.new(root, {
         panX: 'none',
@@ -58,51 +65,40 @@ export default {
       strokeWidth: 0.5,
     });
 
+    this.pointSeries0 = chart.series.push(
+      am5map.MapPointSeries.new(root, {})
+    );
     this.pointSeries1 = chart.series.push(
       am5map.MapPointSeries.new(root, {})
     );
     this.pointSeries2 = chart.series.push(
-      am5map.MapPointSeries.new(root, {
-        polygonIdField: 'country'
-      })
+      am5map.MapPointSeries.new(root, {})
     );
     this.pointSeries3 = chart.series.push(
-      am5map.MapPointSeries.new(root, {
-        polygonIdField: 'country'
-      })
+      am5map.MapPointSeries.new(root, {})
     );
 
-    this.pointSeries1.bullets.push(() => {
-      const circle = am5.Circle.new(root, {
+    this.pointSeries0.bullets.push(() => am5.Bullet.new(root, {
+      sprite: am5.Circle.new(root, {
         radius: 5,
         fill: am5.color(0xFFFFFF),
-        tooltipText: '[fontSize: 10px #fff]{name}[/][/]\n[fontSize: 10px #7b888c]{ip}[/][/]',
-
-        showTooltipOn: 'always',
-        tooltipY: 12,
-      });
-
-      const tooltip = am5.Tooltip.new(root, {
-        pointerOrientation: 'left',
-        paddingLeft: 6,
-        paddingRight: 6,
-        paddingTop: 6,
-        paddingBottom: 6,
-        getFillFromSprite: false,
-        getStrokeFromSprite: false
-      });
-
-      tooltip.get('background').setAll({
-        stroke: am5.color(0x000000),
-        strokeOpacity: 0
-      });
-
-      circle.set('tooltip', tooltip);
-
-      return am5.Bullet.new(root, {
-        sprite: circle
       })
-    });
+    }));
+    this.pointSeries0.bullets.push(() => am5.Bullet.new(root, {
+      sprite: am5.Label.new(root, {
+        templateField: 'labelSettings',
+        fontSize: 10,
+        centerY: am5.p50,
+        dy: 5,
+      })
+    }))
+    this.pointSeries1.bullets.push(() => am5.Bullet.new(root, {
+      sprite: am5.Circle.new(root, {
+        radius: 5,
+        fill: am5.color(0xFFFFFF),
+      })
+    }));
+
     this.pointSeries2.bullets.push(() => am5.Bullet.new(root, {
       sprite: am5.Circle.new(root, {
         radius: 3,
@@ -117,6 +113,8 @@ export default {
         fillOpacity: 0.2
       })
     }));
+
+    chart.appear(1000, 100);
 
     this.root = root;
   },
@@ -139,16 +137,42 @@ export default {
           type: 'Point',
           coordinates: [data.lon, data.lat],
         },
+        labelSettings: {
+          text: `${data.city ? `[#fff]${data.city}[/]\n` : ''}[#7b888c]${data.ip || ''}[/]`,
+        },
       })
 
-      this.chartData = this.chartData.slice(0, 50);
-      const points1 = this.chartData.slice(0, 10);
-      const points2 = this.chartData.slice(10, 30);
-      const points3 = this.chartData.slice(30, 50);
+      this.chartData = this.chartData.slice(0, 55);
 
-      this.pointSeries1.data.setAll(points1);
-      this.pointSeries2.data.setAll(points2);
-      this.pointSeries3.data.setAll(points3);
+      const points0 = this.chartData.slice(0, 1);
+      const points1 = this.chartData.slice(1, 11);
+      const points2 = this.chartData.slice(11, 31);
+      const points3 = this.chartData.slice(31, 51);
+
+      this.pointSeries0.data.push(points0[0]);
+      if (points1.length > 0) {
+        this.pointSeries0.data.removeIndex(0);
+      }
+      if (points1.length > 0) {
+        this.pointSeries1.data.push(points1[0]);
+        if (points2.length > 0) {
+          this.pointSeries1.data.removeIndex(0);
+        }
+      }
+
+      if (points2.length > 0) {
+        this.pointSeries2.data.push(points2[0]);
+        if (points3.length > 0) {
+          this.pointSeries2.data.removeIndex(0);
+        }
+      }
+
+      if (points3.length > 0) {
+        this.pointSeries3.data.push(points3[0]);
+        if (this.chartData > 51) {
+          this.pointSeries3.data.removeIndex(0);
+        }
+      }
     }
   },
 
