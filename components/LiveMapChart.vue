@@ -26,7 +26,7 @@ const hideCircleByIntersect = (series, zone) => {
     const hasIntersect = intersectRect(zone, rect);
 
     if (hasIntersect) {
-      circle.set('opacity', 0);
+      circle.set('opacity', 0.2);
     } else {
       circle.set('opacity', 1);
     }
