@@ -4,6 +4,16 @@
 
 <script>
 import connectSocket from '../utils/connectSocket'
+const getRect = (x, y, w, h) => ({
+  top: y,
+  left: x,
+  right: x + w,
+  bottom: y + h,
+});
+const intersectRect = (r1, r2) => !(r2.left > r1.right
+           || r2.right < r1.left
+           || r2.top > r1.bottom
+           || r2.bottom < r1.top)
 
 export default {
   name: 'LiveMapChart',
@@ -65,18 +75,45 @@ export default {
       strokeWidth: 0.5,
     });
 
-    this.pointSeries0 = chart.series.push(
-      am5map.MapPointSeries.new(root, {})
-    );
-    this.pointSeries1 = chart.series.push(
-      am5map.MapPointSeries.new(root, {})
-    );
-    this.pointSeries2 = chart.series.push(
-      am5map.MapPointSeries.new(root, {})
-    );
-    this.pointSeries3 = chart.series.push(
-      am5map.MapPointSeries.new(root, {})
-    );
+    const addSeries = (settings = {}) => chart.series.push(am5map.MapPointSeries.new(root, settings));
+
+    this.pointSeries0 = addSeries();
+    this.pointSeries1 = addSeries();
+    this.pointSeries2 = addSeries();
+    this.pointSeries3 = addSeries();
+
+    const hideCircleByIntersect = (series, zone) => {
+      series.children.values[0].eachChildren(circle => {
+        const rect = getRect(
+          circle.x(),
+          circle.y(),
+          circle.width(),
+          circle.height()
+        );
+        const hasIntersect = intersectRect(zone, rect);
+
+        if (hasIntersect) {
+          circle.hide();
+        } else {
+          circle.show();
+        }
+      })
+    }
+
+    this.pointSeries0.events.on('datavalidated', () => {
+      const s = this.pointSeries0;
+      const [, label] = s.children.values[0].children.values;
+
+      const dangerZone = getRect(
+        label.x(),
+        label.y(),
+        label.width(),
+        label.height()
+      );
+
+      hideCircleByIntersect(this.pointSeries1, dangerZone);
+      hideCircleByIntersect(this.pointSeries2, dangerZone);
+    });
 
     this.pointSeries0.bullets.push(() => am5.Bullet.new(root, {
       sprite: am5.Circle.new(root, {
