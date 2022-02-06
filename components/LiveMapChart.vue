@@ -13,7 +13,25 @@ const getRect = (x, y, w, h) => ({
 const intersectRect = (r1, r2) => !(r2.left > r1.right
            || r2.right < r1.left
            || r2.top > r1.bottom
-           || r2.bottom < r1.top)
+           || r2.bottom < r1.top);
+const hideCircleByIntersect = (series, zone) => {
+  series.children.values[0].eachChildren(async (circle) => {
+    const [w, h] = [circle.width(), circle.height()]
+    const rect = getRect(
+      circle.x() - (w / 2),
+      circle.y() - (h / 2),
+      w,
+      h,
+    );
+    const hasIntersect = intersectRect(zone, rect);
+
+    if (hasIntersect) {
+      circle.set('opacity', 0);
+    } else {
+      circle.set('opacity', 1);
+    }
+  })
+};
 
 export default {
   name: 'LiveMapChart',
@@ -82,42 +100,29 @@ export default {
     this.pointSeries2 = addSeries();
     this.pointSeries3 = addSeries();
 
-    const hideCircleByIntersect = (series, zone) => {
-      series.children.values[0].eachChildren(circle => {
-        const rect = getRect(
-          circle.x(),
-          circle.y(),
-          circle.width(),
-          circle.height()
-        );
-        const hasIntersect = intersectRect(zone, rect);
-
-        if (hasIntersect) {
-          circle.hide();
-        } else {
-          circle.show();
-        }
-      })
-    }
-
     this.pointSeries0.events.on('datavalidated', () => {
       const s = this.pointSeries0;
-      const [, label] = s.children.values[0].children.values;
+      const [circle, label] = s.children.values[0].children.values;
+
+      const halfCircle = circle.width() / 2
+      const labelShiftY = label.get('dy');
+      const labelShiftX = label.get('dx');
 
       const dangerZone = getRect(
-        label.x(),
-        label.y(),
-        label.width(),
-        label.height()
+        circle.x() - halfCircle,
+        label.y() - halfCircle + labelShiftY,
+        label.width() + halfCircle + labelShiftX,
+        label.height() + halfCircle,
       );
 
       hideCircleByIntersect(this.pointSeries1, dangerZone);
       hideCircleByIntersect(this.pointSeries2, dangerZone);
+      hideCircleByIntersect(this.pointSeries3, dangerZone);
     });
 
     this.pointSeries0.bullets.push(() => am5.Bullet.new(root, {
       sprite: am5.Circle.new(root, {
-        radius: 5,
+        radius: 4,
         fill: am5.color(0xFFFFFF),
       })
     }));
@@ -125,20 +130,24 @@ export default {
       sprite: am5.Label.new(root, {
         templateField: 'labelSettings',
         fontSize: 10,
-        centerY: am5.p50,
-        dy: 5,
+        paddingTop: 0,
+        paddingLeft: 0,
+        paddingBottom: 0,
+        paddingRight: 0,
+        dx: 8,
+        dy: -6,
       })
     }))
     this.pointSeries1.bullets.push(() => am5.Bullet.new(root, {
       sprite: am5.Circle.new(root, {
-        radius: 5,
+        radius: 4,
         fill: am5.color(0xFFFFFF),
       })
     }));
 
     this.pointSeries2.bullets.push(() => am5.Bullet.new(root, {
       sprite: am5.Circle.new(root, {
-        radius: 3,
+        radius: 2,
         fill: am5.color(0xFFFFFF),
         fillOpacity: 0.5
       })
@@ -186,10 +195,6 @@ export default {
       const points2 = this.chartData.slice(11, 31);
       const points3 = this.chartData.slice(31, 51);
 
-      this.pointSeries0.data.push(points0[0]);
-      if (points1.length > 0) {
-        this.pointSeries0.data.removeIndex(0);
-      }
       if (points1.length > 0) {
         this.pointSeries1.data.push(points1[0]);
         if (points2.length > 0) {
@@ -209,6 +214,11 @@ export default {
         if (this.chartData > 51) {
           this.pointSeries3.data.removeIndex(0);
         }
+      }
+
+      this.pointSeries0.data.push(points0[0]);
+      if (points1.length > 0) {
+        this.pointSeries0.data.removeIndex(0);
       }
     }
   },
