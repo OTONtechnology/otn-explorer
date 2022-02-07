@@ -2,9 +2,11 @@
   <div class="container">
     <WithLoader :state="infoState">
       <div class="infoWrapper">
-        <div v-for="item in info" :key="item.label" class="infoItem">
-          <div class="infoLabel">{{ $t(item.label) }}</div>
-          <div class="infoValue">{{ item.value }}</div>
+        <div class="infoWrapperItems">
+          <div v-for="item in info" :key="item.label" class="infoItem">
+            <div class="infoLabel">{{ $t(item.label) }}</div>
+            <div class="infoValue">{{ item.value }}</div>
+          </div>
         </div>
       </div>
     </WithLoader>
@@ -86,19 +88,22 @@ export default {
 }
 
 .infoWrapper {
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: nowrap;
-  overflow: auto;
-  width: 100%;
-  max-width: calc(100vw - 16px);
-  padding: 2px 0;
+  max-width: 100%;
   position: relative;
   z-index: 10;
 
   +mediaTablet() {
-    max-width: calc(100% - 190px);
+    padding-left: 196px;
   }
+}
+
+.infoWrapperItems {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: nowrap;
+  overflow: auto;
+  max-width: 100%;
+  padding: 2px 0;
 }
 
 .infoItem {
@@ -108,8 +113,8 @@ export default {
     padding: 0 10px;
   }
 
-  &:first-child {
-    padding-left: 0;
+  &:last-child {
+    padding-right: 0;
   }
 }
 
@@ -135,7 +140,7 @@ export default {
 .validatorsList {
   display: none;
   position: absolute;
-  right: 0;
+  left: 0;
   bottom: 0;
   top: 0;
   overflow: hidden;
