@@ -3,14 +3,14 @@
     <WithLoader :state="infoState">
       <div class="infoWrapper">
         <div v-for="item in info" :key="item.label" class="infoItem">
-          <div class="infoLabel">{{ item.label }}</div>
+          <div class="infoLabel">{{ $t(item.label) }}</div>
           <div class="infoValue">{{ item.value }}</div>
         </div>
       </div>
     </WithLoader>
     <LiveMapChart />
     <div class="validatorsList">
-      <div class="infoLabel validator">Node queue</div>
+      <div class="infoLabel validator">{{ $t("Node queue") }}</div>
       <WithLoader :state="validatorsState">
         <div>
           <div
