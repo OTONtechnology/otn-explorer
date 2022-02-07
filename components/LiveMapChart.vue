@@ -3,7 +3,9 @@
 </template>
 
 <script>
-import connectSocket from '../utils/connectSocket'
+import connectSocket from '../utils/connectSocket';
+import americaCountries from '../utils/americaCountries';
+
 const getRect = (x, y, w, h) => ({
   top: y,
   left: x,
@@ -76,14 +78,15 @@ export default {
         wheelX: 'none',
         wheelY: 'none',
 
-        projection: d3.geoMiller()
+        projection: d3.geoMiller(),
+        rotationX: -60,
       })
     );
 
     const polygonSeries = chart.series.push(
       am5map.MapPolygonSeries.new(root, {
         geoJSON: window.am5geodata_worldLow,
-        exclude: ['AQ'],
+        exclude: ['AQ', ...americaCountries ],
       })
     );
 
