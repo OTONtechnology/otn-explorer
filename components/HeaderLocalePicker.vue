@@ -109,7 +109,7 @@ export default {
 .popup {
   position: absolute;
   display: none;
-  background: #ffffff;
+  background: $colorFiller;
   top: calc(100% - 6px);
   right: -4px;
   border-radius: 4px;
@@ -147,7 +147,7 @@ export default {
   text-transform: uppercase;
   text-align: center;
   transition: all 0.1s;
-  background: #fff;
+  background: $colorFiller;
   box-sizing: content-box;
   line-height: 19px;
 
