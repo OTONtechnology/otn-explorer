@@ -1,12 +1,32 @@
-$colorFiller = #fff;
-$colorFontBase = #182F37;
-$colorBg = #F0EDEA;
-$colorLink = #028dc9;
-$colorDanger = #ef616a;
-$colorSuccess = #2aa414;
+
+:root {
+  --color-filler: #FFFFFF;
+  --color-font-base: #182F37;
+  --color-bg: #F0EDEA;
+  --color-link: #028dc9;
+  --color-danger: #ef616a;
+  --color-success: #2aa414;
+}
+
+.dark-mode {
+  --color-filler: #2f444b;
+  --color-font-base: #FFFFFF;
+  --color-bg: #182F37;
+  --color-link: #ffffff;
+  --color-danger: #ef616a;
+  --color-success: #2aa414;
+}
+
+$colorFiller = var(--color-filler);
+$colorFontBase = var(--color-font-base);
+$colorBg = var(--color-bg);
+$colorLink = var(--color-link);
+$colorDanger = var(--color-danger);
+$colorSuccess = var(--color-success);
 
 transactionsGrid() {
   grid-template-columns: auto 100px;
+
   +mediaDesktop() {
     grid-template-columns: 141px 320px 110px 366px 120px;
   }
@@ -14,9 +34,11 @@ transactionsGrid() {
 
 adressGrid() {
   grid-template-columns: auto 100px;
+
   +mediaTablet() {
     grid-template-columns: auto 160px;
   }
+
   +mediaDesktop() {
     grid-template-columns: 57px 83px 327px 92px 327px auto;
   }
@@ -94,7 +116,7 @@ $fontSizes = {
     text: 14px,
     small: 10px,
     subtitle: 12px,
-    button: 16px
+    button: 16px,
     transactionButton: 14px
   },
   mobile: {
@@ -104,7 +126,7 @@ $fontSizes = {
     text: 12px,
     small: 10px,
     subtitle: 12px,
-    button: 16px
+    button: 16px,
     transactionButton: 14px
   }
 };

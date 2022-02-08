@@ -10,6 +10,21 @@ export default {
     htmlAttrs: {
       lang: 'en'
     },
+    script: [
+      { src: 'https://cdn.amcharts.com/lib/5/index.js', preload: true },
+      { src: 'https://cdn.amcharts.com/lib/5/map.js', preload: true },
+      {
+        src: 'https://cdn.amcharts.com/lib/5/themes/Animated.js',
+        preload: true
+      },
+      {
+        src: 'https://cdn.amcharts.com/lib/5/geodata/worldLow.js',
+        preload: true
+      },
+      { src: 'https://cdn.jsdelivr.net/npm/d3-array@3', preload: true },
+      { src: 'https://cdn.jsdelivr.net/npm/d3-geo@3', preload: true },
+      { src: 'https://cdn.jsdelivr.net/npm/d3-geo-projection@4', preload: true }
+    ],
     meta: [
       { charset: 'utf-8' },
       {
@@ -103,10 +118,14 @@ export default {
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
-    baseURL: 'https://explorer.108dev.ru/api/v1'
+    baseURL: process.env.BASE_URL
     // baseURL: 'https://explorer-dev.108dev.ru/api/v1'
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
-  build: {}
+  build: {},
+
+  env: {
+    API_SOCKET_BASE_URL: process.env.API_SOCKET_BASE_URL
+  }
 };

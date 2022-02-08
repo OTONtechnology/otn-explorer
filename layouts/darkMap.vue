@@ -1,8 +1,7 @@
 <template>
-  <div class="base-wrapper">
+  <div class="base-wrapper dark-mode base-map">
     <div class="base-container">
       <TheHeader />
-      <HeaderSearch />
       <Nuxt />
       <TheFooter />
     </div>
@@ -12,7 +11,7 @@
 <script>
 
 export default {
-  name: 'Base'
+  name: 'DarkMap'
 }
 </script>
 
@@ -40,6 +39,12 @@ export default {
 
   +mediaDesktop() {
     max-width: 1150px;
+  }
+}
+
+.base-map {
+  .footerBox {
+    padding-top: 0 !important;
   }
 }
 </style>

@@ -21,6 +21,10 @@ export default {
           href: '/transactions',
           text: 'Transactions',
         },
+        {
+          href: '/live-map',
+          text: 'Nodes live map',
+        },
       ],
     };
   },
@@ -31,16 +35,21 @@ export default {
 .layoutHeaderMenu {
   display: grid;
   grid-auto-flow: column;
-  grid-column-gap: 19px;
+  grid-column-gap: 5px;
 
   +mediaTablet() {
+    grid-column-gap: 19px;
   }
 
   &__link {
-    getFontSubtitle();
+    getFontSmall();
     text-transform: uppercase;
     color: $colorFontBase;
     transition: all 0.1s;
+
+    +mediaTablet() {
+      getFontSubtitle();
+    }
 
     &:hover {
       opacity: 0.8;

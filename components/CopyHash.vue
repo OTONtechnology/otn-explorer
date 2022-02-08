@@ -41,7 +41,7 @@ export default {
         }
       );
       this.copied = true;
-      setInterval(() => {
+      setTimeout(() => {
         this.copied = false;
       }, 3000);
     },

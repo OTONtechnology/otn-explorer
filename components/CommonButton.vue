@@ -17,7 +17,7 @@
 
 <script>
 export default {
-  name: "CommonButton",
+  name: 'CommonButton',
   props: {
     button: {
       type: Boolean,
@@ -25,7 +25,7 @@ export default {
     },
     href: {
       type: String,
-      default: "/",
+      default: '/',
       required: false,
     },
   },

@@ -197,7 +197,7 @@ export default {
       display: block;
       width: 12px;
       height: 100%;
-      background-image: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, #ffffff 100%);
+      background-image: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, $colorFiller 100%);
     }
   }
 
