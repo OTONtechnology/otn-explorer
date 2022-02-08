@@ -36,17 +36,6 @@ const hideCircleByIntersect = (series, zone) => {
 
 export default {
   name: 'LiveMapChart',
-
-  data() {
-    return {
-
-    }
-  },
-
-  computed: {
-
-  },
-
   mounted() {
     this.chartData = [];
     this.ws = connectSocket(
