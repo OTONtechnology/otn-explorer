@@ -146,6 +146,7 @@ export default {
   overflow: hidden;
   padding-left: 14px;
   width: 162px;
+  height: 92%;
   z-index: 10;
 
   +mediaTablet() {
