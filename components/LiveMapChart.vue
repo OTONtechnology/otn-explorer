@@ -45,10 +45,6 @@ export default {
     this.chartData = [];
     this.setSocket();
 
-    setTimeout(() => {
-      this.ws.close()
-    }, 5000)
-
     const {
       am5, am5map, d3, am5themes_Animated: am5themesAnimated
     } = window;
