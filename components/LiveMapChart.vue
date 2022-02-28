@@ -36,18 +36,18 @@ const hideCircleByIntersect = (series, zone) => {
 
 export default {
   name: 'LiveMapChart',
+  data() {
+    return {
+      socketIsLoading: false,
+    }
+  },
   mounted() {
     this.chartData = [];
-    this.ws = connectSocket(
-      'user=tester01',
-      (event) => {
-        const data = JSON.parse(event.data);
+    this.setSocket();
 
-        if (data) {
-          this.updateChart(data);
-        }
-      },
-    );
+    setTimeout(() => {
+      this.ws.close()
+    }, 5000)
 
     const {
       am5, am5map, d3, am5themes_Animated: am5themesAnimated
@@ -166,6 +166,54 @@ export default {
   },
 
   methods: {
+    setSocket() {
+      this.ws = connectSocket(
+        'user=tester01',
+        (event) => {
+          const data = JSON.parse(event.data);
+
+          if (data) {
+            this.updateChart(data);
+          }
+        },
+      );
+      const oldOnopen = this.ws.onopen;
+      this.ws.onopen = () => {
+        oldOnopen();
+        if (this.toastMessageClose) {
+          this.toastMessageClose.goAway(0);
+          this.toastMessageClose = undefined;
+        }
+        this.socketIsLoading = false;
+      }
+      const showMessage = () => {
+        this.toastMessageClose = this.$toast.error(this.$t('Live update connection lost.'), {
+          action: {
+            text: this.$t('Try to reconnect'),
+            onClick: async () => {
+              if (this.socketIsLoading) {
+                return
+              }
+              this.socketIsLoading = true;
+              this.toastMessageClose.text(this.$t('Loading...'));
+              this.setSocket();
+            }
+          },
+        });
+      }
+      this.ws.onclose = () => {
+        showMessage();
+      };
+      const oldError = this.ws.onerror;
+      this.ws.onerror = () => {
+        oldError();
+        if (this.toastMessageClose) {
+          this.toastMessageClose.goAway(0);
+          this.toastMessageClose = undefined;
+        }
+        showMessage();
+      }
+    },
     updateChart(data) {
       this.chartData.unshift({
         name: data.city,
@@ -179,6 +227,9 @@ export default {
         },
       })
 
+      this.ws.onopen = () => {
+        this.$toast.clear();
+      }
       this.chartData = this.chartData.slice(0, 55);
 
       const points0 = this.chartData.slice(0, 1);
