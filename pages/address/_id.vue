@@ -104,7 +104,7 @@ export default {
             hash: trn.id,
             type: trn.type,
             senderRecipient: sumData.map(prop('address')),
-            sum: sumData.filter(propEq('address', currentAddress)).map(d => ({
+            sum: sumData.filter(propEq('address', currentAddress.toLowerCase())).map(d => ({
               name: d.ticker,
               amount: d.amount,
             })),
