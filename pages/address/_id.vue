@@ -90,7 +90,7 @@ export default {
       { name: 'sum', text: 'Sum' },
     ]),
     addressRows() {
-      const currentAddress = this.$route.params.id;
+      const currentAddress = this.$route.params.id.toLowerCase();
 
       return [
         ...this.transactionsData.map(trn => {
@@ -104,7 +104,7 @@ export default {
             hash: trn.id,
             type: trn.type,
             senderRecipient: sumData.map(prop('address')),
-            sum: sumData.filter(propEq('address', currentAddress.toLowerCase())).map(d => ({
+            sum: sumData.filter(propEq('address', currentAddress)).map(d => ({
               name: d.ticker,
               amount: d.amount,
             })),
