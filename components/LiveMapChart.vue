@@ -44,6 +44,12 @@ export default {
   mounted() {
     this.chartData = [];
     this.setSocket();
+    this.ws.onopen = () => {
+      this.socketIsLoading = false;
+      setTimeout(
+        () => this.$toast.clear(), 200
+      )
+    }
 
     const {
       am5, am5map, d3, am5themes_Animated: am5themesAnimated
@@ -162,7 +168,7 @@ export default {
   },
 
   methods: {
-    setSocket() {
+    async setSocket() {
       this.ws = connectSocket(
         'user=tester01',
         (event) => {
@@ -176,11 +182,8 @@ export default {
       const oldOnopen = this.ws.onopen;
       this.ws.onopen = () => {
         oldOnopen();
-        if (this.toastMessageClose) {
-          this.toastMessageClose.goAway(0);
-          this.toastMessageClose = undefined;
-        }
         this.socketIsLoading = false;
+        this.$toast.clear();
       }
       const showMessage = () => {
         this.toastMessageClose = this.$toast.error(this.$t('Live update connection lost.'), {
@@ -198,15 +201,11 @@ export default {
         });
       }
       this.ws.onclose = () => {
+        this.$toast.clear();
         showMessage();
       };
-      const oldError = this.ws.onerror;
       this.ws.onerror = () => {
-        oldError();
-        if (this.toastMessageClose) {
-          this.toastMessageClose.goAway(0);
-          this.toastMessageClose = undefined;
-        }
+        this.$toast.clear();
         showMessage();
       }
     },
@@ -222,10 +221,6 @@ export default {
           text: `${data.city ? `[#fff]${data.city}[/]\n` : ''}[#7b888c]${data.ip || ''}[/]`,
         },
       })
-
-      this.ws.onopen = () => {
-        this.$toast.clear();
-      }
       this.chartData = this.chartData.slice(0, 55);
 
       const points0 = this.chartData.slice(0, 1);
