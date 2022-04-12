@@ -63,6 +63,10 @@ export const actions = {
     } catch (err) {
       commit('SET_STATE', REJECTED);
       console.error(err);
+
+      const id = setTimeout(() => dispatch('fetch', true), 1000 * 6);
+
+      commit('SET_TIMEOUT', id);
     }
   }
 };

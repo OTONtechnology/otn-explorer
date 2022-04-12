@@ -44,12 +44,6 @@ export default {
   mounted() {
     this.chartData = [];
     this.setSocket();
-    this.ws.onopen = () => {
-      this.socketIsLoading = false;
-      setTimeout(
-        () => this.$toast.clear(), 200
-      )
-    }
 
     const {
       am5, am5map, d3, am5themes_Animated: am5themesAnimated
@@ -168,7 +162,7 @@ export default {
   },
 
   methods: {
-    async setSocket() {
+    setSocket() {
       this.ws = connectSocket(
         'user=tester01',
         (event) => {
@@ -200,9 +194,9 @@ export default {
           },
         });
       }
-      this.ws.onclose = () => {
+      this.ws.onclose = event => {
         this.$toast.clear();
-        showMessage();
+        if (!event.wasClean) showMessage();
       };
       this.ws.onerror = () => {
         this.$toast.clear();
