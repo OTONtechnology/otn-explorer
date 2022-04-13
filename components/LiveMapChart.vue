@@ -182,6 +182,7 @@ export default {
       const showMessage = () => {
         this.toastMessageClose = this.$toast.error(this.$t('Live update connection lost.'), {
           action: {
+            class: 'liveMapChart__toast',
             text: this.$t('Try to reconnect'),
             onClick: async () => {
               if (this.socketIsLoading) {
@@ -266,5 +267,12 @@ export default {
   right: 0;
   left: 0;
   top: 0;
+}
+</style>
+
+<style lang="stylus">
+.liveMapChart__toast {
+  position: relative;
+  left: -8px;
 }
 </style>
