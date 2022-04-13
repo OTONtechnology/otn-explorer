@@ -90,7 +90,7 @@ export default {
       { name: 'sum', text: 'Sum' },
     ]),
     addressRows() {
-      const currentAddress = this.$route.params.id;
+      const currentAddress = this.$route.params.id.toLowerCase();
 
       return [
         ...this.transactionsData.map(trn => {

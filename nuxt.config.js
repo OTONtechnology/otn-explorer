@@ -81,7 +81,8 @@ export default {
     '@nuxtjs/style-resources',
     '@nuxtjs/svg-sprite',
     // https://go.nuxtjs.dev/eslint
-    '@nuxtjs/eslint-module'
+    '@nuxtjs/eslint-module',
+    '@nuxtjs/toast'
   ],
 
   styleResources: {
@@ -90,6 +91,19 @@ export default {
 
   svgSprite: {
     input: '~/assets/svg/'
+  },
+
+  toast: {
+    position: 'bottom-center',
+    register: [ // Register custom toasts
+      {
+        name: 'my-error',
+        message: 'Oops...Something went wrong',
+        options: {
+          type: 'error'
+        }
+      }
+    ]
   },
 
   i18n: {

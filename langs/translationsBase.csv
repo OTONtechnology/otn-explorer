@@ -46,3 +46,6 @@ Earned today,"Прибыль, сегодня",Earned today,Heute verdient,Bugün
 Wallets,Кошельки,Wallets,Geldbörsen,Cüzdanlar
 Active wallets,Кошельки в сети,Active wallets,Aktive Geldbörsen,Aktif cüzdanlar
 Node queue,Очередь нод,Node queue,Nodes Warteschlange,Nod sırası
+Live update connection lost.,Обновление в реальном времени прервано,Live update connection lost.,Live-Update Verbindung verloren.,Güncelleme bağlantısı kesildi.
+Loading...,Загрузка...,Loading...,Laden...,Yükleniyor...
+Try to reconnect,Перезагрузить,Try to reconnect,"Versuchen Sie, die Verbindung wiederherzustellen",Yeniden bağlanmayı deneyin

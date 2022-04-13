@@ -201,21 +201,8 @@ export default {
         overflow: hidden;
 
         +mediaTablet() {
-          width: 50px;
           grid-column-start: unset;
           grid-column-end: unset;
-        }
-
-        &::after {
-          position: absolute;
-          z-index: 2;
-          top: 0;
-          right: 0;
-          content: '';
-          display: block;
-          width: 12px;
-          height: 100%;
-          background-image: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, #ffffff 100%);
         }
       }
 

@@ -36,18 +36,14 @@ const hideCircleByIntersect = (series, zone) => {
 
 export default {
   name: 'LiveMapChart',
+  data() {
+    return {
+      socketIsLoading: false,
+    }
+  },
   mounted() {
     this.chartData = [];
-    this.ws = connectSocket(
-      'user=tester01',
-      (event) => {
-        const data = JSON.parse(event.data);
-
-        if (data) {
-          this.updateChart(data);
-        }
-      },
-    );
+    this.setSocket();
 
     const {
       am5, am5map, d3, am5themes_Animated: am5themesAnimated
@@ -166,6 +162,47 @@ export default {
   },
 
   methods: {
+    setSocket() {
+      this.ws = connectSocket(
+        'user=tester01',
+        (event) => {
+          const data = JSON.parse(event.data);
+
+          if (data) {
+            this.updateChart(data);
+          }
+        },
+      );
+      const oldOnopen = this.ws.onopen;
+      this.ws.onopen = () => {
+        oldOnopen();
+        this.socketIsLoading = false;
+        this.$toast.clear();
+      }
+      const showMessage = () => {
+        this.toastMessageClose = this.$toast.error(this.$t('Live update connection lost.'), {
+          action: {
+            text: this.$t('Try to reconnect'),
+            onClick: async () => {
+              if (this.socketIsLoading) {
+                return
+              }
+              this.socketIsLoading = true;
+              this.toastMessageClose.text(this.$t('Loading...'));
+              this.setSocket();
+            }
+          },
+        });
+      }
+      this.ws.onclose = event => {
+        this.$toast.clear();
+        if (!event.wasClean) showMessage();
+      };
+      this.ws.onerror = () => {
+        this.$toast.clear();
+        showMessage();
+      }
+    },
     updateChart(data) {
       this.chartData.unshift({
         name: data.city,
@@ -178,7 +215,6 @@ export default {
           text: `${data.city ? `[#fff]${data.city}[/]\n` : ''}[#7b888c]${data.ip || ''}[/]`,
         },
       })
-
       this.chartData = this.chartData.slice(0, 55);
 
       const points0 = this.chartData.slice(0, 1);
