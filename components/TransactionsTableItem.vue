@@ -333,7 +333,7 @@ export default {
       }
 
       span:last-of-type {
-        width: 47px;
+        width: 44px;
       }
     }
   }
