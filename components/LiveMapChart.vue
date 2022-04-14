@@ -160,6 +160,9 @@ export default {
       this.root.dispose();
     }
   },
+  destroyed() {
+    this.$toast.clear();
+  },
 
   methods: {
     setSocket() {
@@ -274,5 +277,9 @@ export default {
 .liveMapChart__toast {
   position: relative;
   left: -8px;
+  max-width: 230px;
+  +mediaGiant() {
+    max-width: none;
+  }
 }
 </style>

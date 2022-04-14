@@ -46,7 +46,6 @@ export default {
     }),
   },
   mounted() {
-    this.$toast.clear();
     this.fetch();
   },
 
