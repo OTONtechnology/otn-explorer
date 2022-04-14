@@ -273,8 +273,8 @@ export default {
     span:last-of-type {
       position: relative;
       display: inline-block;
-      margin-left: 4px;
-      width: calc(30% - 2px);
+      left: 4px;
+      width: calc(30% + 10px);
       opacity: 0.4;
       text-transform: uppercase;
       text-align: left;
@@ -282,6 +282,8 @@ export default {
 
       +mediaTablet() {
         width: 50px;
+        margin-left: 4px;
+        left: 0;
       }
 
       &::after {

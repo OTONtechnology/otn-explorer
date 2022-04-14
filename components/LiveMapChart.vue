@@ -156,7 +156,10 @@ export default {
     if (this.root) {
       this.root.dispose();
     }
-    this.$toast.clear();
+    if (this.ws) {
+      this.hideToasts();
+      this.ws.close();
+    }
   },
 
   methods: {
@@ -198,6 +201,14 @@ export default {
         oldError();
         this.$toast.clear();
         showMessage();
+      }
+    },
+    hideToasts() {
+      this.ws.onclose = () => {
+      };
+      const oldError = this.ws.error;
+      this.ws.onerror = () => {
+        oldError();
       }
     },
     updateChart(data) {

@@ -28,11 +28,12 @@ export default {
   flex-direction: column;
   padding: 0 8px;
   margin: auto;
-  width: 100%;
+  width: 94%;
   max-width: 480px;
   min-height: 100vh;
 
   +mediaTablet() {
+    width: 100%;
     max-width: 750px;
     padding: 0 15px;
   }

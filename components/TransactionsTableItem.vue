@@ -315,11 +315,18 @@ export default {
 
     span:last-of-type {
       display: inline-block;
-      margin-left: 4px;
-      width: calc(30% - 2px);
+      position: relative;
+      left: 4px;
+      width: calc(30% + 15px);
       opacity: 0.4;
       text-transform: uppercase;
       text-align: left;
+    }
+
+    +mediaTablet() {
+      span:last-of-type {
+        width: calc(30% + 21px);
+      }
     }
 
     +mediaDesktop() {
@@ -333,6 +340,8 @@ export default {
       }
 
       span:last-of-type {
+        left: 0;
+        margin-left: 4px;
         width: 44px;
       }
     }

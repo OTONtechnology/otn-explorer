@@ -42,7 +42,8 @@ export default {
   }
 
   &__link {
-    getFontSmall();
+    font-size: 9px;
+    font-weight: bold;
     text-transform: uppercase;
     color: $colorFontBase;
     transition: all 0.1s;
