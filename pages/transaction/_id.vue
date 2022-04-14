@@ -36,6 +36,7 @@ export default {
   },
 
   mounted() {
+    this.$toast.clear();
     this.fetch(this.$route.params.id);
   },
 

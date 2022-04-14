@@ -153,14 +153,9 @@ export default {
   },
 
   beforeDestroy() {
-    if (this.ws) {
-      this.ws.close();
-    }
     if (this.root) {
       this.root.dispose();
     }
-  },
-  destroyed() {
     this.$toast.clear();
   },
 
@@ -188,21 +183,19 @@ export default {
             class: 'liveMapChart__toast',
             text: this.$t('Try to reconnect'),
             onClick: async () => {
-              if (this.socketIsLoading) {
-                return
-              }
-              this.socketIsLoading = true;
               this.toastMessageClose.text(this.$t('Loading...'));
               this.setSocket();
             }
           },
         });
       }
-      this.ws.onclose = event => {
+      this.ws.onclose = () => {
         this.$toast.clear();
-        if (!event.wasClean) showMessage();
+        showMessage();
       };
+      const oldError = this.ws.error;
       this.ws.onerror = () => {
+        oldError();
         this.$toast.clear();
         showMessage();
       }
