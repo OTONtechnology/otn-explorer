@@ -1,5 +1,7 @@
 <template>
-  <div ref="chartMap" class="map" />
+  <div ref="chartMap" class="map">
+    <div class="wrap"></div>
+  </div>
 </template>
 
 <script>
@@ -153,11 +155,12 @@ export default {
   },
 
   beforeDestroy() {
-    if (this.ws) {
-      this.ws.close();
-    }
     if (this.root) {
       this.root.dispose();
+    }
+    if (this.ws) {
+      this.hideToasts();
+      this.ws.close();
     }
   },
 
@@ -182,25 +185,32 @@ export default {
       const showMessage = () => {
         this.toastMessageClose = this.$toast.error(this.$t('Live update connection lost.'), {
           action: {
+            class: 'liveMapChart__toast',
             text: this.$t('Try to reconnect'),
             onClick: async () => {
-              if (this.socketIsLoading) {
-                return
-              }
-              this.socketIsLoading = true;
               this.toastMessageClose.text(this.$t('Loading...'));
               this.setSocket();
             }
           },
         });
       }
-      this.ws.onclose = event => {
-        this.$toast.clear();
-        if (!event.wasClean) showMessage();
-      };
-      this.ws.onerror = () => {
+      this.ws.onclose = () => {
         this.$toast.clear();
         showMessage();
+      };
+      const oldError = this.ws.error;
+      this.ws.onerror = () => {
+        oldError();
+        this.$toast.clear();
+        showMessage();
+      }
+    },
+    hideToasts() {
+      this.ws.onclose = () => {
+      };
+      const oldError = this.ws.error;
+      this.ws.onerror = () => {
+        oldError();
       }
     },
     updateChart(data) {
@@ -266,5 +276,22 @@ export default {
   right: 0;
   left: 0;
   top: 0;
+}
+</style>
+
+<style lang="stylus">
+.liveMapChart__toast {
+  position: relative;
+  left: -8px;
+  max-width: 230px;
+  +mediaGiant() {
+    max-width: none;
+  }
+}
+.wrap {
+  width: 100%;
+  height: 100%;
+  z-index: 6;
+  position: absolute;
 }
 </style>

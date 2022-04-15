@@ -1,6 +1,6 @@
 <template>
   <div class="base-wrapper dark-mode base-map">
-    <div class="base-container">
+    <div class="base-box">
       <TheHeader />
       <Nuxt />
       <TheFooter />
@@ -23,16 +23,17 @@ export default {
   background-color: $colorBg;
 }
 
-.base-container {
+.base-box {
   display: flex;
   flex-direction: column;
   padding: 0 8px;
   margin: auto;
-  width: 100%;
+  width: 94%;
   max-width: 480px;
   min-height: 100vh;
 
   +mediaTablet() {
+    width: 100%;
     max-width: 750px;
     padding: 0 15px;
   }
