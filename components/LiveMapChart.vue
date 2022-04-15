@@ -1,5 +1,7 @@
 <template>
-  <div ref="chartMap" class="map" />
+  <div ref="chartMap" class="map">
+    <div class="wrap"></div>
+  </div>
 </template>
 
 <script>
@@ -285,5 +287,11 @@ export default {
   +mediaGiant() {
     max-width: none;
   }
+}
+.wrap {
+  width: 100%;
+  height: 100%;
+  z-index: 6;
+  position: absolute;
 }
 </style>
