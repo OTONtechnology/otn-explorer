@@ -154,7 +154,11 @@ export default {
   &__box {
     display: grid;
     grid-gap: 4px;
-    grid-template-columns: 105px auto minmax(65px, max-content);
+    grid-template-columns: 105px 85px auto;
+
+    +mediaPhone() {
+      grid-template-columns: 105px auto calc(100% - calc(100% - 183px) - 8px);
+    }
 
     +mediaTablet() {
       grid-gap: 4px 30px;
@@ -184,6 +188,22 @@ export default {
         display: inline-block;
         overflow: hidden;
         grid-column: 1 / 2;
+        max-width: 60px;
+        text-overflow: ellipsis;
+
+        +mediaPhone() {
+          max-width: 150px;
+        }
+
+        +mediaTablet() {
+          grid-column-start: unset;
+          grid-column-end: unset;
+        }
+      }
+
+      &:last-of-type {
+        grid-column: 1 / 3;
+        text-align: left;
 
         +mediaTablet() {
           grid-column-start: unset;
@@ -199,12 +219,7 @@ export default {
         text-transform: uppercase;
         text-align: left;
         overflow: hidden;
-
-        +mediaTablet() {
-          width: 50px;
-          grid-column-start: unset;
-          grid-column-end: unset;
-        }
+        max-width: 40px;
 
         &::after {
           position: absolute;
@@ -217,15 +232,14 @@ export default {
           height: 100%;
           background-image: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, #ffffff 100%);
         }
-      }
-
-      &:last-of-type {
-        grid-column: 1 / 3;
-        text-align: right;
 
         +mediaTablet() {
           grid-column-start: unset;
           grid-column-end: unset;
+          max-width: none;
+          &::after {
+            display: none;
+          }
         }
       }
     }
@@ -257,9 +271,9 @@ export default {
     max-height: 18px;
     position: relative;
     display: grid;
-    grid-template-columns: minmax(46%, max-content) auto auto;
+    grid-template-columns: minmax(48%, max-content) auto auto;
 
-    +mediaDesktop() {
+    +mediaTablet() {
       display: flex;
       justify-content: flex-end;
     }
@@ -268,8 +282,9 @@ export default {
       display: inline-block;
       overflow: hidden;
       text-overflow: ellipsis;
+      text-align: left;
 
-      +mediaDesktop() {
+      +mediaTablet() {
         max-width: unset;
       }
     }
@@ -282,7 +297,7 @@ export default {
       text-transform: uppercase;
       text-align: left;
       overflow: hidden;
-      width: 30px;
+      width: 40px;
 
       &::after {
         position: absolute;
@@ -298,9 +313,6 @@ export default {
 
       +mediaTablet() {
         width: auto;
-      }
-
-      +mediaDesktop() {
         max-width: unset;
 
         &::after {
@@ -319,7 +331,7 @@ export default {
   &__box {
     display: grid;
     grid-gap: 4px 8px;
-    grid-template-columns: calc(100% - 143px) 98px;
+    grid-template-columns: calc(100% - 183px) 118px;
 
     +mediaTablet() {
       grid-gap: 4px 30px;

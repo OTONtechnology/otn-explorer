@@ -130,11 +130,14 @@ export default {
 .addressInfo {
   display: grid;
   grid-template-columns: max-content max-content auto;
-  grid-column-gap: 6px;
+  grid-column-gap: 10px;
   margin-bottom: 12px;
 
-  +mediaDesktop() {
+  +mediaPhone() {
     grid-column-gap: 30px;
+  }
+
+  +mediaDesktop() {
     grid-template-columns: repeat(3, max-content);
   }
 

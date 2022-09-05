@@ -1,5 +1,7 @@
 <template>
-  <div ref="chartMap" class="map" />
+  <div ref="chartMap" class="map">
+    <div class="wrap"></div>
+  </div>
 </template>
 
 <script>
@@ -153,11 +155,12 @@ export default {
   },
 
   beforeDestroy() {
-    if (this.ws) {
-      this.ws.close();
-    }
     if (this.root) {
       this.root.dispose();
+    }
+    if (this.ws) {
+      this.hideToasts();
+      this.ws.close();
     }
   },
 
@@ -176,21 +179,15 @@ export default {
       const oldOnopen = this.ws.onopen;
       this.ws.onopen = () => {
         oldOnopen();
-        if (this.toastMessageClose) {
-          this.toastMessageClose.goAway(0);
-          this.toastMessageClose = undefined;
-        }
         this.socketIsLoading = false;
+        this.$toast.clear();
       }
       const showMessage = () => {
         this.toastMessageClose = this.$toast.error(this.$t('Live update connection lost.'), {
           action: {
+            class: 'liveMapChart__toast',
             text: this.$t('Try to reconnect'),
             onClick: async () => {
-              if (this.socketIsLoading) {
-                return
-              }
-              this.socketIsLoading = true;
               this.toastMessageClose.text(this.$t('Loading...'));
               this.setSocket();
             }
@@ -198,16 +195,22 @@ export default {
         });
       }
       this.ws.onclose = () => {
+        this.$toast.clear();
         showMessage();
       };
-      const oldError = this.ws.onerror;
+      const oldError = this.ws.error;
       this.ws.onerror = () => {
         oldError();
-        if (this.toastMessageClose) {
-          this.toastMessageClose.goAway(0);
-          this.toastMessageClose = undefined;
-        }
+        this.$toast.clear();
         showMessage();
+      }
+    },
+    hideToasts() {
+      this.ws.onclose = () => {
+      };
+      const oldError = this.ws.error;
+      this.ws.onerror = () => {
+        oldError();
       }
     },
     updateChart(data) {
@@ -222,10 +225,6 @@ export default {
           text: `${data.city ? `[#fff]${data.city}[/]\n` : ''}[#7b888c]${data.ip || ''}[/]`,
         },
       })
-
-      this.ws.onopen = () => {
-        this.$toast.clear();
-      }
       this.chartData = this.chartData.slice(0, 55);
 
       const points0 = this.chartData.slice(0, 1);
@@ -277,5 +276,22 @@ export default {
   right: 0;
   left: 0;
   top: 0;
+}
+</style>
+
+<style lang="stylus">
+.liveMapChart__toast {
+  position: relative;
+  left: -8px;
+  max-width: 230px;
+  +mediaGiant() {
+    max-width: none;
+  }
+}
+.wrap {
+  width: 100%;
+  height: 100%;
+  z-index: 6;
+  position: absolute;
 }
 </style>
