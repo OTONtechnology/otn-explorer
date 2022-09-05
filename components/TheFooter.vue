@@ -26,25 +26,28 @@ export default {
       footerLinks: [
         {
           text: 'Terms of use',
-          docName: 'https://oton.technology/OtonTechnology_TermsAndConditions.pdf',
+          docName:
+            'https://contracts.oton.technology/OtonTechnology_TermsAndConditions.pdf'
         },
         {
           text: 'Cookies policy',
-          docName: 'https://oton.technology/OtonTechnology_CookiesPolicy.pdf',
+          docName:
+            'https://contracts.oton.technology/OtonTechnology_CookiesPolicy.pdf'
         },
         {
           text: 'Privacy notice',
-          docName: 'https://oton.technology/OtonTechnology_PrivacyPolicy.pdf',
-        },
-      ],
+          docName:
+            'https://contracts.oton.technology/OtonTechnology_PrivacyPolicy.pdf'
+        }
+      ]
     };
   },
   computed: {
     year() {
       const year = new Date();
       return year.getFullYear();
-    },
-  },
+    }
+  }
 };
 </script>
 
